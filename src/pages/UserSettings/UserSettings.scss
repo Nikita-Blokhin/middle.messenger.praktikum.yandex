@@ -1,0 +1,152 @@
+@use "../../style";
+@use "../Auth/Auth";
+
+$primary-color: #3369F3;
+$text-color: #1E1E1E;
+$gray-color: #999999;
+$danger-color: #FF0000;
+$background-color: #FFFFFF;
+
+@mixin button-base {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.UserSettings_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: $background-color;
+    color: $text-color;
+    min-height: 95vh;
+}
+
+.UserSettings_content {
+    min-width: 600px;
+    min-height: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+.back-button {
+    cursor: pointer;
+    padding: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 98vh;
+    border: 1px solid #999999;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 6px 0px #00000024;
+    position: absolute;
+    z-index: 1000;
+    &:hover {
+        opacity: 0.8;
+    };
+}
+
+.UserSettings__back {
+    text-align: center;
+    background-color: blue;
+    color: #FFFFFF;
+    font-size: 24px;
+    padding: 10px;
+    width: 28;
+    height: 28;
+    border-radius: 30px;
+}
+
+.UserSettings_header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .UserSettings_avatar {
+        width: 110px;
+        height: 110px;
+        padding: 20px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #999999;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .UserSettings_name {
+        font-size: 24px;
+        margin: 0;
+        font-weight: 500;
+    }
+}
+
+.UserSettings_details {
+    margin-bottom: 40px;
+
+    .detail_row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba($gray-color, 0.2);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .detail_label {
+            color: $text-color;
+            font-weight: 500;
+        }
+
+        .detail_value {
+            color: $gray-color;
+        }
+    }
+}
+
+.UserSettings__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .UserSettings__action {
+        @include button-base;
+        background: none;
+        color: $primary-color;
+        text-align: left;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba($gray-color, 0.2);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.UserSettings__logout {
+            color: $danger-color;
+        }
+    }
+}
+
+.UserSettings__actions_edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Authorization__button {
+    max-width: 300px;
+    align-items: center;
+    align-content: center;
+}

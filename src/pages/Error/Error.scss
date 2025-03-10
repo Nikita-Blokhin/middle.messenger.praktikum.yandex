@@ -1,0 +1,35 @@
+.error__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 95vh;
+}
+
+.error__h1 {
+    font-size: 60px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.error__h3 {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.sign-link {
+    display: block;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.sign-link:hover {
+    text-decoration: underline;
+}
+
