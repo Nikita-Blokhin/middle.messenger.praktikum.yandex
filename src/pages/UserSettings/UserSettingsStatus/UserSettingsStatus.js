@@ -1,6 +1,7 @@
 import "../UserSettings.scss";
 import createDetailRow from '../../../components/DetailRow/DetailRow.js';
 import createButton from '../../../components/Button/Button.js';
+import createImgButton from '../../../components/ImgButton/ImgButton';
 import template from './UserSettingsStatus.hbs?raw';
 
 document.querySelector('#UserSettings').innerHTML = template;
@@ -23,10 +24,10 @@ const buttonData = [
   ['Выйти', 'logout_show']
 ];
 const containerElement = document.getElementById('UserSettingsBack_show');
-containerElement.appendChild(createButton({
-    label: "←",
+containerElement.appendChild(createImgButton({
     class_name: ['back-button'],
-    class_name_span: "UserSettings__back",
+    img_src: '/back_button.svg',
+    img_alt: 'back button',
     id_name: 'back_btn_show',
     onClick: () => alert('Кнопка нажата!')
 }));
