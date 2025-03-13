@@ -1,6 +1,7 @@
 import "../UserSettings.scss";
 import createInputForm from '../../../components/InputForm/InputForm';
 import createButton from '../../../components/Button/Button';
+import createImgButton from '../../../components/ImgButton/ImgButton';
 import template from './UserSettingsPasswordEdit.hbs?raw';
 
 document.querySelector('#UserSettingsPasswordEdit').innerHTML = template;
@@ -13,11 +14,11 @@ const rowData = [
   ['Повторите новый пароль', 'newPassword_retry']
 ];
 const containerElement = document.getElementById('UserSettingsPasswordBack');
-containerElement.appendChild(createButton({
-    label: "←",
+containerElement.appendChild(createImgButton({
     class_name: ['back-button'],
-    class_name_span: "UserSettings__back",
-    id_name: 'back_btn',
+    img_src: '/back_button.svg',
+    img_alt: 'back button',
+    id_name: 'back_btn_password',
     onClick: () => alert('Кнопка нажата!')
 }));
 const rowElement = document.getElementById('UserSettingsPasswordDetails');

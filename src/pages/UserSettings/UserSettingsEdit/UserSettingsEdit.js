@@ -1,14 +1,13 @@
 import "../UserSettings.scss";
 import createInputForm from '../../../components/InputForm/InputForm';
 import createButton from '../../../components/Button/Button';
+import createImgButton from '../../../components/ImgButton/ImgButton';
 import template from './UserSettingsEdit.hbs?raw';
 
 document.querySelector('#UserSettingsEdit').innerHTML = template;
 const ClassNameGroup = 'Authorization__group';
 const ClassNameLabel = 'Authorization__label';
 const ClassNameInput = 'Authorization__input';
-const ClassNameButton = 'UserSettings__action';
-const ClassNmaeButtonLogout = 'UserSettings__logout';
 const rowData = [
   ['Почта', 'email', 'pochta@yandex.ru'],
   ['Логин', 'login', 'ivanivanov'],
@@ -17,11 +16,12 @@ const rowData = [
   ['Имя в чате', 'display_name', 'Иван'],
   ['Телефон', 'phone', '+7 (909) 967 30 30']  
 ];
+
 const containerElement = document.getElementById('UserSettingsBack');
-containerElement.appendChild(createButton({
-    label: "←",
+containerElement.appendChild(createImgButton({
     class_name: ['back-button'],
-    class_name_span: "UserSettings__back",
+    img_src: '/back_button.svg',
+    img_alt: 'back button',
     id_name: 'back_btn',
     onClick: () => alert('Кнопка нажата!')
 }));
