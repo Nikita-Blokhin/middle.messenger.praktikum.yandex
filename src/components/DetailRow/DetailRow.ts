@@ -1,8 +1,9 @@
+// @ts-ignore
 import template from './DetailRow.hbs?raw';
 import createItem from '../../utils/createItem';
 
-function createDetailRow(options) {
-    const defaultOptions = {
+function createDetailRow(options: Record<string, any>): Element {
+    const defaultOptions: Record<string, any> = {
         label: 'Поле',
         value: 'Значение',
         class_name__row: '',
@@ -11,7 +12,7 @@ function createDetailRow(options) {
         id_value: 'input-id',
     };
 
-    const mergedOptions = {
+    const mergedOptions: Record<string, any> = {
         ...defaultOptions,
         ...options
     };

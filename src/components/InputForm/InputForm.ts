@@ -1,8 +1,9 @@
+// @ts-ignore
 import template from './InputForm.hbs?raw';
 import createItem from '../../utils/createItem';
 
-function createInputForm(options) {
-    const defaultOptions = {
+function createInputForm(options: Record<string, any>): Element {
+    const defaultOptions: Record<string, string> = {
         label: 'Поле',
         class_name__group: '',
         class_name__label: '',
@@ -10,7 +11,7 @@ function createInputForm(options) {
         id_name: 'input-id'
     };
 
-    const mergedOptions = {
+    const mergedOptions: Record<string, any> = {
         ...defaultOptions,
         ...options
     };

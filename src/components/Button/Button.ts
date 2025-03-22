@@ -1,8 +1,9 @@
+// @ts-ignore
 import template from './Button.hbs?raw';
 import createItem from '../../utils/createItem';
 
-function createButton(options) {
-    const defaultOptions = {
+function createButton(options: Record<string, any>): Element {
+    const defaultOptions: Record<string, any> = {
         label: 'Кнопка',
         class_name: [''],
         class_name_span: '',
@@ -10,12 +11,14 @@ function createButton(options) {
         onClick: () => {}
     };
 
-    const mergedOptions = {
+    const mergedOptions: Record<string, any> = {
         ...defaultOptions,
         ...options
     };
-    const button = createItem(template, mergedOptions);
-    button.addEventListener('click', mergedOptions.onClick);
+    const button: Element | null = createItem(template, mergedOptions);
+    if (button) {
+        button.addEventListener('click', mergedOptions.onClick);
+    }
 
     return button;
 };

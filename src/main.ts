@@ -1,6 +1,8 @@
 import './style.scss'
 
-document.querySelector('#app').innerHTML = `
+const element: HTMLDivElement | null = document.querySelector('#app');
+
+const template = `
   <nav>
     <span>Список доступных страниц</span>
     <ul>
@@ -14,4 +16,7 @@ document.querySelector('#app').innerHTML = `
       <li><a href="./src/pages/UserSettings/UserSettingsPasswordEdit/UserSettingsPasswordEdit.html">Изменение пароля пользователя</a></li>
     </ul>
   </nav>
-`
+`;
+if (element) {
+    element.innerHTML = template;
+};
