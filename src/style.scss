@@ -1,15 +1,22 @@
 :root {
   --primary-color: #3b82f6;
   --primary-hover: #2563eb;
-  --border-color: #999999;
+  --border-color: #dfdfdf;
   --text-secondary: #6b7280;
   --background-color: #ffffff;
+  --background-color-secondary: #f8f8f8;
   --input-focus: #3b82f6;
   --border-radius: 0.5rem;
-  --box-shadow: 0px 0px 6px 0px #00000024;
+  --box-shadow: 0px 6px 6px 0px #00000028;
   --dark-text-color: #1E1E1E;
   --light-text-color: white;
   --danger-color: #FF0000;
+  --secondary-color: #e6ebf5;
+  --message-outgoing-bg: #e9f3ff;
+  --message-incoming-bg: #ffffff;
+  --unread-badge-color: #1884ff;
+  --active-contact-item-bg: #deebfa;
+  --hover-contact-item-bg: #e9f2fc;
     
   font-family: system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
