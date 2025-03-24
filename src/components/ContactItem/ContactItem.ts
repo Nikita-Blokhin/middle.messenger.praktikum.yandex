@@ -29,7 +29,7 @@ function createContactItem(options: Record<string, any>): Element {
     const button: Element | null  = createItem(template, mergedOptions);
     if (button) {
         button.addEventListener('click', mergedOptions.onClick);
-    }
+    };
     return button;
 };
 

@@ -1,5 +1,5 @@
 @use "../../style.scss";
-// Chat header
+
 .chat-header {
     display: flex;
     align-items: center;
@@ -9,7 +9,6 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     margin: 10px;
-    
 
     .user-info {
         display: flex;
@@ -40,8 +39,9 @@
     }
 }
 
-// Messages container
 .messages-container {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     overflow-y: auto;
     padding: 15px;
@@ -56,7 +56,6 @@
     color: var(--text-secondary);
 }
 
-// Message styles
 .message {
     margin-bottom: 15px;
     display: flex;
@@ -115,7 +114,6 @@
     }
 }
 
-// Message input
 .message-input-container {
     display: flex;
     align-items: center;
@@ -150,5 +148,3 @@
         }
     }
 }
-
-// Media queries for responsiveness

@@ -1,14 +1,11 @@
 @use "../../style";
 
-// Reset
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
-// Main container
 .chat-app {
     display: flex;
     flex-direction: row;
@@ -17,7 +14,6 @@
     width: 100%;
 }
 
-// Sidebar
 .sidebar {
     border: none;
     border-radius: var(--border-radius);
@@ -28,8 +24,6 @@
     background-color: var(--background-color);
 }
 
-
-// Chat window
 .chat-window {
     flex: 1;
     display: flex;

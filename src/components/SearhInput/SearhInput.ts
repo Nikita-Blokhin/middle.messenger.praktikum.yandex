@@ -14,7 +14,7 @@ function createSearhInput(options: Record<string, any>): Element {
     const input: Element | null  = createItem(template, mergedOptions);
     if (input) {
         input.addEventListener('click', mergedOptions.onClick);
-    }
+    };
     return input;
 };
 

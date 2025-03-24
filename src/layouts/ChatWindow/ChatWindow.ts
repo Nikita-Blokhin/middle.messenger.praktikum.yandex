@@ -1,5 +1,6 @@
 import './ChatWindow.scss';
 import createMessage from '../../components/Message/Message';
+import createDateDivider from '../../components/DateDivider/DateDivider';
 // @ts-ignore
 import template from './ChatWindow.hbs?raw';
 
@@ -34,12 +35,16 @@ const contactFormData: (string | number) [][] = [
 const messageContainerElement: HTMLElement | null = document.getElementById('messages_container');
 
 if (messageContainerElement) {
-  contactFormData.map(item => (
-      messageContainerElement.appendChild(createMessage({
-        id_name: item[0],
-        class_name_position: item[1],
-        message_text: item[2],
-        time_text: item[3]
-    }))
-  ));
+    messageContainerElement.appendChild(createDateDivider({
+        id_name: 0,
+        date_text: '24 марта'
+    }));
+    contactFormData.map(item => (
+        messageContainerElement.appendChild(createMessage({
+            id_name: item[0],
+            class_name_position: item[1],
+            message_text: item[2],
+            time_text: item[3]
+        }))
+    ));
 };

@@ -18,10 +18,10 @@ const ClassNameContactMessage: string = 'contact-message';
 const ClassNameMessageInfo: string = 'message-info';
 const ClassNameUnreadBadge: string = 'unread-badge';
 const ClassNameContactTime: string = 'contact-time';
-const contactFormData: (string | number) [][] = [
+const contactFormData: (string | number)[][] = [
   [0, '', 'Андрей', 'Изображение', '2', '10:49'],
   [1, '', 'Киноклуб', 'Вы: стикер', '', '12:00'],
-  [2, '', 'Илья', 'Друзья, у меня для вас особенный выпуск новостей!...', '4', '15:12'],
+  [2, '', 'Илья', 'Друзья, у меня для вас особенный выпуск новостей!...', '15', '15:12'],
   [3, '', 'Вадим', 'Вы: Круто!', '', '11:56'],
   [4, '', 'тет-а-теты', 'И Human Interface Guidelines и Material Design рекомендуют...', '', 'Ср'],
   [5, '', '1, 2, 3', 'Миллионы россиян ежедневно проводят десятки часов свое...', '', 'Пн'],
@@ -46,7 +46,7 @@ if (contactElement) {
         avatar_src: item[1],
         contact_name: item[2],
         contact_message: item[3],
-        unread_badge: item[4],
+        unread_badge: Number(item[4]) < 10 ? item[4] : '9+',
         contact_time: item[5],
         onClick: () => alert('Кнопка нажата!')
     }))
