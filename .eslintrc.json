@@ -1,24 +1,37 @@
 {
-  "files": [
-    "**/*.{js,mjs,cjs,ts,tsx}"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "standard",
+    "eslint:recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "globals": {
-    "browser": true
-  },
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module" 
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint" 
   ],
-  "extends": [
-    "plugin:@typescript-eslint/recommended"
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended", 
+        "plugin:@typescript-eslint/recommended-requiring-type-checking" 
+      ],
+      "parserOptions": {
+        "tsconfigRootDir": "__dirname",  
+        "project": ["./tsconfig.json"]
+      }
+    }
   ],
+  "ignorePatterns": [".eslintrc.js"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-unsafe-function-type": "off"
+    "quotes": ["error", "quotes"],  
+    "semi": ["error", "always"],  
+    "indent": ["error", 4]
   }
 }
