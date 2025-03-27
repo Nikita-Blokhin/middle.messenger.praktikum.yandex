@@ -1,13 +1,13 @@
 import './ChatWindow.scss';
+import { createMessageForm } from '../../components/MessageForm/MessageForm';
 import { createMessage } from '../../components/Message/Message';
 import { createDateDivider } from '../../components/DateDivider/DateDivider';
+import inputDataToConsole from '../../utils/DataToConsole';
 // @ts-ignore
 import template from './ChatWindow.hbs?raw';
 
-const element: HTMLDivElement | null = document.querySelector('#chatwindow');
-if (element) {
-    element.innerHTML = template;
-};
+const element: HTMLDivElement = document.querySelector('#chatwindow')!;
+element.innerHTML = template;
 
 const contactFormData: (string) [][] = [
     [
@@ -32,19 +32,24 @@ const contactFormData: (string) [][] = [
         '12:00'
     ],
 ];
-const messageContainerElement: HTMLElement | null = document.getElementById('messages_container');
+const messageContainerElement: HTMLElement = document.getElementById('messages_container')!;
+messageContainerElement.appendChild(new createDateDivider({
+    id_name: '0',
+    date_text: '24 марта'
+}).element!);
+contactFormData.map(item => (
+    messageContainerElement.appendChild(new createMessage({
+        id_name: item[0],
+        class_name_position: item[1],
+        message_text: item[2],
+        time_text: item[3]
+    }).element!)
+));
 
-if (messageContainerElement) {
-    messageContainerElement.appendChild(new createDateDivider({
-        id_name: '0',
-        date_text: '24 марта'
-    }).element!);
-    contactFormData.map(item => (
-        messageContainerElement.appendChild(new createMessage({
-            id_name: item[0],
-            class_name_position: item[1],
-            message_text: item[2],
-            time_text: item[3]
-        }).element!)
-    ));
-};
+const messageFormElement: HTMLElement = document.getElementById('message_form_wrapper')!;
+messageFormElement.appendChild(new createMessageForm({
+    settings_type: 'UserSettingsPassword'
+}).element!);
+
+const formElement: HTMLElement = document.getElementById('messageForm')!;
+formElement.addEventListener('submit', () => inputDataToConsole(formElement));

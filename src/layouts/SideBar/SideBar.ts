@@ -4,10 +4,8 @@ import { createSearhInput } from '../../components/SearhInput/SearhInput';
 // @ts-ignore
 import template from './SideBar.hbs?raw';
 
-const element: HTMLDivElement | null = document.querySelector('#sidebar');
-if (element) {
-    element.innerHTML = template;
-};
+const element: HTMLDivElement = document.querySelector('#sidebar')!;
+element.innerHTML = template;
 
 const ClassNameContactItem: string = 'contact-item';
 const ClassNameContactAvatar: string = 'contact-avatar';
@@ -28,11 +26,10 @@ const contactFormData: (string)[][] = [
   ['6', '', 'Design Destroyer', 'В 2008 году художник Jon Rafman начал собирать...', '', 'Пн'],
   ['7', '', 'Day.', 'Так увлёкся работой по курсу, что совсем забыл его анонсир...', '', '1 Мая 2020']
 ];
-const contactElement: HTMLElement | null = document.getElementById('contacts');
 
-if (contactElement) {
-  contactFormData.map(item => (
-      contactElement.appendChild(new createContactItem({
+const contactElement: HTMLElement = document.getElementById('contacts')!;
+contactFormData.map(item => (
+    contactElement.appendChild(new createContactItem({
         id_name: String(item[0]),
         class_name_contact_item: ClassNameContactItem + (Number(item[0]) === 3 ? ' active' : ''),
         class_name_contact_avatar: ClassNameContactAvatar,
@@ -50,8 +47,7 @@ if (contactElement) {
         contact_time: item[5],
         onClick: () => alert('Кнопка нажата!')
     }).element!)
-  ));
-};
+));
 
 const searhBarElement: HTMLElement | null = document.getElementById('search_container');
 if (searhBarElement) {

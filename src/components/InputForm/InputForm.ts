@@ -8,6 +8,8 @@ export interface InputFormProps {
     class_name__group: string
     class_name__label: string
     class_name__input: string
+    placeholder_text?: string
+    invalid_text?: string
 };
 
 export class createInputForm extends Block {
@@ -21,6 +23,6 @@ export class createInputForm extends Block {
     };
 
     render() {
-        return this.compile(template as string, this.props)
+        return this.compile(template as string, this.props);
     };
 };

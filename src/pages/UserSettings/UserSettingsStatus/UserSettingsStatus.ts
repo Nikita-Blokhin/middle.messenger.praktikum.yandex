@@ -5,10 +5,8 @@ import { createImgButton } from '../../../components/ImgButton/ImgButton.js';
 // @ts-ignore
 import template from './UserSettingsStatus.hbs?raw';
 
-const element: HTMLDivElement | null = document.querySelector('#UserSettings');
-if (element) {
-    element.innerHTML = template;
-};
+const element: HTMLDivElement = document.querySelector('#UserSettings')!;
+element.innerHTML = template;
 
 const ClassNameRow: string = 'detail_row';
 const ClassNameLabel: string = 'detail_label';
@@ -29,38 +27,33 @@ const buttonData: string[][] = [
     ['Выйти', 'logout_show']
 ];
 
-const containerElement: HTMLElement | null = document.getElementById('UserSettingsBack_show');
-if (containerElement) {
-    containerElement.appendChild(new createImgButton({
-        class_name: 'back-button',
-        img_src: '/back_button.svg',
-        img_alt: 'back button',
-        id_name: 'back_btn_show',
+const containerElement: HTMLElement = document.getElementById('UserSettingsBack_show')!;
+containerElement.appendChild(new createImgButton({
+    class_name: 'back-button',
+    img_src: '/back_button.svg',
+    img_alt: 'back button',
+    id_name: 'back_btn_show',
+    onClick: () => alert('Кнопка нажата!')
+}).element!);
+
+const rowElement: HTMLElement = document.getElementById('UserSettingsDetails_show')!;
+rowData.map(item => (
+    rowElement.appendChild(new createDetailRow({
+        label: item[0],
+        class_name__row: ClassNameRow,
+        class_name__label: ClassNameLabel,
+        class_name__value: ClassNameValue,
+        id_name: item[1],
+        value: item[2]
+    }).element!)
+));
+
+const actionElment: HTMLElement = document.getElementById('UserSettingsActions_show')!;
+
+buttonData.map(item => {actionElment.appendChild(new createButton({
+        label: item[0],
+        class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNmaeButtonLogout : ''),
+        id_name: item[1],
         onClick: () => alert('Кнопка нажата!')
-    }).element!);
-};
-
-const rowElement: HTMLElement | null = document.getElementById('UserSettingsDetails_show');
-if (rowElement) {
-    rowData.map(item => (
-        rowElement.appendChild(new createDetailRow({
-            label: item[0],
-            class_name__row: ClassNameRow,
-            class_name__label: ClassNameLabel,
-            class_name__value: ClassNameValue,
-            id_name: item[1],
-            value: item[2]
-        }).element!)
-    ));
-};
-
-const actionElment: HTMLElement | null = document.getElementById('UserSettingsActions_show');
-if (actionElment) {
-    buttonData.map(item => {actionElment.appendChild(new createButton({
-            label: item[0],
-            class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNmaeButtonLogout : ''),
-            id_name: item[1],
-            onClick: () => alert('Кнопка нажата!')
-        }).element!)
-    });
-};
+    }).element!)
+});
