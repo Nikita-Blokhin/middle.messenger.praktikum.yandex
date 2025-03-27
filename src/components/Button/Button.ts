@@ -1,26 +1,28 @@
 // @ts-ignore
 import template from './Button.hbs?raw';
-import createItem from '../../utils/createItem';
+import Block from '../../utils/Block';
 
-function createButton(options: Record<string, any>): Element {
-    const defaultOptions: Record<string, any> = {
-        label: 'Кнопка',
-        class_name: [''],
-        class_name_span: '',
-        id_name: 'button-id',
-        onClick: () => {}
-    };
-
-    const mergedOptions: Record<string, any> = {
-        ...defaultOptions,
-        ...options
-    };
-    const button: Element | null = createItem(template, mergedOptions);
-    if (button) {
-        button.addEventListener('click', mergedOptions.onClick);
-    }
-
-    return button;
+export interface ButtonProps {
+    label: string
+    class_name: string
+    type_name?: string
+    id_name: string
+    onClick?: (e: MouseEvent) => void
 };
 
-export default createButton;
+export class createButton extends Block {
+  constructor(props: ButtonProps) {
+    super(`<button class="${props.class_name}" id="${props.id_name}" type="${ props.type_name ? props.type_name : 'submit'}"><button/>`, {
+      ...props,
+      template: template,
+      attrs: {},
+      events: {
+        click: props.onClick
+      }
+    });
+  };
+
+  render() {
+    return this.compile(template as string, this.props)
+  };
+};

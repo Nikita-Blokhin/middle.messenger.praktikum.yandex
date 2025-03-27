@@ -16,7 +16,8 @@
         "skipLibCheck": true,
         "noImplicitAny": true,
         "sourceMap": true,
-        "strictNullChecks": true 
+        "strictNullChecks": true,
+        "allowImportingTsExtensions": true
     },
     "include": ["src"],
     "plugins": [

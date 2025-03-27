@@ -1,21 +1,20 @@
 // @ts-ignore
 import template from './SearhInput.hbs?raw';
-import createItem from '../../utils/createItem';
+import Block from '../../utils/Block';
 
-function createSearhInput(options: Record<string, any>): Element {
-    const defaultOptions: Record<string, any> = {
-        onClick: () => {}
+export interface SearhInputProps {};
+
+export class createSearhInput extends Block {
+    constructor(props: SearhInputProps) {
+        super(`<div class="search-bar" id="search_bar">`, {
+        ...props,
+        template: template,
+        attrs: {},
+        events: {}
+        });
     };
 
-    const mergedOptions: Record<string, any> = {
-        ...defaultOptions,
-        ...options
+    render() {
+        return this.compile(template as string, this.props);
     };
-    const input: Element | null  = createItem(template, mergedOptions);
-    if (input) {
-        input.addEventListener('click', mergedOptions.onClick);
-    };
-    return input;
 };
-
-export default createSearhInput;

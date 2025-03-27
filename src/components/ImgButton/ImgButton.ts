@@ -1,26 +1,29 @@
 // @ts-ignore
 import template from './ImgButton.hbs?raw';
-import createItem from '../../utils/createItem';
+import Block from '../../utils/Block';
 
-function createImgButton(options: Record<string, any>): Element {
-    const defaultOptions: Record<string, any> = {
-        label: 'Кнопка',
-        class_name: [''],
-        img_src: '',
-        img_alt: '',
-        id_name: 'button-id',
-        onClick: () => {}
-    };
-
-    const mergedOptions: Record<string, any> = {
-        ...defaultOptions,
-        ...options
-    };
-    const button: Element | null  = createItem(template, mergedOptions);
-    if (button) {
-        button.addEventListener('click', mergedOptions.onClick);
-    };
-    return button;
+export interface ImgButtonProps {
+    img_src: string
+    img_alt: string
+    class_name: string
+    type_name?: string
+    id_name: string
+    onClick?: (e: MouseEvent) => void
 };
 
-export default createImgButton;
+export class createImgButton extends Block {
+    constructor(props: ImgButtonProps) {
+        super(`<button class="${props.class_name}" id="${props.id_name}" name="${props.id_name}" type="${ props.type_name ? props.type_name : 'button'}"><button/>`, {
+        ...props,
+        template: template,
+        attrs: {},
+        events: {
+            click: props.onClick
+        }
+        });
+    };
+
+    render() {
+        return this.compile(template as string, this.props);
+    };
+}

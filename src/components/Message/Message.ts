@@ -1,21 +1,25 @@
 // @ts-ignore
 import template from './Message.hbs?raw';
-import createItem from '../../utils/createItem';
+import Block from '../../utils/Block';
 
-function createMessage(options: Record<string, any>): Element {
-    const defaultOptions: Record<string, any> = {
-        id_name: '',
-        class_name_position: '',
-        message_text: '',
-        time_text: ''
-    };
-
-    const mergedOptions: Record<string, any> = {
-        ...defaultOptions,
-        ...options
-    };
-    const message: Element | null  = createItem(template, mergedOptions);
-    return message;
+export interface InputFormProps {
+    id_name: string
+    class_name_position: string
+    message_text: string
+    time_text: string
 };
 
-export default createMessage;
+export class createMessage extends Block {
+    constructor(props: InputFormProps) {
+        super(`<div class="message ${props.class_name_position}" id="${props.id_name}">><div>`, {
+        ...props,
+        template: template,
+        attrs: {},
+        events: {}
+        });
+    };
+
+    render() {
+        return this.compile(template as string, this.props);
+    };
+};

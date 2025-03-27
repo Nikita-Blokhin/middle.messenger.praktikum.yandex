@@ -1,7 +1,7 @@
 import '../UserSettings.scss';
-import createInputForm from '../../../components/InputForm/InputForm';
-import createButton from '../../../components/Button/Button';
-import createImgButton from '../../../components/ImgButton/ImgButton';
+import { createInputForm } from '../../../components/InputForm/InputForm';
+import { createButton } from '../../../components/Button/Button';
+import { createImgButton } from '../../../components/ImgButton/ImgButton';
 // @ts-ignore
 import template from './UserSettingsEdit.hbs?raw';
 
@@ -24,34 +24,34 @@ const rowData: string[][] = [
 
 const containerElement: HTMLElement | null = document.getElementById('UserSettingsBack');
 if (containerElement) {
-  containerElement.appendChild(createImgButton({
-      class_name: ['back-button'],
-      img_src: '/back_button.svg',
-      img_alt: 'back button',
-      id_name: 'back_btn',
-      onClick: () => alert('Кнопка нажата!')
-  }));
+    containerElement.appendChild(new createImgButton({
+        class_name: 'back-button',
+        img_src: '/back_button.svg',
+        img_alt: 'back button',
+        id_name: 'back_btn',
+        onClick: () => alert('Кнопка нажата!')
+    }).element!);
 };
 
 const rowElement: HTMLElement | null = document.getElementById('UserSettingsDetails');
 if (rowElement) {
-  rowData.map(item => (
-      rowElement.appendChild(createInputForm({
-        label: item[0],
-        id_name: item[1],
-        class_name__group: ClassNameGroup,
-        class_name__label: ClassNameLabel,
-        class_name__input: ClassNameInput,
-    }))
-  ));
+    rowData.map(item => (
+        rowElement.appendChild(new createInputForm({
+            label: item[0],
+            id_name: item[1],
+            class_name__group: ClassNameGroup,
+            class_name__label: ClassNameLabel,
+            class_name__input: ClassNameInput,
+        }).element!)
+    ));
 };
 
 const actionElment: HTMLElement | null = document.getElementById('UserSettingsActions');
 if (actionElment) {
-  actionElment.appendChild(createButton({
-      label: 'Сохранить',
-      class_name: ['Authorization__button'],
-      id_name: 'UserSettingsEditSave',
-      onClick: () => alert('Кнопка нажата!')
-  }));
+    actionElment.appendChild(new createButton({
+        label: 'Сохранить',
+        class_name: 'Authorization__button',
+        id_name: 'UserSettingsEditSave',
+        onClick: () => alert('Кнопка нажата!')
+    }).element!);
 };

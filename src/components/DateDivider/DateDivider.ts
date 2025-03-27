@@ -1,19 +1,23 @@
 // @ts-ignore
 import template from './DateDivider.hbs?raw';
-import createItem from '../../utils/createItem';
+import Block from '../../utils/Block';
 
-function createDateDivider(options: Record<string, any>): Element {
-    const defaultOptions: Record<string, any> = {
-        id_name: '',
-        date_text: ''
-    };
-
-    const mergedOptions: Record<string, any> = {
-        ...defaultOptions,
-        ...options
-    };
-    const date_divider: Element | null  = createItem(template, mergedOptions);
-    return date_divider;
+export interface DateDividerProps {
+    date_text: string
+    id_name: string
 };
 
-export default createDateDivider;
+export class createDateDivider extends Block {
+    constructor(props: DateDividerProps) {
+        super(`<div class="date-divider" id="${props.id_name}" ><div/>`, {
+            ...props,
+            template: template,
+            attrs: {},
+            events: {}
+        });
+    };
+
+    render() {
+        return this.compile(template as string, this.props)
+    };
+};

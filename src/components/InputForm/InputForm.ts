@@ -1,21 +1,26 @@
 // @ts-ignore
 import template from './InputForm.hbs?raw';
-import createItem from '../../utils/createItem';
+import Block from '../../utils/Block';
 
-function createInputForm(options: Record<string, any>): Element {
-    const defaultOptions: Record<string, string> = {
-        label: 'Поле',
-        class_name__group: '',
-        class_name__label: '',
-        class_name__input: '',
-        id_name: 'input-id'
-    };
-
-    const mergedOptions: Record<string, any> = {
-        ...defaultOptions,
-        ...options
-    };
-    return createItem(template, mergedOptions);
+export interface InputFormProps {
+    id_name: string
+    label: string
+    class_name__group: string
+    class_name__label: string
+    class_name__input: string
 };
 
-export default createInputForm;
+export class createInputForm extends Block {
+    constructor(props: InputFormProps) {
+        super(`<div class="${props.class_name__group}"><div>`, {
+        ...props,
+        template: template,
+        attrs: {},
+        events: {}
+        });
+    };
+
+    render() {
+        return this.compile(template as string, this.props)
+    };
+};
