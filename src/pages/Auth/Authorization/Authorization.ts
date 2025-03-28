@@ -2,10 +2,8 @@ import '../Auth.scss';
 import { createButton } from '../../../components/Button/Button.js';
 import { createInputForm } from '../../../components/InputForm/InputForm.js';
 import { createAuthForm } from '../../../components/AuthForm/AuthForm.js';
-import inputDataToConsole from '../../../utils/DataToConsole.js';
 // @ts-ignore
 import template from './Authorization.hbs?raw';
-import { nanoid } from 'nanoid';
 
 const element: HTMLDivElement = document.querySelector('#Authorization')!;
 element.innerHTML = template;
@@ -17,14 +15,18 @@ const inputFormData: string[][] = [
     ['Логин', 'login'], ['Пароль', 'password']
 ];
 
-const authElement: HTMLElement = document.getElementById('Authorization_wrapper')!;
-authElement?.appendChild(
+const authElement: HTMLElement = document.getElementById('Authorization_header')!;
+authElement?.after(
     new createAuthForm({
-        class_name_wrapper: 'authorization-block',
-        label_h1: 'Вход',
         id_form: 'AuthorizationForm',
-        href_link: '../Registrations/Registrations.html',
-        text_link: 'Нет аккаунта?'
+        formData: {
+            login: '',
+            password: ''
+        },
+        onSubmit: (data) => { 
+            console.log('Форма отправлена:', data);
+            alert('Данные в консоле');
+        }
     }).element!
 );
 
@@ -42,7 +44,6 @@ inputFormData.map(item => (
 formElement.appendChild(new createButton({
     label: 'Авторизоваться',
     class_name: 'authorization-button',
-    id_name: nanoid(6),
+    id_name: 'authorization',
 }).element!);
 
-formElement.addEventListener('submit', () => inputDataToConsole(formElement));

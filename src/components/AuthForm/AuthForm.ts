@@ -3,20 +3,24 @@ import template from './AuthForm.hbs?raw';
 import Block from '../../utils/Block';
 
 export interface AuthFormProps {
-    class_name_wrapper: string
-    label_h1: string
     id_form: string
-    href_link: string
-    text_link: string
+    formData: {
+        login: string
+        password: string
+        email?: string
+        first_name?: string
+        second_name?: string
+        phone?: string
+        password_retry?: string
+    }
+    onSubmit: (data: any) => void
 };
 
 export class createAuthForm extends Block {
     constructor(props: AuthFormProps) {
-        super(`<div class="${props.class_name_wrapper}"><div/>`, {
+        super(`<form class="authorization-form" id="${props.id_form}"></form>`, {
             ...props,
             template: template,
-            attrs: {},
-            events: {}
         });
     };
 

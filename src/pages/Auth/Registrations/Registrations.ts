@@ -2,14 +2,13 @@ import '../Auth.scss';
 import { createButton } from '../../../components/Button/Button.js';
 import { createInputForm } from '../../../components/InputForm/InputForm.js';
 import { createAuthForm } from '../../../components/AuthForm/AuthForm.js';
-import inputDataToConsole from '../../../utils/DataToConsole.js';
 // @ts-ignore
 import template from './Registrations.hbs?raw';
 
 const element: HTMLDivElement = document.querySelector('#Registrations')!;
 element.innerHTML = template;
 
-const ClassNameGroup: string = 'authorization-input-group';
+const ClassNameGroup: string = 'authorization-group';
 const ClassNameLabel: string = 'authorization-label';
 const ClassNameInput: string = 'authorization-input';
 const inputFormData: string[][] = [
@@ -18,14 +17,23 @@ const inputFormData: string[][] = [
     ['Пароль (еще раз)', 'password_retry']
 ];
 
-const authElement: HTMLElement | null = document.getElementById('Registrations_wrapper');
-authElement?.appendChild(
+const authElement: HTMLElement | null = document.getElementById('Registration_header');
+authElement?.after (
     new createAuthForm({
-        class_name_wrapper: 'authorization-block',
-        label_h1: 'Регистрация',
         id_form: 'RegistrationForm',
-        href_link: '../Authorization/Authorization.html',
-        text_link: 'Войти'
+        formData: {
+            login: '',
+            password: '',
+            email: '',
+            first_name: '',
+            second_name: '',
+            phone: '',
+            password_retry: '',
+        },
+        onSubmit: (data) => { 
+            console.log('Форма отправлена:', data);
+            alert('Данные в консоле');
+        }
     }).element!
 );
 
@@ -46,5 +54,3 @@ formElement.appendChild(new createButton({
     label: 'Зарегистрироваться',
     class_name: 'authorization-button'
 }).element!);
-
-formElement.addEventListener('submit', () => inputDataToConsole(formElement));
