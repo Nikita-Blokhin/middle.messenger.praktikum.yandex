@@ -1,4 +1,4 @@
-import "../Auth.scss";
+import '../Auth.scss';
 import { createButton } from '../../../components/Button/Button.js';
 import { createInputForm } from '../../../components/InputForm/InputForm.js';
 import { createAuthForm } from '../../../components/AuthForm/AuthForm.js';
@@ -13,9 +13,9 @@ const ClassNameGroup: string = 'authorization-input-group';
 const ClassNameLabel: string = 'authorization-label';
 const ClassNameInput: string = 'authorization-input';
 const inputFormData: string[][] = [
-  ['Почта', 'email'], ['Логин', 'login'], ['Имя', 'first_name'],
-  ['Фамилия', 'second_name'], ['Телефон', 'phone'], ['Пароль', 'password'],
-  ['Пароль (еще раз)', 'password_retry']
+    ['Почта', 'email'], ['Логин', 'login'], ['Имя', 'first_name'],
+    ['Фамилия', 'second_name'], ['Телефон', 'phone'], ['Пароль', 'password'],
+    ['Пароль (еще раз)', 'password_retry']
 ];
 
 const authElement: HTMLElement | null = document.getElementById('Registrations_wrapper');

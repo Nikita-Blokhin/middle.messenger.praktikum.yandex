@@ -1,4 +1,4 @@
-import "../UserSettings.scss";
+import '../UserSettings.scss';
 import { createInputForm } from '../../../components/InputForm/InputForm';
 import { createButton } from '../../../components/Button/Button';
 import { createImgButton } from '../../../components/ImgButton/ImgButton';

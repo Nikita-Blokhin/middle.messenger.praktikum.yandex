@@ -57,8 +57,8 @@ class HTTPTransport {
             xhr.open(
                 method,
                 isGet && !!data
-                ? `${url}${queryStringify(data)}`
-                : url,
+                    ? `${url}${queryStringify(data)}`
+                    : url,
             );
 
             Object.keys(headers).forEach(key => {

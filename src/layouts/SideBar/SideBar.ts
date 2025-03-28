@@ -1,4 +1,4 @@
-import "./SideBar.scss";
+import './SideBar.scss';
 import { createContactItem } from '../../components/ContactItem/ContactItem';
 import { createSearhInput } from '../../components/SearhInput/SearhInput';
 // @ts-ignore
@@ -17,14 +17,14 @@ const ClassNameMessageInfo: string = 'message-info';
 const ClassNameUnreadBadge: string = 'unread-badge';
 const ClassNameContactTime: string = 'contact-time';
 const contactFormData: (string)[][] = [
-  ['0', '', 'Андрей', 'Изображение', '2', '10:49'],
-  ['1', '', 'Киноклуб', 'Вы: стикер', '', '12:00'],
-  ['2', '', 'Илья', 'Друзья, у меня для вас особенный выпуск новостей!...', '15', '15:12'],
-  ['3', '', 'Вадим', 'Вы: Круто!', '', '11:56'],
-  ['4', '', 'тет-а-теты', 'И Human Interface Guidelines и Material Design рекомендуют...', '', 'Ср'],
-  ['5', '', '1, 2, 3', 'Миллионы россиян ежедневно проводят десятки часов свое...', '', 'Пн'],
-  ['6', '', 'Design Destroyer', 'В 2008 году художник Jon Rafman начал собирать...', '', 'Пн'],
-  ['7', '', 'Day.', 'Так увлёкся работой по курсу, что совсем забыл его анонсир...', '', '1 Мая 2020']
+    ['0', '', 'Андрей', 'Изображение', '2', '10:49'],
+    ['1', '', 'Киноклуб', 'Вы: стикер', '', '12:00'],
+    ['2', '', 'Илья', 'Друзья, у меня для вас особенный выпуск новостей!...', '15', '15:12'],
+    ['3', '', 'Вадим', 'Вы: Круто!', '', '11:56'],
+    ['4', '', 'тет-а-теты', 'И Human Interface Guidelines и Material Design рекомендуют...', '', 'Ср'],
+    ['5', '', '1, 2, 3', 'Миллионы россиян ежедневно проводят десятки часов свое...', '', 'Пн'],
+    ['6', '', 'Design Destroyer', 'В 2008 году художник Jon Rafman начал собирать...', '', 'Пн'],
+    ['7', '', 'Day.', 'Так увлёкся работой по курсу, что совсем забыл его анонсир...', '', '1 Мая 2020']
 ];
 
 const contactElement: HTMLElement = document.getElementById('contacts')!;

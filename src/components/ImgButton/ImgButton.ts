@@ -14,12 +14,12 @@ export interface ImgButtonProps {
 export class createImgButton extends Block {
     constructor(props: ImgButtonProps) {
         super(`<button class="${props.class_name}" id="${props.id_name}" name="${props.id_name}" type="${ props.type_name ? props.type_name : 'button'}"><button/>`, {
-        ...props,
-        template: template,
-        attrs: {},
-        events: {
-            click: props.onClick
-        }
+            ...props,
+            template: template,
+            attrs: {},
+            events: {
+                click: props.onClick
+            }
         });
     };
 

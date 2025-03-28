@@ -18,6 +18,6 @@ export class createDateDivider extends Block {
     };
 
     render() {
-        return this.compile(template as string, this.props)
+        return this.compile(template as string, this.props);
     };
 };

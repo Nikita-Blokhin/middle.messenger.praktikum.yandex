@@ -14,14 +14,14 @@ export interface DetailRowProps {
 export class createDetailRow extends Block {
     constructor(props: DetailRowProps) {
         super(`<div class="${props.class_name__row}" id="${props.id_name}"><div/>`, {
-        ...props,
-        template: template,
-        attrs: {},
-        events: {}
+            ...props,
+            template: template,
+            attrs: {},
+            events: {}
         });
     };
 
     render() {
-        return this.compile(template as string, this.props)
+        return this.compile(template as string, this.props);
     };
 };

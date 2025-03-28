@@ -1,33 +1,33 @@
 class EventBus {
-  private listeners: { [key: string]: Function[] } = {};
+    private listeners: { [key: string]: Function[] } = {};
 
-  public on(event: string, callback: Function): void {
-    if (!this.listeners[event]) {
-      this.listeners[event] = [];
+    public on(event: string, callback: Function): void {
+        if (!this.listeners[event]) {
+            this.listeners[event] = [];
+        };
+
+        this.listeners[event].push(callback);
     };
 
-    this.listeners[event].push(callback);
-  };
+    public off(event: string, callback: Function): void {
+        if (!this.listeners[event]) {
+            throw new Error(`Событие отсутствует: ${event}`);
+        };
 
-  public off(event: string, callback: Function): void {
-    if (!this.listeners[event]) {
-      throw new Error(`Событие отсутствует: ${event}`);
+        this.listeners[event] = this.listeners[event].filter(
+            listener => listener !== callback
+        );
     };
 
-    this.listeners[event] = this.listeners[event].filter(
-      listener => listener !== callback
-    );
-  };
+    public emit(event: string, ...args: any[]): void {
+        if (!this.listeners[event]) {
+            throw new Error(`Событие отсутствует: ${event}`);
+        };
 
-  public emit(event: string, ...args: any[]): void {
-    if (!this.listeners[event]) {
-      throw new Error(`Событие отсутствует: ${event}`);
+        this.listeners[event].forEach(listener => {
+            listener(...args);
+        });
     };
-
-    this.listeners[event].forEach(listener => {
-      listener(...args);
-    });
-  };
 };
 
 export default EventBus;

@@ -11,16 +11,16 @@ export interface AuthFormProps {
 };
 
 export class createAuthForm extends Block {
-  constructor(props: AuthFormProps) {
-    super(`<div class="${props.class_name_wrapper}"><div/>`, {
-      ...props,
-      template: template,
-      attrs: {},
-      events: {}
-    });
-  };
+    constructor(props: AuthFormProps) {
+        super(`<div class="${props.class_name_wrapper}"><div/>`, {
+            ...props,
+            template: template,
+            attrs: {},
+            events: {}
+        });
+    };
 
-  render() {
-    return this.compile(template as string, this.props)
-  };
+    render() {
+        return this.compile(template as string, this.props);
+    };
 };

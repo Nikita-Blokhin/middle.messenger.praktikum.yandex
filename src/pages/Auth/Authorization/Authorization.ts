@@ -1,4 +1,4 @@
-import "../Auth.scss";
+import '../Auth.scss';
 import { createButton } from '../../../components/Button/Button.js';
 import { createInputForm } from '../../../components/InputForm/InputForm.js';
 import { createAuthForm } from '../../../components/AuthForm/AuthForm.js';
@@ -14,7 +14,7 @@ const ClassNameGroup: string = 'authorization-group';
 const ClassNameLabel: string = 'authorization-label';
 const ClassNameInput: string = 'authorization-input';
 const inputFormData: string[][] = [
-  ['Логин', 'login'], ['Пароль', 'password']
+    ['Логин', 'login'], ['Пароль', 'password']
 ];
 
 const authElement: HTMLElement = document.getElementById('Authorization_wrapper')!;
@@ -43,6 +43,6 @@ formElement.appendChild(new createButton({
     label: 'Авторизоваться',
     class_name: 'authorization-button',
     id_name: nanoid(6),
-    }).element!);
+}).element!);
 
 formElement.addEventListener('submit', () => inputDataToConsole(formElement));

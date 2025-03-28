@@ -11,18 +11,18 @@ export interface ButtonProps {
 };
 
 export class createButton extends Block {
-  constructor(props: ButtonProps) {
-    super(`<button class="${props.class_name}" id="${props.id_name}" type="${ props.type_name ? props.type_name : 'submit'}"><button/>`, {
-      ...props,
-      template: template,
-      attrs: {},
-      events: {
-        click: props.onClick
-      }
-    });
-  };
+    constructor(props: ButtonProps) {
+        super(`<button class="${props.class_name}" id="${props.id_name}" type="${ props.type_name ? props.type_name : 'submit'}"><button/>`, {
+            ...props,
+            template: template,
+            attrs: {},
+            events: {
+                click: props.onClick
+            }
+        });
+    };
 
-  render() {
-    return this.compile(template as string, this.props)
-  };
+    render() {
+        return this.compile(template as string, this.props);
+    };
 };

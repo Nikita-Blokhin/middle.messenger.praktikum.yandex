@@ -22,7 +22,9 @@
 
 - `npm run build` — cборка стабильной версии
 
-- `npx stylelint src/` — проверка описания стилей
+- `npm run st_lint` — проверка описания стилей
+
+- `npm run ts_lint` — проверка файлов typescript
 
 ## Ссылки
 

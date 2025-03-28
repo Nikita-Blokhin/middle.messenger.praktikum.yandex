@@ -18,12 +18,12 @@ const ClassNameGroup: string = 'authorization-group';
 const ClassNameLabel: string = 'authorization-label';
 const ClassNameInput: string = 'authorization-input';
 const rowData: string[][] = [
-  ['Почта', 'email', 'pochta@yandex.ru'],
-  ['Логин', 'login', 'ivanivanov'],
-  ['Имя', 'first_name', 'Иван'],
-  ['Фамилия', 'second_name', 'Иванов'],
-  ['Имя в чате', 'display_name', 'Иван'],
-  ['Телефон', 'phone', '899912312312']  
+    ['Почта', 'email', 'pochta@yandex.ru'],
+    ['Логин', 'login', 'ivanivanov'],
+    ['Имя', 'first_name', 'Иван'],
+    ['Фамилия', 'second_name', 'Иванов'],
+    ['Имя в чате', 'display_name', 'Иван'],
+    ['Телефон', 'phone', '899912312312']  
 ];
 
 const containerElement: HTMLElement = document.getElementById('UserSettingsBack')!;

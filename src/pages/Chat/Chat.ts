@@ -1,4 +1,4 @@
-import "./Chat.scss";
+import './Chat.scss';
 // @ts-ignore
 import template from './Chat.hbs?raw';
 

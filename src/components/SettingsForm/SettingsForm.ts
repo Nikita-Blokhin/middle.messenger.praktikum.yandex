@@ -7,16 +7,16 @@ export interface SettingsFormProps {
 };
 
 export class createSettingsForm extends Block {
-  constructor(props: SettingsFormProps) {
-    super(`<div class="usersettings-container" id="${props.settings_type}Container"><div/>`, {
-      ...props,
-      template: template,
-      attrs: {},
-      events: {}
-    });
-  };
+    constructor(props: SettingsFormProps) {
+        super(`<div class="usersettings-container" id="${props.settings_type}Container"><div/>`, {
+            ...props,
+            template: template,
+            attrs: {},
+            events: {}
+        });
+    };
 
-  render() {
-    return this.compile(template as string, this.props);
-  };
+    render() {
+        return this.compile(template as string, this.props);
+    };
 };

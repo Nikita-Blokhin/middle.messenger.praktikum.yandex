@@ -1,4 +1,4 @@
-import "../UserSettings.scss";
+import '../UserSettings.scss';
 import { createDetailRow } from '../../../components/DetailRow/DetailRow.js';
 import { createButton } from '../../../components/Button/Button.js';
 import { createImgButton } from '../../../components/ImgButton/ImgButton.js';
@@ -51,9 +51,9 @@ rowData.map(item => (
 const actionElment: HTMLElement = document.getElementById('UserSettingsActions_show')!;
 
 buttonData.map(item => {actionElment.appendChild(new createButton({
-        label: item[0],
-        class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNmaeButtonLogout : ''),
-        id_name: item[1],
-        onClick: () => alert('Кнопка нажата!')
-    }).element!)
+    label: item[0],
+    class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNmaeButtonLogout : ''),
+    id_name: item[1],
+    onClick: () => alert('Кнопка нажата!')
+}).element!);
 });

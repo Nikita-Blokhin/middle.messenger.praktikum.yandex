@@ -15,10 +15,10 @@ export interface InputFormProps {
 export class createInputForm extends Block {
     constructor(props: InputFormProps) {
         super(`<div class="${props.class_name__group}"><div>`, {
-        ...props,
-        template: template,
-        attrs: {},
-        events: {}
+            ...props,
+            template: template,
+            attrs: {},
+            events: {}
         });
     };
 

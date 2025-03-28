@@ -1,4 +1,4 @@
-import "../Error.scss";
+import '../Error.scss';
 // @ts-ignore
 import template from './404.hbs?raw';
 

@@ -12,10 +12,10 @@ export interface InputFormProps {
 export class createMessage extends Block {
     constructor(props: InputFormProps) {
         super(`<div class="message ${props.class_name_position}" id="${props.id_name}">><div>`, {
-        ...props,
-        template: template,
-        attrs: {},
-        events: {}
+            ...props,
+            template: template,
+            attrs: {},
+            events: {}
         });
     };
 

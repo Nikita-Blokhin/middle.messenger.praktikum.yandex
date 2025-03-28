@@ -23,18 +23,18 @@ export interface ContactItemProps {
 };
 
 export class createContactItem extends Block {
-  constructor(props: ContactItemProps) {
-    super(`<button class="${props.class_name_contact_item}" id="${props.id_name}" type="${ props.type_name ? props.type_name : 'button'}"><button/>`, {
-      ...props,
-      template: template,
-      attrs: {},
-      events: {
-        click: props.onClick
-      }
-    });
-  };
+    constructor(props: ContactItemProps) {
+        super(`<button class="${props.class_name_contact_item}" id="${props.id_name}" type="${ props.type_name ? props.type_name : 'button'}"><button/>`, {
+            ...props,
+            template: template,
+            attrs: {},
+            events: {
+                click: props.onClick
+            }
+        });
+    };
 
-  render() {
-    return this.compile(template as string, this.props)
-  };
+    render() {
+        return this.compile(template as string, this.props);
+    };
 };

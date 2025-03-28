@@ -10,10 +10,10 @@ declare global {
 
 class Block {
     static EVENTS = {
-        INIT: "init",
-        FLOW_CDM: "flow:component-did-mount",
-        FLOW_CDU: "flow:component-did-update",
-        FLOW_RENDER: "flow:render"
+        INIT: 'init',
+        FLOW_CDM: 'flow:component-did-mount',
+        FLOW_CDU: 'flow:component-did-update',
+        FLOW_RENDER: 'flow:render'
     } as const;
 
     private _element: HTMLElement | null = null;
@@ -222,22 +222,22 @@ class Block {
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (Array.isArray(value)) {
                 if (value.length === 0) {
-                    props[key] = value
+                    props[key] = value;
                 } else {
                     value.forEach((obj) => {
                         if (obj instanceof Block) {
-                        children[key] = value
+                            children[key] = value;
                         } else {
-                        props[key] = value
+                            props[key] = value;
                         }
                     });
                 };
                 return;
             };
             if (value instanceof Block) {
-                children[key] = value
+                children[key] = value;
             } else {
-                props[key] = value
+                props[key] = value;
             };
         });
 
@@ -419,7 +419,7 @@ class Block {
         return new Proxy(props, {
             get(target: any, prop: string): any {
                 const value = target[prop];
-                return typeof value === "function" ? value.bind(target) : value;
+                return typeof value === 'function' ? value.bind(target) : value;
             },
             set(target: any, prop: string, value: any): boolean {
                 target[prop] = value;
@@ -427,7 +427,7 @@ class Block {
                 return true;
             },
             deleteProperty(): boolean {
-                throw new Error("Нет доступа");
+                throw new Error('Нет доступа');
             }
         });
     };
@@ -437,11 +437,11 @@ class Block {
     };
 
     show(): void {
-        this.getContent()!.style.display = "block";
+        this.getContent()!.style.display = 'block';
     };
 
     hide(): void {
-        this.getContent()!.style.display = "none";
+        this.getContent()!.style.display = 'none';
     };
 
     public validateAllInputs(): boolean {
