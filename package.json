@@ -25,7 +25,8 @@
     "vite-plugin-handlebars": "^1.5.0"
   },
   "dependencies": {
-    "handlebars": "^4.7.8"
+    "handlebars": "^4.7.8",
+    "stylelint-config-recommended-scss": "^14.1.0"
   },
   "engines": {
     "node": ">= 20.0.0",

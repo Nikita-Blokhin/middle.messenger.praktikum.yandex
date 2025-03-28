@@ -10,9 +10,9 @@ import { nanoid } from 'nanoid';
 const element: HTMLDivElement = document.querySelector('#Authorization')!;
 element.innerHTML = template;
 
-const ClassNameGroup: string = 'Authorization__group';
-const ClassNameLabel: string = 'Authorization__label';
-const ClassNameInput: string = 'Authorization__input';
+const ClassNameGroup: string = 'authorization-group';
+const ClassNameLabel: string = 'authorization-label';
+const ClassNameInput: string = 'authorization-input';
 const inputFormData: string[][] = [
   ['Логин', 'login'], ['Пароль', 'password']
 ];
@@ -20,7 +20,7 @@ const inputFormData: string[][] = [
 const authElement: HTMLElement = document.getElementById('Authorization_wrapper')!;
 authElement?.appendChild(
     new createAuthForm({
-        class_name_wrapper: 'Authorization__block',
+        class_name_wrapper: 'authorization-block',
         label_h1: 'Вход',
         id_form: 'AuthorizationForm',
         href_link: '../Registrations/Registrations.html',
@@ -41,7 +41,7 @@ inputFormData.map(item => (
 
 formElement.appendChild(new createButton({
     label: 'Авторизоваться',
-    class_name: 'Authorization__button',
+    class_name: 'authorization-button',
     id_name: nanoid(6),
     }).element!);
 

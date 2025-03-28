@@ -56,35 +56,6 @@
     color: var(--text-secondary);
 }
 
-.message {
-    margin-bottom: 15px;
-    display: flex;
-
-    &.incoming {
-        justify-content: flex-start;
-
-        .message-content {
-            background-color: var(--message-incoming-bg);
-            border-radius: 18px 18px 18px 0;
-            max-width: 80%;
-            border: none;
-            box-shadow: var(--box-shadow);
-        }
-    }
-
-    &.outgoing {
-        justify-content: flex-end;
-
-        .message-content {
-            background-color: var(--message-outgoing-bg);
-            border-radius: 18px 18px 0 18px;
-            max-width: 80%;
-            border: none;
-            box-shadow: var(--box-shadow);
-        }
-    }
-}
-
 .message-content {
     padding: 10px 15px;
     position: relative;
@@ -111,6 +82,35 @@
         right: 10px;
         font-size: 11px;
         color: var(--text-secondary);
+    }
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+
+    &.incoming {
+        justify-content: flex-start;
+
+        .message-content {
+            background-color: var(--message-incoming-bg);
+            border-radius: 18px 18px 18px 0;
+            max-width: 80%;
+            border: none;
+            box-shadow: var(--box-shadow);
+        }
+    }
+
+    &.outgoing {
+        justify-content: flex-end;
+
+        .message-content {
+            background-color: var(--message-outgoing-bg);
+            border-radius: 18px 18px 0 18px;
+            max-width: 80%;
+            border: none;
+            box-shadow: var(--box-shadow);
+        }
     }
 }
 

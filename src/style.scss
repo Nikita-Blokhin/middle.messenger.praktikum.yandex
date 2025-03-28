@@ -41,6 +41,6 @@
 }
 
 .invalid {
-  color: #ff0000;
+  color: var(--danger-color);
   font-size: small;
 }

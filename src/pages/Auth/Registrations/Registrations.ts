@@ -9,9 +9,9 @@ import template from './Registrations.hbs?raw';
 const element: HTMLDivElement = document.querySelector('#Registrations')!;
 element.innerHTML = template;
 
-const ClassNameGroup: string = 'Authorization__input-group';
-const ClassNameLabel: string = 'Authorization__label';
-const ClassNameInput: string = 'Authorization__input';
+const ClassNameGroup: string = 'authorization-input-group';
+const ClassNameLabel: string = 'authorization-label';
+const ClassNameInput: string = 'authorization-input';
 const inputFormData: string[][] = [
   ['Почта', 'email'], ['Логин', 'login'], ['Имя', 'first_name'],
   ['Фамилия', 'second_name'], ['Телефон', 'phone'], ['Пароль', 'password'],
@@ -21,7 +21,7 @@ const inputFormData: string[][] = [
 const authElement: HTMLElement | null = document.getElementById('Registrations_wrapper');
 authElement?.appendChild(
     new createAuthForm({
-        class_name_wrapper: 'Authorization__block',
+        class_name_wrapper: 'authorization-block',
         label_h1: 'Регистрация',
         id_form: 'RegistrationForm',
         href_link: '../Authorization/Authorization.html',
@@ -44,7 +44,7 @@ inputFormData.map(item => (
 formElement.appendChild(new createButton({
     id_name: 'registration',
     label: 'Зарегистрироваться',
-    class_name: 'Authorization__button'
+    class_name: 'authorization-button'
 }).element!);
 
 formElement.addEventListener('submit', () => inputDataToConsole(formElement));
