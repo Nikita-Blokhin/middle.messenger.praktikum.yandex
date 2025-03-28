@@ -51,5 +51,5 @@ contactFormData.map(item => (
 
 const searhBarElement: HTMLElement | null = document.getElementById('search_container');
 if (searhBarElement) {
-    searhBarElement.appendChild(new createSearhInput({}).element!);
+    searhBarElement.appendChild(new createSearhInput().element!);
 };

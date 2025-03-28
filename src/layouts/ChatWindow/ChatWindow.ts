@@ -47,9 +47,7 @@ contactFormData.map(item => (
 ));
 
 const messageFormElement: HTMLElement = document.getElementById('message_form_wrapper')!;
-messageFormElement.appendChild(new createMessageForm({
-    settings_type: 'UserSettingsPassword'
-}).element!);
+messageFormElement.appendChild(new createMessageForm().element!);
 
 const formElement: HTMLElement = document.getElementById('messageForm')!;
 formElement.addEventListener('submit', () => inputDataToConsole(formElement));
