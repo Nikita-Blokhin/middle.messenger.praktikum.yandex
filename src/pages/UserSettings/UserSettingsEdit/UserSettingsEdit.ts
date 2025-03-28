@@ -14,9 +14,9 @@ element.appendChild(new createSettingsForm({
     settings_type: 'UserSettings'
 }).element!);
 
-const ClassNameGroup: string = 'Authorization__group';
-const ClassNameLabel: string = 'Authorization__label';
-const ClassNameInput: string = 'Authorization__input';
+const ClassNameGroup: string = 'authorization-group';
+const ClassNameLabel: string = 'authorization-label';
+const ClassNameInput: string = 'authorization-input';
 const rowData: string[][] = [
   ['Почта', 'email', 'pochta@yandex.ru'],
   ['Логин', 'login', 'ivanivanov'],
@@ -50,7 +50,7 @@ rowData.map(item => (
 const actionElment: HTMLElement = document.getElementById('UserSettingsActions')!;
 actionElment.appendChild(new createButton({
     label: 'Сохранить',
-    class_name: 'Authorization__button',
+    class_name: 'authorization-button',
     id_name: 'UserSettingsEditSave'
 }).element!);
 

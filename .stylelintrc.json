@@ -1,13 +1,16 @@
 {
     "extends": ["stylelint-config-standard"],
     "rules": {
-        "at-rule-no-unknown": {
-            "ignoreAtRules": [
-                "use",
-                "mixin",
-                "include"
-            ]
-        }
+        "at-rule-no-unknown": [
+            true,
+            {
+                "ignoreAtRules": [
+                    "use",
+                    "mixin",
+                    "include"
+                ]
+            }
+        ]
     },
     "ignoreFiles": [
         "*.ts",

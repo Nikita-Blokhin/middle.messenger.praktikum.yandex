@@ -14,9 +14,9 @@ element.appendChild(new createSettingsForm({
     settings_type: 'UserSettingsPassword'
 }).element!);
 
-const ClassNameGroup: string = 'Authorization__group';
-const ClassNameLabel: string = 'Authorization__label';
-const ClassNameInput: string = 'Authorization__input';
+const ClassNameGroup: string = 'authorization-group';
+const ClassNameLabel: string = 'authorization-label';
+const ClassNameInput: string = 'authorization-input';
 const rowData: string[][] = [
     ['Старый пароль', 'oldPassword'],
     ['Новый пароль', 'newPassword'],
@@ -47,7 +47,7 @@ rowData.map(item => (
 const actionElment: HTMLElement = document.getElementById('UserSettingsPasswordActions')!;
 actionElment.appendChild(new createButton({
     label: 'Сохранить',
-    class_name: 'Authorization__button',
+    class_name: 'authorization-button',
     id_name: 'UserSettingsEditSave'
 }).element!);
 

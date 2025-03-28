@@ -34,7 +34,7 @@
     margin: 20px 20px 20px 10px;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
     .chat-app {
         flex-direction: column;
     }
@@ -51,7 +51,6 @@
     }
 
     .message {
-
         &.incoming,
         &.outgoing {
             .message-content {

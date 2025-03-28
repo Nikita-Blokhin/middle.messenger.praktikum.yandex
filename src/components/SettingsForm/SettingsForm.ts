@@ -8,7 +8,7 @@ export interface SettingsFormProps {
 
 export class createSettingsForm extends Block {
   constructor(props: SettingsFormProps) {
-    super(`<div class="UserSettings_container" id="${props.settings_type}Container"><div/>`, {
+    super(`<div class="usersettings-container" id="${props.settings_type}Container"><div/>`, {
       ...props,
       template: template,
       attrs: {},

@@ -8,11 +8,11 @@ import template from './UserSettingsStatus.hbs?raw';
 const element: HTMLDivElement = document.querySelector('#UserSettings')!;
 element.innerHTML = template;
 
-const ClassNameRow: string = 'detail_row';
-const ClassNameLabel: string = 'detail_label';
-const ClassNameValue: string = 'detail_value';
-const ClassNameButton: string = 'UserSettings__action';
-const ClassNmaeButtonLogout: string = ' UserSettings__logout';
+const ClassNameRow: string = 'detail-row';
+const ClassNameLabel: string = 'detail-label';
+const ClassNameValue: string = 'detail-value';
+const ClassNameButton: string = 'usersettings-action';
+const ClassNmaeButtonLogout: string = ' usersettings-logout';
 const rowData: string [][] = [
     ['Почта', 'email_show', 'pochta@yandex.ru'],
     ['Логин', 'login_show', 'ivanivanov'],

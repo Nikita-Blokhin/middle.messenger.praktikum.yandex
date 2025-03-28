@@ -39,11 +39,13 @@
 
 .authorization-form {
     @include authorization;
+
     gap: 24px;
 }
 
 .authorization-group {
     @include authorization;
+
     gap: 4px;
 }
 
@@ -100,9 +102,15 @@ input[type="password"] {
     letter-spacing: 0.125em;
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
     .authorization-block {
         max-width: 90%;
         padding: 24px;
     }
+}
+
+.invalid {
+    color: var(--danger-color);
+    font-size: small;
+    border-bottom: 1px solid var(--danger-color);
 }
