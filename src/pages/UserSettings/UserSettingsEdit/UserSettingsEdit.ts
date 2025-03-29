@@ -3,15 +3,27 @@ import { createInputForm } from '../../../components/InputForm/InputForm';
 import { createButton } from '../../../components/Button/Button';
 import { createImgButton } from '../../../components/ImgButton/ImgButton';
 import { createSettingsForm } from '../../../components/SettingsForm/SettingsForm';
-import inputDataToConsole from '../../../utils/DataToConsole';
 // @ts-ignore
 import template from './UserSettingsEdit.hbs?raw';
 
 const element: HTMLDivElement = document.querySelector('#UserSettingsEdit')!;
 element.innerHTML = template;
 
-element.appendChild(new createSettingsForm({
-    settings_type: 'UserSettings'
+const containerElement: HTMLElement = document.getElementById('UserSettingsContainer')!;
+containerElement.appendChild(new createSettingsForm({
+    settings_type: 'UserSettings',
+    formData: {
+        login: '',
+        email: '',
+        first_name: '',
+        second_name: '',
+        phone: '',
+        display_name: '',
+    },
+    onSubmit: (data) => { 
+        console.log('Форма отправлена:', data);
+        alert('Данные в консоле');
+    }
 }).element!);
 
 const ClassNameGroup: string = 'authorization-group';
@@ -26,8 +38,8 @@ const rowData: string[][] = [
     ['Телефон', 'phone', '899912312312']  
 ];
 
-const containerElement: HTMLElement = document.getElementById('UserSettingsBack')!;
-containerElement.appendChild(new createImgButton({
+const backElement: HTMLElement = document.getElementById('UserSettingsBack')!;
+backElement.appendChild(new createImgButton({
     class_name: 'back-button',
     img_src: '/back_button.svg',
     img_alt: 'back button',
@@ -53,6 +65,3 @@ actionElment.appendChild(new createButton({
     class_name: 'authorization-button',
     id_name: 'UserSettingsEditSave'
 }).element!);
-
-const formElement: HTMLElement = document.getElementById('UserSettingsForm')!;
-formElement.addEventListener('submit', () => inputDataToConsole(formElement));

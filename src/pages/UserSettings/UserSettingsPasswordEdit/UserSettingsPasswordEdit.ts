@@ -3,15 +3,24 @@ import { createInputForm } from '../../../components/InputForm/InputForm';
 import { createButton } from '../../../components/Button/Button';
 import { createImgButton } from '../../../components/ImgButton/ImgButton';
 import { createSettingsForm } from '../../../components/SettingsForm/SettingsForm';
-import inputDataToConsole from '../../../utils/DataToConsole';
 // @ts-ignore
 import template from './UserSettingsPasswordEdit.hbs?raw';
 
 const element: HTMLDivElement | null = document.querySelector('#UserSettingsPasswordEdit')!;
 element.innerHTML = template;
 
-element.appendChild(new createSettingsForm({
-    settings_type: 'UserSettingsPassword'
+const containerElement: HTMLElement = document.getElementById('UserSettingsPasswordContainer')!;
+containerElement.appendChild(new createSettingsForm({
+    settings_type: 'UserSettingsPassword',
+    formData: {
+        oldPassword: '',
+        newPassword: '',
+        newPassword_retry: '',
+    },
+    onSubmit: (data) => { 
+        console.log('Форма отправлена:', data);
+        alert('Данные в консоле');
+    }
 }).element!);
 
 const ClassNameGroup: string = 'authorization-group';
@@ -23,8 +32,8 @@ const rowData: string[][] = [
     ['Повторите новый пароль', 'newPassword_retry']
 ];
 
-const containerElement: HTMLElement = document.getElementById('UserSettingsPasswordBack')!;
-containerElement.appendChild(new createImgButton({
+const backElement: HTMLElement = document.getElementById('UserSettingsPasswordBack')!;
+backElement.appendChild(new createImgButton({
     class_name: 'back-button',
     img_src: '/back_button.svg',
     img_alt: 'back button',
@@ -50,6 +59,3 @@ actionElment.appendChild(new createButton({
     class_name: 'authorization-button',
     id_name: 'UserSettingsEditSave'
 }).element!);
-
-const formElement: HTMLElement = document.getElementById('UserSettingsPasswordForm')!;
-formElement.addEventListener('submit', () => inputDataToConsole(formElement));

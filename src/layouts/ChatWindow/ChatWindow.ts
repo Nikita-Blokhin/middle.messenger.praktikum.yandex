@@ -2,7 +2,6 @@ import './ChatWindow.scss';
 import { createMessageForm } from '../../components/MessageForm/MessageForm';
 import { createMessage } from '../../components/Message/Message';
 import { createDateDivider } from '../../components/DateDivider/DateDivider';
-import inputDataToConsole from '../../utils/DataToConsole';
 // @ts-ignore
 import template from './ChatWindow.hbs?raw';
 
@@ -47,7 +46,12 @@ contactFormData.map(item => (
 ));
 
 const messageFormElement: HTMLElement = document.getElementById('message_form_wrapper')!;
-messageFormElement.appendChild(new createMessageForm().element!);
-
-const formElement: HTMLElement = document.getElementById('messageForm')!;
-formElement.addEventListener('submit', () => inputDataToConsole(formElement));
+messageFormElement.appendChild(new createMessageForm({
+    formData: {
+        message: ''
+    },
+    onSubmit: (data) => { 
+        console.log('Форма отправлена:', data);
+        alert('Данные в консоле');
+    }
+}).element!);
