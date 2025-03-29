@@ -1,0 +1,150 @@
+.search-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.search-bar {
+    position: relative;
+    margin: 5px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+    width: 100%;
+
+    .search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 8px 12px 8px 35px;
+        border: none;
+        border-radius: 20px;
+        background-color: var(--secondary-color);
+        font-size: 14px;
+        outline: none;
+        text-align: center;
+
+        &::placeholder {
+            color: var(--text-secondary);
+        }
+    }
+}
+
+.contacts {
+    margin-top: 10px;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 10px;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: start;
+    padding: 10px 15px;
+    margin: 5px 0;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-color-secondary);
+    width: 100%;
+
+    &:hover {
+        background-color: var(--hover-contact-item-bg);
+    }
+
+    &.active {
+        background-color: var(--active-contact-item-bg);
+    }
+}
+
+.contact-avatar {
+    position: relative;
+    margin-right: 10px;
+
+    img {
+        width: 50px;
+        height: 50px;
+        max-width: 50px;
+        max-height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.contact-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+
+
+}
+
+.contact-name {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-info {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    align-items: end;
+}
+
+.unread-badge {
+    bottom: 0;
+    right: 0;
+    max-width: 20px;
+    max-height: 20px;
+    border-radius: 20px;
+    background-color: var(--unread-badge-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    padding: 7px;
+
+    &.hidden {
+        visibility: hidden;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.contact-time {
+    margin-right: 10px;
+    margin-bottom: -5px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.contact-message {
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 230px;
+}
