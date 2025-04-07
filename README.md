@@ -22,6 +22,10 @@
 
 - `npm run build` — cборка стабильной версии
 
+- `npm run st_lint` — проверка описания стилей
+
+- `npm run ts_lint` — проверка файлов typescript
+
 ## Ссылки
 
 После локального запуска проекта можно посмотреть страницы:
@@ -41,6 +45,8 @@
 - vite
 - handlebars
 - Sass
+- EsLint
+- StuleLint
 
 ## Автор
 

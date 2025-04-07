@@ -5,7 +5,7 @@
     padding: 0;
 }
 
-.Authorization {
+.authorization {
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@
     background-color: var(--background-color);
 }
 
-.Authorization__block {
+.authorization-block {
     width: 100%;
     max-width: 448px;
     padding: 32px;
@@ -24,7 +24,7 @@
     box-shadow: var(--box-shadow);
 }
 
-.Authorization__h1 {
+.authorization-h1 {
     font-size: 24px;
     font-weight: 500;
     text-align: center;
@@ -32,27 +32,29 @@
     color: var(--dark-text-color);
 }
 
-@mixin Authorization {
+@mixin authorization {
     display: flex;
     flex-direction: column;
 }
 
-.Authorization__form {
-    @include Authorization;
+.authorization-form {
+    @include authorization;
+
     gap: 24px;
 }
 
-.Authorization__group {
-    @include Authorization;
+.authorization-group {
+    @include authorization;
+
     gap: 4px;
 }
 
-.Authorization__label {
+.authorization-label {
     font-size: 14px;
     color: var(--text-secondary);
 }
 
-.Authorization__input {
+.authorization-input {
     width: 100%;
     padding-bottom: 4px;
     border: none;
@@ -62,11 +64,11 @@
     background-color: var(--background-color);
 }
 
-.Authorization__input:focus {
+.authorization-input:focus {
     border-color: var(--input-focus);
 }
 
-.Authorization__button {
+.authorization-button {
     width: 100%;
     padding: 10px 20px;
     background-color: var(--primary-color);
@@ -78,7 +80,7 @@
     transition: background-color 0.2s ease;
 }
 
-.Authorization__button:hover {
+.authorization-button:hover {
     background-color: var(--primary-hover);
 }
 
@@ -100,9 +102,15 @@ input[type="password"] {
     letter-spacing: 0.125em;
 }
 
-@media (max-width: 640px) {
-    .Authorization__block {
+@media (width <= 640px) {
+    .authorization-block {
         max-width: 90%;
         padding: 24px;
     }
+}
+
+.invalid {
+    color: var(--danger-color);
+    font-size: small;
+    border-bottom: 1px solid var(--danger-color);
 }
