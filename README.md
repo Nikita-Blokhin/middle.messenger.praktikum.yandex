@@ -41,12 +41,12 @@
 
 ## Используемые технологии
 
-- javascript
+- typescript
 - vite
 - handlebars
 - Sass
 - EsLint
-- StuleLint
+- StyleLint
 
 ## Автор
 

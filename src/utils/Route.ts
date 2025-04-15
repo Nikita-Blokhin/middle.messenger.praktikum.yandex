@@ -77,6 +77,8 @@ export default class Router {
     private routes: Route[] = [];
     private readonly _rootQuery: string = '';
     private _currentRoute: null | Route = null;
+    private _isProtected = false;
+    private _authRoute = '/';
     constructor(rootQuery: string) {
         if (Router.__instance) {
             return Router.__instance;
@@ -106,6 +108,11 @@ export default class Router {
     };
 
     _onRoute(pathname: string) {
+        if (this._isProtected && !this._isUserLoggedIn() && pathname !== this._authRoute && pathname !== '/sign-up') {
+            console.log(`Защищенный маршрут, перенаправление на ${this._authRoute}`);
+            this.go(this._authRoute);
+            return;
+        }
         let route = this.getRoute(pathname);
         if (!route) {
             if (this._currentRoute) this._currentRoute.leave();
@@ -138,4 +145,13 @@ export default class Router {
     getRoute(pathname: string) {
         return this.routes.find(route => route.match(pathname));
     };
+
+    setProtectedRoutes(isProtected: boolean, authRoute = '/') {
+        this._isProtected = isProtected;
+        this._authRoute = authRoute;
+    };
+
+    private _isUserLoggedIn(): boolean {
+        return !!localStorage.getItem('user');
+    }
 };

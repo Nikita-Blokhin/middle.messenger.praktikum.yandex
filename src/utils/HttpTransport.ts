@@ -22,7 +22,15 @@ interface HttpOptions {
     method: typeof METHODS[keyof typeof METHODS]
 };
 
-class HTTPTransport {
+const BaseURL = 'https://ya-praktikum.tech/api/v2';
+
+export default class HTTPTransport {
+    private _baseUrl: string;
+
+    constructor() {
+        this._baseUrl = BaseURL;
+    };
+
     get = (url: string, options: { headers?: Record<string, string>; timeout?: number } = {}): Promise<XMLHttpRequest> => {
         return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
     };
@@ -35,7 +43,7 @@ class HTTPTransport {
         return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
     };
 
-    delete = (url: string, options: { headers?: Record<string, string>; timeout?: number } = {}): Promise<XMLHttpRequest> => {
+    delete = (url: string, options: { headers?: Record<string, string>; data?: any; timeout?: number } = {}): Promise<XMLHttpRequest> => {
         return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
     };
 
@@ -57,8 +65,8 @@ class HTTPTransport {
             xhr.open(
                 method,
                 isGet && !!data
-                    ? `${url}${queryStringify(data)}`
-                    : url,
+                    ? `${this._baseUrl}${url}${queryStringify(data)}`
+                    : `${this._baseUrl}${url}`,
             );
 
             Object.keys(headers).forEach(key => {
