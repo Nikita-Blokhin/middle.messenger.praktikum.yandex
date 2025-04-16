@@ -12,7 +12,7 @@ export default class LoginPage extends BasePage {
     // @ts-ignore
     constructor(props = {}) {
         super('div', 'login-page');
-    }
+    };
 
     render() {
         const content = this.getContent();
@@ -35,9 +35,8 @@ export default class LoginPage extends BasePage {
         if (!authBlock || !authHeader) {
             console.error('Required elements not found in template');
             return;
-        }
+        };
 
-        // Создаем форму авторизации
         const authForm = new createAuthForm({
             id_form: 'AuthorizationForm',
             formData: {
@@ -45,12 +44,10 @@ export default class LoginPage extends BasePage {
                 password: '',
             }
         });
-
-        // Проверяем, что форма создалась корректно
         if (!authForm.element) {
             console.error('Auth form element не найден!');
             return;
-        }
+        };
 
         for (const [label, idName] of inputFormData) {
             const inputForm = new createInputForm({
@@ -65,10 +62,8 @@ export default class LoginPage extends BasePage {
                 authForm.element.appendChild(inputForm.element);
             } else {
                 console.error(`Ошибка при создании input form для ${idName}`);
-            }
-        }
-
-        // Создаем и добавляем кнопку
+            };
+        };
         const button = new createButton({
             label: 'Авторизоваться',
             class_name: 'authorization-button',
@@ -85,22 +80,15 @@ export default class LoginPage extends BasePage {
             authForm.element.appendChild(button.element);
         } else {
             console.error('Button element не найден!');
-        }
-
-        // Вставляем форму после заголовка
+        };
         authHeader.after(authForm.element);
-
-        // Добавляем обработчик для ссылки регистрации
         const signUpLink = authBlock.querySelector('a[href="/signup"]');
         if (signUpLink) {
             signUpLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 router.go('/signup');
             });
-        }
-
-        // Теперь добавляем весь подготовленный контент на страницу
+        };
         content.appendChild(tempContainer.firstElementChild!);
-    }
-}
-
+    };
+};

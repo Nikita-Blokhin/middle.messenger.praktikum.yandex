@@ -53,7 +53,7 @@ class Route {
             params[paramName] = matches[index + 1];
             return params;
         }, {});
-    }
+    };
 
     render() {
         const params = this.getParams(window.location.pathname);
@@ -151,5 +151,5 @@ export default class Router {
 
     private _isUserLoggedIn(): boolean {
         return !!localStorage.getItem('user');
-    }
+    };
 };

@@ -1,19 +1,19 @@
 export interface Message {
-  chat_id: number
-  time: string
-  type: string
-  user_id: number
-  content: string
-  file?: {
-    id: number
+    chat_id: number
+    time: string
+    type: string
     user_id: number
-    path: string
-    filename: string
-    content_type: string
-    content_size: number
-    upload_date: string
-  }
-}
+    content: string
+    file?: {
+        id: number
+        user_id: number
+        path: string
+        filename: string
+        content_type: string
+        content_size: number
+        upload_date: string
+    }
+};
 
 export default class WebSocketTransport {
     private socket: WebSocket;
@@ -36,13 +36,13 @@ export default class WebSocketTransport {
             if (this.pingInterval) {
                 clearInterval(this.pingInterval);
                 this.pingInterval = null;
-            }
+            };
 
             if (event.wasClean) {
                 console.log('Соединение закрыто чисто');
             } else {
                 console.log('Обрыв соединения');
-            }
+            };
 
             console.log(`Код: ${event.code} | Причина: ${event.reason}`);
         });
@@ -56,7 +56,7 @@ export default class WebSocketTransport {
         this.pingInterval = window.setInterval(() => {
             this.ping();
         }, this.PING_INTERVAL_MS);
-    }
+    };
 
     public addMessageListener(callback: (messages: Message | Message[]) => void) {
         this.socket.addEventListener('message', (event) => {
@@ -100,7 +100,7 @@ export default class WebSocketTransport {
         if (this.pingInterval) {
             clearInterval(this.pingInterval);
             this.pingInterval = null;
-        }
+        };
         this.socket.close();
     };
 };

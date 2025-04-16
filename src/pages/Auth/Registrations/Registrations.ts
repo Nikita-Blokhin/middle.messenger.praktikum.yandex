@@ -11,9 +11,8 @@ import AuthController from '../../../controller/AuthController.js';
 export default class SignUpPage extends BasePage {
     // @ts-ignore
     constructor(props = {}) {
-    // Явно передаем строку 'div' как tagName
         super('div', 'login-page');
-    }
+    };
 
     render() {
         const content = this.getContent();
@@ -37,7 +36,7 @@ export default class SignUpPage extends BasePage {
         if (!authElement || !formElement) {
             console.error('Required elements not found in template');
             return;
-        }
+        };
 
         const authForm = new createAuthForm({
             id_form: 'RegistrationForm',
@@ -55,7 +54,7 @@ export default class SignUpPage extends BasePage {
         if (!authForm.element) {
             console.error('Auth form element не найден!');
             return;
-        }
+        };
 
         for (const [label, idName] of inputFormData) {
             const inputForm = new createInputForm({
@@ -70,8 +69,8 @@ export default class SignUpPage extends BasePage {
                 authForm.element.appendChild(inputForm.element);
             } else {
                 console.error(`Ошибка при создании input form для ${idName}`);
-            }
-        }
+            };
+        };
 
         const button = new createButton({
             label: 'Зарегистрироваться',
@@ -89,7 +88,7 @@ export default class SignUpPage extends BasePage {
             authForm.element.appendChild(button.element);
         } else {
             console.error('Button element не найден!');
-        }
+        };
 
         const signUpLink = formElement.querySelector('a[href="/signin"]');
         if (signUpLink) {
@@ -97,9 +96,8 @@ export default class SignUpPage extends BasePage {
                 e.preventDefault();
                 router.go('/signin');
             });
-        }
-
+        };
         authElement.after(authForm.element);
         content.appendChild(tempContainer.firstElementChild!);
-    }
-}
+    };
+};
