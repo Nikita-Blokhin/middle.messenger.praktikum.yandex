@@ -1,6 +1,18 @@
 import '../Error.scss';
 // @ts-ignore
 import template from './404.hbs?raw';
+import BasePage from '../../BasePage';
 
-const element: HTMLDivElement = document.querySelector('#error404')!;
-element.innerHTML = template;
+export default class NotFoundPage extends BasePage {
+    // @ts-ignore
+    constructor(props = {}) {
+        super('div', '404-page');
+    };
+
+    render() {
+        const content = this.getContent();
+        content.innerHTML = '';
+
+        content.innerHTML = template;
+    };
+};

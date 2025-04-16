@@ -1,41 +1,53 @@
 import AuthAPI from '../api/AuthAPI.ts';
-import router from '../core/router.ts';
+import router, { Routes } from '../core/router.ts';
+import { Store } from '../utils/store.ts';
 
 class AuthController {
     private api: AuthAPI;
+    private store: Store;
+    private router: typeof router;
 
     constructor() {
         this.api = new AuthAPI();
+        this.store = Store.getInstance();
+        this.router = router;
     };
 
     async signIn(data: Record<string, string>) {
         try {
             await this.api.signIn(data);
-            await this.fetchUser();
-            router.go('/chats');
+            const user = await this.fetchUser();
+
+            if (user) {
+                this.router.go(Routes.Messenger);
+            }
         } catch (error) {
-            console.error('Ошибка авторизации:', error);
+            console.error('Sign in error:', error);
             throw error;
-        };
-    };
+        }
+    }
 
     async signUp(data: Record<string, string>) {
         try {
             await this.api.signUp(data);
-            await this.fetchUser();
-            router.go('/chats');
+            const user = await this.fetchUser();
+
+            if (user) {
+                this.router.go(Routes.Messenger);
+            }
         } catch (error) {
-            console.error('Ошибка регистрации:', error);
+            console.error('Sign up error:', error);
             throw error;
-        };
-    };
+        }
+    }
 
     async logout() {
         try {
             await this.api.logout();
-            router.go('/');
+            this.store.set('user', null);
+            this.router.go(Routes.Index);
         } catch (error) {
-            console.error('Ошибка выхода:', error);
+            console.error('Logout error:', error);
             throw error;
         };
     };
@@ -43,11 +55,16 @@ class AuthController {
     async fetchUser() {
         try {
             const user = await this.api.getUser();
+            if (user) {
+                this.store.set('user', user);
+            };
             return user;
         } catch (error) {
-            console.error('Ошибка получения данных пользователя:', error);
-            throw error;
+            console.error('Fetch user error:', error);
+            this.store.set('user', null);
+            return null;
         };
     };
-}
+};
+
 export default new AuthController();

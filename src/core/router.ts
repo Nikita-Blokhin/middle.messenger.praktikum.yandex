@@ -1,3 +1,10 @@
+export enum Routes {
+    Index = '/',
+    Register = '/sign-up',
+    Profile = '/settings',
+    Messenger = '/messenger'
+}
+
 export class Route {
     private _pathname: string;
     private _blockClass: any;

@@ -11,7 +11,7 @@ import AuthController from '../../../controller/AuthController.js';
 export default class SignUpPage extends BasePage {
     // @ts-ignore
     constructor(props = {}) {
-        super('div', 'login-page');
+        super('div', 'signup-page');
     };
 
     render() {
