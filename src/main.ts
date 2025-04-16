@@ -2,32 +2,33 @@ import router, { Routes } from './core/router';
 import LoginPage from './pages/Auth/Authorization/Authorization.ts';
 import SignUpPage from './pages/Auth/Registrations/Registrations.ts';
 // import SettingsPage from './pages/settings';
-// import MessengerPage from './pages/messenger';
+import ChatsPage from './pages/Chat/Chat.ts';
 import AuthController from './controller/AuthController.ts';
 import NotFoundPage from './pages/Error/404/404.ts';
-// import ErrorPage from './pages/Error/500/500.ts';
+import ErrorPage from './pages/Error/500/500.ts';
 
 router
     .use(Routes.Index, LoginPage)
     .use(Routes.Register, SignUpPage)
     // .use('/settings', ProfilePage)
-    // .use('/messenger', MessengerPage)
-    .use('/404', NotFoundPage)
-    // .use('/500', ErrorPage)
-    // .use('*', NotFoundPage)
+    .use(Routes.Messenger, ChatsPage)
+    .use(Routes.Error404, NotFoundPage)
+    .use(Routes.Error500, ErrorPage)
     .start();
 
 async function initApp() {
     try {
-        await AuthController.fetchUser();
-        const currentPath = window.location.pathname;
-        if (currentPath === '/' || currentPath === '/signup') {
-            router.go('/chats');
-        };
+        const flag = await AuthController.fetchUser();
+        if (flag !== null) {
+            const currentPath = window.location.pathname;
+            if (currentPath === Routes.Index || currentPath === Routes.Register) {
+                router.go(Routes.Messenger);
+            };
+        }
     } catch (e) {
         const currentPath = window.location.pathname;
-        if (currentPath !== '/' && currentPath !== '/signup') {
-            router.go('/');
+        if (currentPath !== Routes.Index && currentPath !== Routes.Register) {
+            router.go(Routes.Index);
         };
     } finally {
         router.start();

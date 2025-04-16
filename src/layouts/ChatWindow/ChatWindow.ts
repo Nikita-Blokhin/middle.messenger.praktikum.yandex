@@ -5,7 +5,7 @@ import { createDateDivider } from '../../components/DateDivider/DateDivider';
 // @ts-ignore
 import template from './ChatWindow.hbs?raw';
 
-const element: HTMLDivElement = document.querySelector('#chatwindow')!;
+const element: HTMLDivElement = document.querySelector('#app')!;
 element.innerHTML = template;
 
 const contactFormData: (string) [][] = [

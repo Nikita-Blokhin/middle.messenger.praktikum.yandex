@@ -4,7 +4,7 @@ import { createSearhInput } from '../../components/SearhInput/SearhInput';
 // @ts-ignore
 import template from './SideBar.hbs?raw';
 
-const element: HTMLDivElement = document.querySelector('#sidebar')!;
+const element: HTMLDivElement = document.querySelector('#app')!;
 element.innerHTML = template;
 
 const ClassNameContactItem: string = 'contact-item';

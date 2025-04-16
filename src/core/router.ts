@@ -2,7 +2,9 @@ export enum Routes {
     Index = '/',
     Register = '/sign-up',
     Profile = '/settings',
-    Messenger = '/messenger'
+    Messenger = '/messenger',
+    Error404 = '/404',
+    Error500 = '/500'
 }
 
 export class Route {
