@@ -33,19 +33,23 @@ export default class AuthAPI {
         this.http = new HTTPTransport();
     }
 
-    async signup(data: SignupData): Promise<XMLHttpRequest> {
-        return this.http.post('/auth/signup', { data });
+    async signUp(data: Record<string, string>) {
+        const response = await this.http.post('/auth/signup', { data });
+        return JSON.parse(response.responseText);
     }
 
-    async signin(data: SigninData): Promise<XMLHttpRequest> {
-        return this.http.post('/auth/signin', { data });
+    async signIn(data: Record<string, string>) {
+        const response = await this.http.post('/auth/signin', { data });
+        return JSON.parse(response.responseText);
     }
 
-    async logout(): Promise<XMLHttpRequest> {
-        return this.http.post('/auth/logout');
+    async logout() {
+        const response = await this.http.post('/auth/logout');
+        return JSON.parse(response.responseText);
     }
 
-    async getUser(): Promise<XMLHttpRequest> {
-        return this.http.get('/auth/user');
-    };
+    async getUser() {
+        const response = await this.http.get('/auth/user');
+        return JSON.parse(response.responseText);
+    }
 };

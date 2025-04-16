@@ -13,7 +13,7 @@ export interface AuthFormProps {
         phone?: string
         password_retry?: string
     }
-    onSubmit: (data: any) => void
+    onSubmit?: (data: any) => void
 };
 
 export class createAuthForm extends Block {

@@ -10,6 +10,7 @@ export interface InputFormProps {
     class_name__input: string
     placeholder_text?: string
     invalid_text?: string
+    onSubmit?: (e: MouseEvent) => void
 };
 
 export class createInputForm extends Block {
