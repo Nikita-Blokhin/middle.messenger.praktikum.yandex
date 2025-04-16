@@ -69,8 +69,6 @@ class Route {
     };
 };
 
-
-
 export default class Router {
     private static __instance: Router;
     private history!: History;
@@ -130,7 +128,7 @@ export default class Router {
     };
 
     go(pathname: string) {
-        this.history.pushState({}, '', pathname);
+        window.history.pushState({}, '', pathname);
         this._onRoute(pathname);
     };
 

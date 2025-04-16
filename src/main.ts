@@ -62,7 +62,8 @@ function initApp() {
             .use('/settings', ProfilePage)
             .use('/messenger', MessengerPage)
             .use('/404', NotFoundPage)
-            .use('/500', ErrorPage);
+            .use('/500', ErrorPage)
+            .start();
 
         router.setProtectedRoutes(true, '/');
 
@@ -94,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (appElement) {
             appElement.innerHTML = `
                 <div style='padding: 20px; text-align: center;'>
-                <h1>Произошла ошибка</h1>
-                <p>Не удалось загрузить приложение. Пожалуйста, обновите страницу.</p>
-                <p>Подробности: ${error instanceof Error ? error.message : String(error)}</p>
+                    <h1>Произошла ошибка</h1>
+                    <p>Не удалось загрузить приложение. Пожалуйста, обновите страницу.</p>
+                    <p>Подробности: ${error instanceof Error ? error.message : String(error)}</p>
                 </div>
             `;
         }

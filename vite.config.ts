@@ -15,5 +15,5 @@ export default defineConfig({
             '@icons': '/public'
         }
     },
-    assetsInclude: '**/*.hbs'
+    assetsInclude: ['**/*.hbs', '**/*.html']
 });

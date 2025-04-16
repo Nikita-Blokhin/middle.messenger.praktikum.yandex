@@ -46,4 +46,3 @@ formElement.appendChild(new createButton({
     class_name: 'authorization-button',
     id_name: 'authorization',
 }).element!);
-
