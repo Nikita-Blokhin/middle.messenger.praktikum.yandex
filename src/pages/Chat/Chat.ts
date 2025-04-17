@@ -13,6 +13,9 @@ import '../../layouts/ChatWindow/ChatWindow.scss';
 import { createMessageForm } from '../../components/MessageForm/MessageForm';
 import { createMessage } from '../../components/Message/Message';
 import { createDateDivider } from '../../components/DateDivider/DateDivider';
+import AuthController from '../../controller/AuthController';
+import { createImgButton } from '../../components/ImgButton/ImgButton';
+import router, { Routes } from '../../core/router';
 
 export default class ChatsPage extends BasePage {
     // @ts-ignore
@@ -73,6 +76,21 @@ export default class ChatsPage extends BasePage {
         ));
 
         const searhBarElement: HTMLElement | null = tempContainer.querySelector('#search_container');
+        if (searhBarElement) {
+            let src_avatar = '';
+            AuthController.fetchUser().then(result => {
+                src_avatar = result.avatar == 'null' ? '/picture.svg' : result.avatar;
+            });
+            searhBarElement.appendChild(new createImgButton({
+                img_src: src_avatar? src_avatar : '/picture.svg',
+                img_alt: 'аватар',
+                class_name: 'contact-avatar',
+                id_name: 'Avatar',
+                onClick() {
+                    router.go(Routes.Profile);
+                },
+            }).element!);
+        };
         if (searhBarElement) {
             searhBarElement.appendChild(new createSearhInput().element!);
         };

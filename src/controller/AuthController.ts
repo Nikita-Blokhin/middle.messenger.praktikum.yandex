@@ -1,6 +1,6 @@
 import AuthAPI from '../api/AuthAPI.ts';
 import router, { Routes } from '../core/router.ts';
-import { Store } from '../utils/store.ts';
+import { Store } from '../utils/Store.ts';
 
 class AuthController {
     private api: AuthAPI;

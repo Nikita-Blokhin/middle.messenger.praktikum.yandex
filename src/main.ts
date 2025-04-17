@@ -1,7 +1,7 @@
 import router, { Routes } from './core/router';
 import LoginPage from './pages/Auth/Authorization/Authorization.ts';
 import SignUpPage from './pages/Auth/Registrations/Registrations.ts';
-// import SettingsPage from './pages/settings';
+import ProfilePage from './pages/UserSettings/UserSettingsStatus/UserSettingsStatus.ts';
 import ChatsPage from './pages/Chat/Chat.ts';
 import AuthController from './controller/AuthController.ts';
 import NotFoundPage from './pages/Error/404/404.ts';
@@ -10,7 +10,7 @@ import ErrorPage from './pages/Error/500/500.ts';
 router
     .use(Routes.Index, LoginPage)
     .use(Routes.Register, SignUpPage)
-    // .use('/settings', ProfilePage)
+    .use(Routes.Profile, ProfilePage)
     .use(Routes.Messenger, ChatsPage)
     .use(Routes.Error404, NotFoundPage)
     .use(Routes.Error500, ErrorPage)

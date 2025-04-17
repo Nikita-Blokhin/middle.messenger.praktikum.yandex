@@ -36,13 +36,11 @@ export default class AuthAPI {
     };
 
     async signIn(data: Record<string, string>) {
-        const response = await this.http.post('/auth/signin', { data });
-        return JSON.parse(response.responseText);
+        await this.http.post('/auth/signin', { data });
     };
 
     async logout() {
-        const response = await this.http.post('/auth/logout');
-        return JSON.parse(response.responseText);
+        await this.http.post('/auth/logout');
     };
 
     async getUser() {
