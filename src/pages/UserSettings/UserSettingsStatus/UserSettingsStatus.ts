@@ -2,11 +2,13 @@ import '../UserSettings.scss';
 import { createDetailRow } from '../../../components/DetailRow/DetailRow.js';
 import { createButton } from '../../../components/Button/Button.js';
 import { createImgButton } from '../../../components/ImgButton/ImgButton.js';
+import { createHeader } from '../../../components/Header/Header.js';
 // @ts-ignore
 import template from './UserSettingsStatus.hbs?raw';
 import BasePage from '../../BasePage.js';
 import router from '../../../core/router.js';
 import AuthController from '../../../controller/AuthController.js';
+import { Routes } from '../../../core/router.js';
 
 export default class ProfilePage extends BasePage {
     // @ts-ignore
@@ -25,19 +27,19 @@ export default class ProfilePage extends BasePage {
         const ClassNameLabel: string = 'detail-label';
         const ClassNameValue: string = 'detail-value';
         const ClassNameButton: string = 'usersettings-action';
-        const ClassNmaeButtonLogout: string = ' usersettings-logout';
+        const ClassNameButtonLogout: string = ' usersettings-logout';
         const rowData: string [][] = [
-            ['Почта', 'email_show', 'pochta@yandex.ru'],
-            ['Логин', 'login_show', 'ivanivanov'],
-            ['Имя', 'first_name_show', 'Иван'],
-            ['Фамилия', 'second_name_show', 'Иванов'],
-            ['Имя в чате', 'display_name_show', 'Иван'],
-            ['Телефон', 'phone_show', '+7 (909) 967 30 30']  
+            ['Почта', 'email_show', ''],
+            ['Логин', 'login_show', ''],
+            ['Имя', 'first_name_show', ''],
+            ['Фамилия', 'second_name_show', ''],
+            ['Имя в чате', 'display_name_show', ''],
+            ['Телефон', 'phone_show', '']  
         ];
-        const buttonData: string[][] = [
-            ['Изменить данные', 'change_data_show'],
-            ['Изменить пароль', 'change_password_show'],
-            ['Выйти', 'logout_show']
+        const buttonData: any[][] = [
+            ['Изменить данные', 'change_data_show', () => {}],
+            ['Изменить пароль', 'change_password_show', () => {}],
+            ['Выйти', 'logout_show', () => AuthController.logout()]
         ];
 
         const containerElement: HTMLElement = tempContainer.querySelector('#UserSettingsBack_show')!;
@@ -48,26 +50,52 @@ export default class ProfilePage extends BasePage {
             id_name: 'back_btn_show',
             onClick: () => router.back()
         }).element!);
-
-        const rowElement: HTMLElement = tempContainer.querySelector('#UserSettingsDetails_show')!;
-        rowData.map(item => (
-            rowElement.appendChild(new createDetailRow({
-                label: item[0],
-                class_name__row: ClassNameRow,
-                class_name__label: ClassNameLabel,
-                class_name__value: ClassNameValue,
-                id_name: item[1],
-                value: item[2]
-            }).element!)
-        ));
+        const headerElement: HTMLElement = tempContainer.querySelector('#UserSettingsHeader_show')!;
+        const rowElement: HTMLElement = tempContainer.querySelector('#UserSettingsDetails_show')!;        
+        AuthController.fetchUser().then(result => {
+            if (result == null) return  router.go(Routes.Index);
+            if (headerElement) {
+                headerElement.appendChild(new createImgButton({
+                    img_src: result.avatar ? result.avatar : '/picture.svg',
+                    img_alt: 'аватар',
+                    class_name: 'usersettings-avatar',
+                    id_name: 'profile-avatar',
+                    onClick() {
+                        router.go(Routes.Profile);
+                    },
+                }).element!);
+                headerElement.appendChild(new createHeader({
+                    value: result.display_name ? result.display_name : result.first_name,
+                    class_name: 'usersettings-name',
+                    id_name: 'display_name'
+                }).element!);
+            };
+            
+            rowData[0][2] = result.email;
+            rowData[1][2] = result.login;
+            rowData[2][2] = result.first_name;
+            rowData[3][2] = result.second_name;
+            rowData[4][2] = result.display_name;
+            rowData[5][2] = result.phone;
+            rowData.map(item => (
+                rowElement.appendChild(new createDetailRow({
+                    label: item[0],
+                    class_name__row: ClassNameRow,
+                    class_name__label: ClassNameLabel,
+                    class_name__value: ClassNameValue,
+                    id_name: item[1],
+                    value: item[2] as string
+                }).element!)
+            ));
+        });
 
         const actionElment: HTMLElement = tempContainer.querySelector('#UserSettingsActions_show')!;
 
         buttonData.map(item => {actionElment.appendChild(new createButton({
             label: item[0],
-            class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNmaeButtonLogout : ''),
+            class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNameButtonLogout : ''),
             id_name: item[1],
-            onClick: () => AuthController.logout()
+            onClick: item[2]
         }).element!);
         });
         content.appendChild(tempContainer.firstElementChild!);

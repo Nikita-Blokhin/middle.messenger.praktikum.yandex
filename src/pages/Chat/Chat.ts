@@ -24,6 +24,11 @@ export default class ChatsPage extends BasePage {
     };
 
     render() {
+        let src_avatar = '';
+        AuthController.fetchUser().then(result => {
+            if (result == null) return  router.go(Routes.Index);
+            src_avatar = result.avatar == 'null' ? '/picture.svg' : result.avatar;
+        });
         const content = this.getContent();
         content.innerHTML = '';
 
@@ -77,10 +82,6 @@ export default class ChatsPage extends BasePage {
 
         const searhBarElement: HTMLElement | null = tempContainer.querySelector('#search_container');
         if (searhBarElement) {
-            let src_avatar = '';
-            AuthController.fetchUser().then(result => {
-                src_avatar = result.avatar == 'null' ? '/picture.svg' : result.avatar;
-            });
             searhBarElement.appendChild(new createImgButton({
                 img_src: src_avatar? src_avatar : '/picture.svg',
                 img_alt: 'аватар',
