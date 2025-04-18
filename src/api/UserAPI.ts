@@ -14,17 +14,13 @@ class UsersAPI {
 
     async updateAvatar(formData: FormData) {
         const response = await this.http.put('/user/profile/avatar', {
-            data: formData,
-            headers: {
-                'Content-Type': 'null',
-            },
+            data: formData
         });
         return JSON.parse(response.responseText);
     };
 
     async updatePassword(data: { oldPassword: string; newPassword: string }) {
-        const response = await this.http.put('/user/password', { data });
-        return JSON.parse(response.responseText);
+        await this.http.put('/user/password', { data });
     };
 
     async searchUser(login: string) {

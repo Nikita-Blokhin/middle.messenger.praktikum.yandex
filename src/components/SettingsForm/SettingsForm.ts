@@ -1,5 +1,3 @@
-// @ts-ignore
-import template from './SettingsForm.hbs?raw';
 import Block from '../../utils/Block';
 
 export interface SettingsFormProps {
@@ -15,18 +13,20 @@ export interface SettingsFormProps {
         newPassword?: string,
         newPassword_retry?: string,
     }
-    onSubmit: (data: any) => void
+    onSubmit: (data: SubmitEvent) => void
 };
 
 export class createSettingsForm extends Block {
     constructor(props: SettingsFormProps) {
-        super(`<form class="usersettings-content" id="${props.settings_type}Form">`, {
+        super(`<form class="usersettings-content" id="${props.settings_type}">`, {
             ...props,
-            template: template
+            events: {
+                submit: props.onSubmit
+            }
         });
     };
 
     render() {
-        return this.compile(template as string, this.props);
+        return this.compile('', this.props);
     };
 };

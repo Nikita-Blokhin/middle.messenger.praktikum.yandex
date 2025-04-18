@@ -42,6 +42,14 @@ export default class LoginPage extends BasePage {
             formData: {
                 login: '',
                 password: '',
+            },
+            onSubmit: (data) => {
+                data.preventDefault();
+                if (authForm.validateAllInputs()) {
+                    AuthController.signIn(authForm.getFormData() as Record<string, string>).catch((error) => {
+                        console.error('Ошибка входа:', error);
+                    });
+                };
             }
         });
         if (!authForm.element) {
@@ -51,6 +59,7 @@ export default class LoginPage extends BasePage {
 
         for (const [label, idName] of inputFormData) {
             const inputForm = new createInputForm({
+                required: 'required',
                 label: label,
                 class_name__group: ClassNameGroup,
                 class_name__label: ClassNameLabel,
@@ -68,12 +77,6 @@ export default class LoginPage extends BasePage {
             label: 'Авторизоваться',
             class_name: 'authorization-button',
             id_name: 'authorization',
-            onClick: () => {
-                AuthController.signIn(authForm.getFormData() as Record<string, string>).catch((error) => {
-                    console.error('Ошибка входа:', error);
-                });
-                console.log('Форма отправлена:', authForm.getFormData());
-            }
         });
 
         if (button.element) {

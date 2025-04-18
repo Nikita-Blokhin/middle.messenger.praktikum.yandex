@@ -13,7 +13,7 @@ export interface AuthFormProps {
         phone?: string
         password_retry?: string
     }
-    onSubmit?: (data: any) => void
+    onSubmit?: (formData: any) => void
 };
 
 export class createAuthForm extends Block {
@@ -21,6 +21,9 @@ export class createAuthForm extends Block {
         super(`<form class="authorization-form" id="${props.id_form}"></form>`, {
             ...props,
             template: template,
+            events: {
+                submit: props.onSubmit
+            }
         });
     };
 

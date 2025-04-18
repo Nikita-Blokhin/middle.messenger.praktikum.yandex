@@ -24,9 +24,10 @@ export default class ChatsPage extends BasePage {
     };
 
     render() {
+        const user = AuthController.fetchUser();
+        if (!user) return  router.go(Routes.Index);
         let src_avatar = '';
         AuthController.fetchUser().then(result => {
-            if (result == null) return  router.go(Routes.Index);
             src_avatar = result.avatar == 'null' ? '/picture.svg' : result.avatar;
         });
         const content = this.getContent();
@@ -83,7 +84,7 @@ export default class ChatsPage extends BasePage {
         const searhBarElement: HTMLElement | null = tempContainer.querySelector('#search_container');
         if (searhBarElement) {
             searhBarElement.appendChild(new createImgButton({
-                img_src: src_avatar? src_avatar : '/picture.svg',
+                img_src: src_avatar? src_avatar : '/avatar.svg',
                 img_alt: 'аватар',
                 class_name: 'contact-avatar',
                 id_name: 'Avatar',

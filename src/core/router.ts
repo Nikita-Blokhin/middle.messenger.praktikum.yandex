@@ -4,7 +4,9 @@ export enum Routes {
     Profile = '/settings',
     Messenger = '/messenger',
     Error404 = '/404',
-    Error500 = '/500'
+    Error500 = '/500',
+    EditProfile = '/settings/edit',
+    PasswordProfile = '/settings/password'
 }
 
 export class Route {
