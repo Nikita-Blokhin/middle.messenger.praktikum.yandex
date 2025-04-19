@@ -76,7 +76,7 @@ export default class ProfilePage extends BasePage {
                             const formData = new FormData();
                             formData.append('avatar', file, file.name);
                             api.updateAvatar(formData);
-                            this.render();
+                            setTimeout(() => this.render_page(), 3000);
                         } catch (error) {
                             console.error('Ошибка загрузки аватара:', error);
                         }

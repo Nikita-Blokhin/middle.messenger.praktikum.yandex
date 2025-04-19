@@ -50,15 +50,14 @@
 }
 
 .usersettings-header {
-    display: grid;
+    display: flex;
     flex-direction: column;
     text-align: center;
     margin-bottom: 40px;
 
     .usersettings-avatar {
-        min-width: 110px;
-        min-height: 110px;
-        padding: 20px;
+        width: 150px;
+        height: 150px;
         margin: 0 auto 20px;
         border-radius: 50%;
         overflow: hidden;
@@ -153,13 +152,14 @@
     text-decoration: none;
     font-size: 14px;
     vertical-align: middle;
-    color: rgb(255 255 255);
+    color: var(--background-color);
     text-align: center;
     border-radius: 4px;
     background-color: var(--primary-color);
     line-height: 22px;
-    height: 40px;
-    padding: 10px 20px;
+    height: 30px;
+    width: 150px;
+    padding: 3px 12px;
     box-sizing: border-box;
     border: none;
     margin: 0;

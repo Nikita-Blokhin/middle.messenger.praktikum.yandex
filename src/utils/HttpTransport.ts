@@ -75,7 +75,7 @@ export class HTTPTransport {
                 xhr.send();
             } else {
                 xhr.send(
-                    typeof data === 'string' || typeof data === 'object'
+                    typeof data === 'string' || data instanceof FormData
                         ? data
                         : JSON.stringify(data)
                 );

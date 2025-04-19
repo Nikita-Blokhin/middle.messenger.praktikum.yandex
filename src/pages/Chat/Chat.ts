@@ -29,7 +29,7 @@ export default class ChatsPage extends BasePage {
         
         AuthController.fetchUser().then(result => {
             let src_avatar = '';
-            src_avatar = result.avatar == 'null' ? '/picture.svg' : result.avatar;
+            src_avatar = result.avatar == 'null' ? '/picture.svg' : `https://ya-praktikum.tech/api/v2/resources${result.avatar}`;
         
             const content = this.getContent();
             content.innerHTML = '';
