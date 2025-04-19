@@ -16,7 +16,7 @@ export default class EditProfilePage extends BasePage {
         super('div', 'User-edit-page');
     };
 
-    render() {
+    render_page() {
         const user = AuthController.fetchUser();
         if (!user) return  router.go(Routes.Index);
         const api = new UsersAPI;

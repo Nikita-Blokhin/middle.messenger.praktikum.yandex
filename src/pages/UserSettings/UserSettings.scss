@@ -50,19 +50,20 @@
 }
 
 .usersettings-header {
+    display: grid;
+    flex-direction: column;
     text-align: center;
     margin-bottom: 40px;
 
     .usersettings-avatar {
-        width: 110px;
-        height: 110px;
+        min-width: 110px;
+        min-height: 110px;
         padding: 20px;
         margin: 0 auto 20px;
         border-radius: 50%;
         overflow: hidden;
-        background-color: #999;
-        border: none;
-        cursor: pointer;
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
 
         img {
             width: 100%;
@@ -136,4 +137,48 @@
     max-width: 300px;
     align-items: center;
     align-content: center;
+}
+
+.input-file {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.input-file-btn {
+    position: relative;
+    display: inline-block;
+    
+    outline: none;
+    text-decoration: none;
+    font-size: 14px;
+    vertical-align: middle;
+    color: rgb(255 255 255);
+    text-align: center;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    line-height: 22px;
+    height: 40px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border: none;
+    margin: 0;
+    transition: background-color 0.2s;
+}
+
+.input-file input[type=file] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+}
+
+.input-file:hover .input-file-btn {
+    background-color: var(--primary-hover);
+}
+
+.input-file:active .input-file-btn {
+    background-color: var(--primary-color);
 }

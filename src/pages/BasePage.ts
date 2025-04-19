@@ -1,29 +1,32 @@
-export default abstract class BasePage {
-    private _element: HTMLElement;
+import Block from '../utils/Block';
+
+export default abstract class BasePage extends Block {
+    private _element_page: HTMLElement;
     private _isShown = false;
 
     constructor(tagName = 'div', className = '') {
-        this._element = document.createElement(tagName);
+        super();
+        this._element_page = document.createElement(tagName);
         if (className) {
-            this._element.className = className;
+            this._element_page.className = className;
         };
-        this.render();
+        this.render_page();
     };
 
-    render() {};
+    render_page() {};
 
     getContent(): HTMLElement {
-        return this._element;
+        return this._element_page;
     };
 
     show() {
         this._isShown = true;
-        this._element.style.display = 'block';
+        this._element_page.style.display = 'block';
     };
 
     hide() {
         this._isShown = false;
-        this._element.style.display = 'none';
+        this._element_page.style.display = 'none';
     };
 
     isShown(): boolean {

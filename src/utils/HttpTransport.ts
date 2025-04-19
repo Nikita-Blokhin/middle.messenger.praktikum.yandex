@@ -13,7 +13,7 @@ type Options = {
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
-const BaseURL = 'https://ya-praktikum.tech/api/v2';
+export const BaseURL = 'https://ya-praktikum.tech/api/v2';
 
 export class HTTPTransport {
     private _baseUrl: string;
@@ -54,7 +54,7 @@ export class HTTPTransport {
             Object.keys(headers).forEach((key) => {
                 xhr.setRequestHeader(key, headers[key]);
             });
-            if (!headers['Content-Type'] && method !== METHODS.GET) {
+            if (!headers['Content-Type'] && method !== METHODS.GET && !(data instanceof FormData)) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
             }
             xhr.withCredentials = true;
@@ -74,7 +74,11 @@ export class HTTPTransport {
             if (isGet || !data) {
                 xhr.send();
             } else {
-                xhr.send(typeof data === 'string' ? data : JSON.stringify(data));
+                xhr.send(
+                    typeof data === 'string' || typeof data === 'object'
+                        ? data
+                        : JSON.stringify(data)
+                );
             };
         });
     };

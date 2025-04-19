@@ -14,7 +14,7 @@ export default class LoginPage extends BasePage {
         super('div', 'login-page');
     };
 
-    render() {
+    render_page() {
         const content = this.getContent();
         content.innerHTML = '';
 

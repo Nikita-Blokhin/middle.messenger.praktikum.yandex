@@ -9,7 +9,7 @@ export default class NotFoundPage extends BasePage {
         super('div', '404-page');
     };
 
-    render() {
+    render_page() {
         const content = this.getContent();
         content.innerHTML = '';
 

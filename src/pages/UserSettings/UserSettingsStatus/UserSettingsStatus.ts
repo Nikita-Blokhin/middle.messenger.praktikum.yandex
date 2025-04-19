@@ -18,9 +18,7 @@ export default class ProfilePage extends BasePage {
         super('div', 'User-info-page');
     };
 
-    
-
-    render() {
+    render_page() {
         const user = AuthController.fetchUser();
         if (!user) return  router.go(Routes.Index);
         const api = new UsersAPI;
@@ -58,31 +56,29 @@ export default class ProfilePage extends BasePage {
             onClick: () => router.go(Routes.Messenger)
         }).element!);
         const headerElement: HTMLElement = tempContainer.querySelector('#UserSettingsHeader_show')!;
-        const rowElement: HTMLElement = tempContainer.querySelector('#UserSettingsDetails_show')!;    
+        const rowElement: HTMLElement = tempContainer.querySelector('#UserSettingsDetails_show')!;
+        const inputElement: HTMLElement = tempContainer.querySelector('#UserSettingsHeader_input')!;
         AuthController.fetchUser().then(result => {
             if (headerElement) {
-                headerElement.appendChild(new createAvatar({
+                inputElement.before(new createAvatar({
                     img_src: result.avatar ? result.avatar : '/avatar.svg',
                     img_alt: 'аватар',
                     class_name: 'usersettings-avatar'
                 }).element!);
-                headerElement.appendChild(new createInputAvatar({
+                inputElement.appendChild(new createInputAvatar({
                     onChange: (e) => {
                         e.preventDefault();
-                        if (e) {
-                            const target = e.target as HTMLInputElement;
-                            if (target) {
-                                const file = target.files?.[0];
-                                if (file) {
-                                    try {
-                                        const formData = new FormData();
-                                        formData.append('avatar', file, file.name);
-                                        api.updateAvatar(formData);
-                                    } catch (error) {
-                                        console.error('Ошибка загрузки аватара:', error);
-                                    }
-                                }
-                            }
+                        const target = e.target as HTMLInputElement;
+                        if (!target || !target.files || !target.files[0]) return;
+
+                        const file = target.files[0];
+                        try {
+                            const formData = new FormData();
+                            formData.append('avatar', file, file.name);
+                            api.updateAvatar(formData);
+                            this.render();
+                        } catch (error) {
+                            console.error('Ошибка загрузки аватара:', error);
                         }
                     },
                 }).element!);

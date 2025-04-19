@@ -1,6 +1,7 @@
 // @ts-ignore
 import template from './InputAvatar.hbs?raw';
 import Block from '../../utils/Block';
+import { BaseURL } from '../../utils/HttpTransport';
 
 export interface AvatarProps {
     img_src: string
@@ -10,7 +11,7 @@ export interface AvatarProps {
 
 export class createAvatar extends Block {
     constructor(props: AvatarProps) {
-        super(`<img src="${props.img_src}" alt="${props.img_alt}" class="${props.class_name}">`, {
+        super(`<img crossOrigin="anonymous" src="${BaseURL}/resources${props.img_src}}" alt="${props.img_alt}" class="${props.class_name}">`, {
             ...props,
             attrs: {},
             events: {}

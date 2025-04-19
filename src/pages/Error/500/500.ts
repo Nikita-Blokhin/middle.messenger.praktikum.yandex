@@ -9,7 +9,7 @@ export default class ErrorPage extends BasePage {
         super('div', '500-page');
     };
 
-    render() {
+    render_page() {
         const content = this.getContent();
         content.innerHTML = '';
 

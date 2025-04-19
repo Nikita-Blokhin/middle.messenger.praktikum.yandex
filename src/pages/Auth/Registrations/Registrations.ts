@@ -14,7 +14,7 @@ export default class SignUpPage extends BasePage {
         super('div', 'signup-page');
     };
 
-    render() {
+    render_page() {
         const content = this.getContent();
         content.innerHTML = '';
 

@@ -8,7 +8,7 @@ export interface AvatarProps {
 
 export class createInputAvatar extends Block {
     constructor(props: AvatarProps) {
-        super('<input type="file" accept="image/*" name="avatar" id="input_avatar"/>', {
+        super('<input type="file" class="input-file-btn" accept="image/*" name="avatar" id="input_avatar"/>', {
             ...props,
             attrs: {},
             events: {

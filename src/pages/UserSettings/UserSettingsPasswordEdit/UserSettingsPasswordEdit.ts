@@ -16,7 +16,7 @@ export default class PasswordProfilePage extends BasePage {
         super('div', 'User-password-page');
     };
 
-    render() {
+    render_page() {
         const user = AuthController.fetchUser();
         if (!user) return  router.go(Routes.Index);
         const api = new UsersAPI;
