@@ -1,101 +1,51 @@
-import { Store } from '../utils/Store.ts';
-import ChatsAPI from '../api/ChatsAPI.ts';
+import { Store } from '../utils/Store';
 
-class ChatController {
-    private sockets: { [chatId: number]: WebSocket } = {};
-    private api: ChatsAPI;
+export class MessageController {
     private store: Store;
-
+  
     constructor() {
-        this.api = new ChatsAPI();
         this.store = Store.getInstance();
-    };
-
-    public getChatToken(chatId: number) {
-        return this.api
-            .getToken(chatId)
-            .then((data) => {
-                const token = JSON.parse(data.responseText).token;
-                this.store.set(`token_${chatId}`, token);
-                return token;
-            })
-            .catch((err) => console.log('Ошибка при получении токена', err));
     }
-
-    public connectToChat(chatId: number) {
-        console.log(this.sockets);
-        this.getChatToken(chatId)
-            .then((token) => {
-                const userId = (this.store.getState().user!).id;
-                const socketUrl = `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`;
-                const socket = new WebSocket(socketUrl) as WebSocket;
-                this.sockets[chatId] = socket;
-
-                socket.addEventListener('open', () => {
-                    console.log(`WS-соединение установлено (чат ${chatId}). Запрашиваем старые сообщения...`);
-                    socket.send(
-                        JSON.stringify({
-                            content: '0',
-                            type: 'get old'
-                        })
-                    );
-                });
-
-                socket.addEventListener('message', (event: MessageEvent) => {
-                    try {
-                        const data = JSON.parse(event.data);
-                        if (Array.isArray(data)) {
-                            const reversed = data.reverse();
-                            this.store.set('messages', {
-                                ...this.store.getState().messages,
-                                [chatId]: reversed
-                            });
-                            this.store.set('errorMessage', JSON.stringify(reversed));
-                        } else if (data.type === 'message' || data.type === 'file') {
-                            const currentMessages = this.store.getState().messages?.[chatId] || [];
-                            const newMessages = [...currentMessages, data];
-                            this.store.set('messages', {
-                                ...this.store.getState().messages,
-                                [chatId]: newMessages
-                            });
-                            this.store.set('errorMessage', JSON.stringify(newMessages));
-                        }
-                    } catch (error) {
-                        console.error('Ошибка обработки входящего сообщения:', error);
-                    }
-                });
-
-                socket.addEventListener('close', (closeEvent: CloseEvent) => {
-                    if (!closeEvent.wasClean) {
-                        console.log('WS обрыв. Попытка переподключиться через 3 сек...');
-                        setTimeout(() => this.connectToChat(chatId), 3000);
-                    }
-                    console.log(`Код: ${closeEvent.code} | Причина: ${closeEvent.reason}`);
-                });
-
-                socket.addEventListener('error', (errorEvent: Event) => {
-                    console.error('Ошибка в WebSocket:', errorEvent);
-                });
-            })
-            .catch((error) => {
-                console.error('Ошибка при подключении к чату:', error);
-            });
+  
+    // Add multiple messages to the store
+    public addMessages(messages: Record<string, any>[], chatId: number) {
+        const currentMessages = this.store.getState().messages || {};
+        const chatMessages = currentMessages[chatId] || [];
+    
+        // Merge and deduplicate messages by id
+        const messagesMap = new Map();
+    
+        // Add existing messages to map
+        chatMessages.forEach((msg: Record<string, any>) => {
+            messagesMap.set(msg.id, msg);
+        });
+    
+        // Add new messages to map (will overwrite if same id)
+        messages.forEach((msg: Record<string, any>) => {
+            messagesMap.set(msg.id, msg);
+        });
+    
+        // Convert map back to array and sort by time
+        const updatedMessages = Array.from(messagesMap.values()).sort(
+            (a: Record<string, any>, b: Record<string, any>) => {
+                const timeA = new Date(a.time).getTime();
+                const timeB = new Date(b.time).getTime();
+                return timeA - timeB;
+            }
+        );
+    
+        // Update store with new messages
+        this.store.set(`messages.${chatId}`, updatedMessages);
     }
-
-    public sendMessage(chatId: number, messageText: string) {
-        const socket = this.sockets[chatId];
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(
-                JSON.stringify({
-                    content: messageText,
-                    type: 'message'
-                })
-            );
-            console.log('Сообщение отправлено в WebSocket:', messageText);
-        } else {
-            console.log('WebSocket соединение не установлено или уже закрыто.');
-        }
+  
+    // Add a single message to the store
+    public addMessage(message: Record<string, any>, chatId: number) {
+        this.addMessages([message], chatId);
+    }
+  
+    // Get messages for a specific chat
+    public getMessages(chatId: number): Record<string, any>[] {
+        const state = this.store.getState();
+        return state.messages?.[chatId] || [];
     }
 }
-
-export default new ChatController;

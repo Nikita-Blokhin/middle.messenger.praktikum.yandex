@@ -126,8 +126,8 @@ export default class ChatsPage extends BasePage {
 
                 contactFormData.map(item => (
                     contactElement.appendChild(new createContactItem({
-                        id_name: String(item[0]),
-                        class_name_contact_item: ClassNameContactItem + (Number(item[0]) === 3 ? ' active' : ''),
+                        id_name: 'id_' + String(item[0]),
+                        class_name_contact_item: ClassNameContactItem,
                         class_name_contact_avatar: ClassNameContactAvatar,
                         class_name_contact_info: ClassNameContactInfo,
                         class_name_contact_header: ClassNameContactHeader,
@@ -144,16 +144,21 @@ export default class ChatsPage extends BasePage {
                         onClick: () => {
                             if (chat_window_flag.length == 0) {
                                 chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]}).render();
-                                chat_window_flag = item[2];
+                                chat_window_flag = 'id_' + String(item[0]);
                                 element_ChatWindow.appendChild(chat_window);
-                            } else if ( chat_window_flag === item[2] ) {
+                                contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
+                                
+                            } else if ( chat_window_flag === `id_${item[0]}` ) {
                                 element_ChatWindow.replaceChildren('');
+                                contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem;
                                 chat_window_flag = '';
                             } else {
                                 element_ChatWindow.replaceChildren('');
+                                contactElement.querySelector(`#${chat_window_flag}`)!.className = ClassNameContactItem;
                                 chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]}).render();
                                 element_ChatWindow.appendChild(chat_window);
-                                chat_window_flag = item[2];
+                                contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
+                                chat_window_flag = 'id_' + String(item[0]);
                             }
                         }
                     }).element!)

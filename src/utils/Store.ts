@@ -83,4 +83,34 @@ export class Store extends EventBus {
     };
 };
 
+export function withStore(mapStateToProps: (state: Record<string, any>) => Record<string, any>) {
+    return function<P extends Record<string, any>>(Component: new (props: P) => Block) {
+        return class WithStore extends Component {
+            private store: Store;
+            private unsubscribe: () => void;
+
+            constructor(props: P) {
+                const store = Store.getInstance();
+
+                super({
+                    ...props,
+                    ...mapStateToProps(store.getState()),
+                });
+
+                this.store = store;
+        
+                this.unsubscribe = this.store.on('update', {
+                    this: setProps({
+                        ...mapStateToProps(store.getState()),
+                    })
+                });
+            }
+
+            componentWillUnmount() {
+                this.unsubscribe();
+            }
+        };
+    };
+}
+
 export default Store.getInstance();

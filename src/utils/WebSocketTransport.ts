@@ -18,6 +18,12 @@ export interface Message {
 export default class WebSocketTransport {
     private socket: WebSocket;
     private pingInterval: number | null = null;
+    private eventHandlers: Record<string, Function[]> = {
+        open: [],
+        close: [],
+        message: [],
+        error: [],
+    };
     private readonly PING_INTERVAL_MS = 30000;
 
     constructor(userId: number, chatId: number, token: string) {
@@ -32,20 +38,20 @@ export default class WebSocketTransport {
             this.getMessages();
         });
 
-        this.socket.addEventListener('close', (event) => {
-            if (this.pingInterval) {
-                clearInterval(this.pingInterval);
-                this.pingInterval = null;
-            };
+        // this.socket.addEventListener('close', (event) => {
+        //     if (this.pingInterval) {
+        //         clearInterval(this.pingInterval);
+        //         this.pingInterval = null;
+        //     };
 
-            if (event.wasClean) {
-                console.log('Соединение закрыто чисто');
-            } else {
-                console.log('Обрыв соединения');
-            };
+        //     if (event.wasClean) {
+        //         console.log('Соединение закрыто чисто');
+        //     } else {
+        //         console.log('Обрыв соединения');
+        //     };
 
-            console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-        });
+        //     console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+        // });
 
         this.socket.addEventListener('error', (event) => {
             console.error('Ошибка', event);
@@ -103,4 +109,10 @@ export default class WebSocketTransport {
         };
         this.socket.close();
     };
+
+    public on(event: 'open' | 'close' | 'message' | 'error', callback: Function): void {
+        if (this.eventHandlers[event]) {
+            this.eventHandlers[event].push(callback);
+        }
+    }
 };

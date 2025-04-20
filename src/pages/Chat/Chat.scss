@@ -1,5 +1,6 @@
 @use "../../style";
 @use "../Auth/Auth.scss";
+@use "../../layouts/SideBar/SIdeBar.scss";
 
 * {
     margin: 0;
@@ -24,6 +25,7 @@
     flex-direction: column;
     background-color: var(--background-color);
     height: 96vh;
+    width: 30vh;
 }
 
 .chat-window {
@@ -35,6 +37,7 @@
     flex-direction: column;
     background-color: var(--background-color);
     height: 96vh;
+    width: 158vh;
 }
 
 @media (width <= 950px) {
