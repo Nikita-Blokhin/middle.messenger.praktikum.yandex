@@ -30,23 +30,23 @@
 
 После локального запуска проекта можно посмотреть страницы:
 
-- [Авторизация](http://localhost:3000/src/pages/Auth/Authorization/Authorization.html)
-- [Чат](http://localhost:3000/src/pages/Chat/Chat.html)
-- [Ошибка 500](http://localhost:3000/src/pages/Error/500/500.html)
-- [Ошибка 404](http://localhost:3000/src/pages/Error/404/404.htmll)
-- [Регистрация](http://localhost:3000/src/pages/Auth/Registrations/Registrations.html)
-- [Данные пользователя](http://localhost:3000/src/pages/UserSettings/UserSettingsStatus/UserSettingsStatus.html)
-- [Изменение данных пользователя](http://localhost:3000/src/pages/UserSettings/UserSettingsEdit/UserSettingsEdit.html)
-- [Изменение пароля пользователя](http://localhost:3000/src/pages/UserSettings/UserSettingsPasswordEdit/UserSettingsPasswordEdit.html)
+- [Авторизация](http://localhost:3000/)
+- [Чат](http://localhost:3000/messenger)
+- [Ошибка 500](http://localhost:3000/500)
+- [Ошибка 404](http://localhost:3000/404)
+- [Регистрация](http://localhost:3000/sign-up)
+- [Данные пользователя](http://localhost:3000/settings)
+- [Изменение данных пользователя](http://localhost:3000/settings/edit)
+- [Изменение пароля пользователя](http://localhost:3000/settings/password)
 
 ## Используемые технологии
 
-- javascript
+- typescript
 - vite
 - handlebars
 - Sass
 - EsLint
-- StuleLint
+- StyleLint
 
 ## Автор
 

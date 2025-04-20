@@ -8,7 +8,7 @@ declare global {
     }
 };
 
-class Block {
+abstract class Block <PropsType extends Record<string, any> = Record<string, any>> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -19,7 +19,7 @@ class Block {
     private _element: HTMLElement | null = null;
     private _meta: { template: string; props: any } | null = null;
     public eventBus: Function;
-    public props: Record<string, any>;
+    public props: PropsType;
     public id = nanoid(6);
     public children: Record<string, Block | Block[]>;
 
@@ -35,7 +35,7 @@ class Block {
     public inputValidationHandlers: Map<string, (value: string) => boolean>;
     private errorMessages: Map<string, string>;
 
-    constructor(template: string = '', oldProps: Record<string, any> = {}) {
+    constructor(template: string = '', oldProps: PropsType = {} as PropsType) {
         const eventBus = new EventBus();
         this.eventBus = () => eventBus;
 
@@ -182,11 +182,12 @@ class Block {
             console.log(`Валидация ${name}: ${value} - ${result}`);
 
             const input = this._element?.querySelector(`input[name="${name}"]`) as HTMLInputElement;
+
             if (input) {
                 this._updateValidationUI(input, name, result);
             };
-            
-            if (!result) isValid = false;
+            const required = input.getAttribute('required');
+            if (required !== null || value !== '') if (!result) isValid = false;
         });
 
         if (isValid) {
@@ -215,7 +216,7 @@ class Block {
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     };
 
-    private _getChildrenAndProps(propsAndChildren: Record<string, any>) {
+    private _getChildrenAndProps(propsAndChildren: PropsType) {
         const children: Record<string, Block | Block[]> = {};
         const props: Record<string, any> = {};
 
@@ -254,7 +255,7 @@ class Block {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
     };
 
-    private _componentDidUpdate(oldProps: Record<string, Record<string, any>>, newProps: any): void {
+    private _componentDidUpdate(oldProps: PropsType, newProps: PropsType): void {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (!response) {
             return;
@@ -263,16 +264,16 @@ class Block {
     };
 
     // @ts-ignore
-    componentDidUpdate(oldProps: Record<string, any>, newProps: Record<string, any>): boolean {
+    componentDidUpdate(oldProps: PropsType, newProps: PropsType): boolean {
         return true;
     };
 
-    public setProps = (nextProps: Record<string, any>): void => {
+    public setProps = (nextProps: PropsType): void => {
         if (!nextProps) {
             return;
         };
 
-        Object.assign(this.props, nextProps);
+        Object.assign(this.props!, nextProps);
     };
 
     get element(): HTMLElement | null {
@@ -304,7 +305,6 @@ class Block {
         if (this.props.withInternalId) {
             this._element.setAttribute('data-id', this.id);
         };
-
         Object.entries(attr as Record<string, string>).forEach(([key, value]) => {
             this._element!.setAttribute(key, value as string);
         });
@@ -338,19 +338,19 @@ class Block {
         };
     };
 
-    compile(template: string, props: Record<string, any>): DocumentFragment {
+    compile(template: string, props: PropsType): DocumentFragment {
         const propsAndStubs = { ...props };
 
         Object.entries(this.children).forEach(([key, child]) => {
             if (Array.isArray(child)) {
-                propsAndStubs[key] = child
+                propsAndStubs[key as keyof PropsType] = child
                     .map((component: Block) => {
                         return `<div data-id="${component.id}"></div>`;
                     })
-                    .join('');
+                    .join('') as any;
             } else {
-                propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
-            };
+                propsAndStubs[key as keyof PropsType] = `<div data-id="${child.id}"></div>` as any;
+            }
         });
 
         const fragment = document.createDocumentFragment();
@@ -360,7 +360,7 @@ class Block {
 
         while (tempElement.firstChild) {
             fragment.appendChild(tempElement.firstChild);
-        };
+        }
 
         Object.values(this.children).forEach((child) => {
             if (Array.isArray(child)) {
@@ -368,14 +368,14 @@ class Block {
                     const stub = fragment.querySelector(`[data-id="${component.id}"]`);
                     if (stub) {
                         stub.replaceWith(component.getContent());
-                    };
+                    }
                 });
             } else {
                 const stub = fragment.querySelector(`[data-id="${child.id}"]`);
                 if (stub) {
                     stub.replaceWith(child.getContent());
-                };
-            };
+                }
+            }
         });
 
         return fragment;
@@ -453,18 +453,22 @@ class Block {
 
         if (inputs) {
             inputs.forEach(input => {
-                const name = input.getAttribute('name');
-                if (!name) return;
-                if (!this.inputValidationHandlers.has(name)) return;
-                
-                const validateFn = this.inputValidationHandlers.get(name)!;
+                const required = input.getAttribute('required');
                 const value = (input as HTMLInputElement).value;
-                const result = validateFn(value);
+                if (required !== null || value !== '') {
+                    const name = input.getAttribute('name');
+                    if (!name) return;
+                    if (!this.inputValidationHandlers.has(name)) return;
+                    
+                    const validateFn = this.inputValidationHandlers.get(name)!;
 
-                this._updateValidationUI(input as HTMLInputElement, name, result);
-                
-                console.log(`Валидация ${name}: ${value} - ${result}`);
-                if (!result) isValid = false;
+                    const result = validateFn(value);
+
+                    this._updateValidationUI(input as HTMLInputElement, name, result);
+                    
+                    console.log(`Валидация ${name}: ${value} - ${result}`);
+                    if (!result) isValid = false;
+                }
             });
         };
 

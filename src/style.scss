@@ -31,9 +31,13 @@
 
 #app {
   box-sizing: border-box;
+  background-color: var(--background-color);
+}
+
+.loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: var(--background-color);
+  height: 100vh;
+  text-align: center;
 }

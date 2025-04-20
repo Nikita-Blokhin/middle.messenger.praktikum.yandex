@@ -2,12 +2,23 @@
 import template from './MessageForm.hbs?raw';
 import Block from '../../utils/Block';
 
+export interface MessageFormProps {
+    formData?: {
+        message: string
+    }
+    onSubmit?: (data: any) => void
+    onClick?: (event: MouseEvent) => void
+};
+
 export class createMessageForm extends Block {
-    constructor() {
+    constructor(props: MessageFormProps) {
         super('<form class="message-input-container" id="messageForm"><form/>', {
+            ...props,
             template: template,
-            attrs: {},
-            events: {}
+            events: {
+                submit: props.onSubmit,
+                click: props.onClick
+            }
         });
     };
 

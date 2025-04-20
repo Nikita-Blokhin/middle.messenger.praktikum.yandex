@@ -2,7 +2,7 @@
 import template from './Message.hbs?raw';
 import Block from '../../utils/Block';
 
-export interface InputFormProps {
+export interface MessageProps {
     id_name: string
     class_name_position: string
     message_text: string
@@ -10,7 +10,7 @@ export interface InputFormProps {
 };
 
 export class createMessage extends Block {
-    constructor(props: InputFormProps) {
+    constructor(props: MessageProps) {
         super(`<div class="message ${props.class_name_position}" id="${props.id_name}">><div>`, {
             ...props,
             template: template,

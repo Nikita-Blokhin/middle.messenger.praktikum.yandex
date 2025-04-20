@@ -47,6 +47,7 @@
     @include authorization;
 
     gap: 4px;
+    margin-bottom: 20px;
 }
 
 .authorization-label {
@@ -69,7 +70,7 @@
 }
 
 .authorization-button {
-    width: 100%;
+    min-width: 100%;
     padding: 10px 20px;
     background-color: var(--primary-color);
     color: var(--light-text-color);
@@ -78,6 +79,7 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    align-content: center;
 }
 
 .authorization-button:hover {
