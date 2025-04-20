@@ -10,8 +10,6 @@ import { createSearhInput } from '../../components/SearhInput/SearhInput';
 import { createAuthForm } from '../../components/AuthForm/AuthForm';
 import { createInputForm } from '../../components/InputForm/InputForm';
 import { createButton } from '../../components/Button/Button';
-// @ts-ignore
-import template_ChatWindow from '../../layouts/ChatWindow/ChatWindow.hbs?raw';
 import '../../layouts/ChatWindow/ChatWindow.scss';
 import AuthController from '../../controller/AuthController';
 import { createImgButton } from '../../components/ImgButton/ImgButton';
