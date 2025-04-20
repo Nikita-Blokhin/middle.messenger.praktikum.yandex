@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/128d1d0c-c6e2-447a-9142-91cb2b87d111/deploy-status)](https://app.netlify.com/sites/chimerical-beignet-75621a/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/59fd3869-edd3-457d-b45c-6d149b3e65d9/deploy-status)](https://app.netlify.com/sites/ypmessenger/deploys)
 
 # middle.messenger.praktikum.yandex
 
@@ -10,7 +10,7 @@
 
 ## Посмотреть проект
 
-[Переход к проекту](https://chimerical-beignet-75621a.netlify.app/)
+[Переход к проекту](https://ypmessenger.netlify.app/)
 
 <span style="color:lightgray">P.S. без роутинга особо не насмотреться</span>
 
