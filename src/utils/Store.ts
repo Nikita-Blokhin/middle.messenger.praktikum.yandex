@@ -1,3 +1,5 @@
+import EventBus from './EventBus';
+
 export interface State {
     user: Record<string, any> | null
     chats?: Array<Record<string, any>>
@@ -6,7 +8,7 @@ export interface State {
     [key: string]: any
 };
 
-export class Store {
+export class Store extends EventBus {
     private static __instance: Store;
     private state: State = {
         user: null,
@@ -14,9 +16,10 @@ export class Store {
         messages: {},
         currentChat: null,
     };
-    private listeners: Map<string, Array<(value: any) => void>> = new Map();
+    listener: Map<string, Array<(value: any) => void>> = new Map();
 
     constructor() {
+        super();
         if (Store.__instance) {
             return Store.__instance;
         };
@@ -42,9 +45,9 @@ export class Store {
             [path]: value,
         };
 
-        if (this.listeners.has(path)) {
-            const listeners = this.listeners.get(path) || [];
-            listeners.forEach((listener) => listener(value));
+        if (this.listener.has(path)) {
+            const listener = this.listener.get(path) || [];
+            listener.forEach((listener) => listener(value));
         };
     };
 
@@ -53,19 +56,19 @@ export class Store {
     };
 
     public subscribe(path: string, callback: (value: any) => void): () => void {
-        if (!this.listeners.has(path)) {
-            this.listeners.set(path, []);
+        if (!this.listener.has(path)) {
+            this.listener.set(path, []);
         };
 
-        const listeners = this.listeners.get(path) || [];
-        listeners.push(callback);
-        this.listeners.set(path, listeners);
+        const listener = this.listener.get(path) || [];
+        listener.push(callback);
+        this.listener.set(path, listener);
 
         return () => {
-            const index = listeners.indexOf(callback);
+            const index = listener.indexOf(callback);
             if (index !== -1) {
-                listeners.splice(index, 1);
-                this.listeners.set(path, listeners);
+                listener.splice(index, 1);
+                this.listener.set(path, listener);
             };
         };
     };
