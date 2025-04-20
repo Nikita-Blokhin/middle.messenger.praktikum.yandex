@@ -51,6 +51,7 @@ export class createChatWindow extends Block {
                     } else { 
                         actions.hide();
                         create_chat_form.hide();
+                        delete_chat_form.hide();
                     }
                 }
             }).element!
@@ -60,14 +61,20 @@ export class createChatWindow extends Block {
             class_name: 'add-chat-user-button',
             type_name: 'primary',
             id_name: 'add_user',
-            onClick: () => create_chat_form.show()
+            onClick: () => {
+                create_chat_form.show();
+                delete_chat_form.hide();
+            }
         });
         const delete_user = new createButton({
             label: 'Удалить пользователя',
             class_name: 'delete-chat-user-button',
             type_name: 'primary',
             id_name: 'add_user',
-            onClick: (e: MouseEvent) => e
+            onClick: () => {
+                delete_chat_form.show();
+                create_chat_form.hide();
+            }
         });
         actionsContainerElement.appendChild(add_user.element!);
         actionsContainerElement.appendChild(delete_user.element!);
@@ -82,6 +89,7 @@ export class createChatWindow extends Block {
                 data.preventDefault();
                 chat_api.addUserToChat(this.props.chat_id, Number(create_chat_form.getFormData().userId));
                 create_chat_form.hide();
+                delete_chat_form.hide();
                 actions.hide();
                 this.render();
             }
@@ -106,12 +114,56 @@ export class createChatWindow extends Block {
 
         const button = new createButton({
             label: 'Добавить',
-            class_name: 'authorization-button',
+            class_name: 'add-chat-user-button',
             id_name: 'create_chat_btn',
         });
 
         if (button.element) {
             create_chat_form.element!.appendChild(button.element);
+        } else {
+            console.error('Button element не найден!');
+        };
+
+        const delete_chat_form = new createAuthForm ({
+            id_form: 'user_chat_delete-form',
+            class_name: 'create-chat-form',
+            formData: {
+                userId: 0
+            },
+            onSubmit: (data) => {
+                data.preventDefault();
+                chat_api.removeUserFromChat(this.props.chat_id, Number(delete_chat_form.getFormData().userId));
+                delete_chat_form.hide();
+                actions.hide();
+                this.render();
+            }
+        });
+
+        const inputDeleteForm = new createInputForm({
+            required: 'required',
+            label: 'ID пользоваетля',
+            class_name__group: 'authorization-group',
+            class_name__label: 'authorization-label',
+            class_name__input: 'authorization-input',
+            id_name: 'userId'
+        });
+
+        headerContainerElement.appendChild(delete_chat_form.element!);
+        delete_chat_form.hide();
+        if (inputDeleteForm.element) {
+            delete_chat_form.element!.appendChild(inputDeleteForm.element);
+        } else {
+            console.error('Ошибка при создании input form для create_chat_title');
+        };
+
+        const buttonDelete = new createButton({
+            label: 'Удалить',
+            class_name: 'delete-chat-user-button',
+            id_name: 'create_chat_btn',
+        });
+
+        if (buttonDelete.element) {
+            delete_chat_form.element!.appendChild(buttonDelete.element);
         } else {
             console.error('Button element не найден!');
         };

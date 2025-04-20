@@ -100,8 +100,6 @@ export default class ChatsPage extends BasePage {
                 console.error('Button element не найден!');
             };
 
-
-
             const ClassNameContactItem: string = 'contact-item';
             const ClassNameContactAvatar: string = 'contact-avatar';
             const ClassNameContactInfo: string = 'contact-info';
@@ -111,11 +109,10 @@ export default class ChatsPage extends BasePage {
             const ClassNameMessageInfo: string = 'message-info';
             const ClassNameUnreadBadge: string = 'unread-badge';
             const ClassNameContactTime: string = 'contact-time';
-            // const messageContainerElement: HTMLElement = tempContainer.querySelector('#messages_container')!;
             let chat_window = new createChatWindow({
                 title:'', avatar: '', chat_id: ''
-            });
-            const chat_window_flag: createChatWindow[] = [];
+            }).render();
+            let chat_window_flag: string = '';
             
             
             const contactFormData: (string)[][] = [];
@@ -146,18 +143,17 @@ export default class ChatsPage extends BasePage {
                         contact_time: item[5],
                         onClick: () => {
                             if (chat_window_flag.length == 0) {
-                                chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]});
-                                chat_window_flag.push(chat_window);
-                                element_ChatWindow.appendChild(chat_window.render());
-                            } else if ( chat_window_flag[0].props.title === item[2] ) {
-                                chat_window.element!.remove();
-                                chat_window_flag.pop();
+                                chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]}).render();
+                                chat_window_flag = item[2];
+                                element_ChatWindow.appendChild(chat_window);
+                            } else if ( chat_window_flag === item[2] ) {
+                                element_ChatWindow.replaceChildren('');
+                                chat_window_flag = '';
                             } else {
-                                chat_window.element!.remove();
-                                chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]});
-                                element_ChatWindow.appendChild(chat_window.render());
-                                chat_window_flag.pop();
-                                chat_window_flag.push(chat_window);
+                                element_ChatWindow.replaceChildren('');
+                                chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]}).render();
+                                element_ChatWindow.appendChild(chat_window);
+                                chat_window_flag = item[2];
                             }
                         }
                     }).element!)
@@ -180,41 +176,7 @@ export default class ChatsPage extends BasePage {
             if (searhBarElement) {
                 searhBarElement.appendChild(new createSearhInput().element!);
             };
-  
-            // const messageFormData: (string) [][] = [
-            //     // [
-            //     //     '0', 'incoming',
-            //     //     'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то' +
-            //     //     'момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все' +
-            //     //     'знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все' +
-            //     //     'еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с' +
-            //     //     'пленкой.',
-            //     //     '11:56'
-            //     // ],
-            //     // [
-            //     //     '1', 'incoming',
-            //     //     'Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так' +
-            //     //     'никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на' +
-            //     //     'аукционе за 45000 евро.',
-            //     //     '11:57'
-            //     // ],
-            //     // [
-            //     //     '2', 'outgoing',
-            //     //     'Круто!',
-            //     //     '12:00'
-            //     // ],
-            // ];
-            
-            // if (messageContainerElement) messageFormData.map(item => (
-            //     messageContainerElement.appendChild(new createMessage({
-            //         id_name: item[0],
-            //         class_name_position: item[1],
-            //         message_text: item[2],
-            //         time_text: item[3]
-            //     }).element!)
-            // ));
-            
-            
+
             content.appendChild(tempContainer.firstElementChild!);
         });
         
