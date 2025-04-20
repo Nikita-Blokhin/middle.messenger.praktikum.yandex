@@ -4,13 +4,11 @@ import template from './Chat.hbs?raw';
 import BasePage from '../BasePage';
 // @ts-ignore
 import template_SideBar from '../../layouts/SideBar/SideBar.hbs?raw';
-import '../../layouts/SideBar/SideBar.scss';
 import { createContactItem } from '../../components/ContactItem/ContactItem';
 import { createSearhInput } from '../../components/SearhInput/SearhInput';
 import { createAuthForm } from '../../components/AuthForm/AuthForm';
 import { createInputForm } from '../../components/InputForm/InputForm';
 import { createButton } from '../../components/Button/Button';
-import '../../layouts/ChatWindow/ChatWindow.scss';
 import AuthController from '../../controller/AuthController';
 import { createImgButton } from '../../components/ImgButton/ImgButton';
 import { createChatWindow } from '../../layouts/ChatWindow/ChatWindow';
