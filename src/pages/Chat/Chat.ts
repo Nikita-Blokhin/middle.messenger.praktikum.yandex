@@ -18,10 +18,8 @@ import router, { Routes } from '../../core/router';
 import ChatsAPI from '../../api/ChatsAPI';
 import { ResourceURL } from '../../utils/HttpTransport';
 
-
 export default class ChatsPage extends BasePage {
-    // @ts-ignore
-    constructor(props = {}) {
+    constructor() {
         super('div', 'Chats-page');
     };
 
@@ -112,7 +110,6 @@ export default class ChatsPage extends BasePage {
             }).render();
             let chat_window_flag: string = '';
             
-            
             const contactFormData: (string)[][] = [];
             chat_api.getChats().then(result => {
                 result.map((item: { [T: string]: string; }) => (
@@ -184,6 +181,5 @@ export default class ChatsPage extends BasePage {
 
             content.appendChild(tempContainer.firstElementChild!);
         });
-        
     };
 };
