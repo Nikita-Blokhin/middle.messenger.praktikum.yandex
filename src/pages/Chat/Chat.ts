@@ -13,7 +13,6 @@ import { createButton } from '../../components/Button/Button';
 // @ts-ignore
 import template_ChatWindow from '../../layouts/ChatWindow/ChatWindow.hbs?raw';
 import '../../layouts/ChatWindow/ChatWindow.scss';
-// import { createMessage } from '../../components/Message/Message';
 import AuthController from '../../controller/AuthController';
 import { createImgButton } from '../../components/ImgButton/ImgButton';
 import { createChatWindow } from '../../layouts/ChatWindow/ChatWindow';
@@ -44,6 +43,7 @@ export default class ChatsPage extends BasePage {
         const contactElement: HTMLElement = tempContainer.querySelector('#contacts')!;
         
         AuthController.fetchUser().then(result => {
+            const meId = result.id;
             contactElement!.appendChild(
                 new createButton ({
                     label: 'Создать чат',
@@ -110,7 +110,7 @@ export default class ChatsPage extends BasePage {
             const ClassNameUnreadBadge: string = 'unread-badge';
             const ClassNameContactTime: string = 'contact-time';
             let chat_window = new createChatWindow({
-                title:'', avatar: '', chat_id: ''
+                title:'', avatar: '', chat_id: '', userId: meId
             }).render();
             let chat_window_flag: string = '';
             
@@ -143,11 +143,12 @@ export default class ChatsPage extends BasePage {
                         contact_time: item[5],
                         onClick: () => {
                             if (chat_window_flag.length == 0) {
-                                chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]}).render();
+                                chat_window = new createChatWindow({
+                                    title: item[2], avatar: item[1], chat_id: item[0], userId: meId
+                                }).render();
                                 chat_window_flag = 'id_' + String(item[0]);
                                 element_ChatWindow.appendChild(chat_window);
                                 contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
-                                
                             } else if ( chat_window_flag === `id_${item[0]}` ) {
                                 element_ChatWindow.replaceChildren('');
                                 contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem;
@@ -155,7 +156,9 @@ export default class ChatsPage extends BasePage {
                             } else {
                                 element_ChatWindow.replaceChildren('');
                                 contactElement.querySelector(`#${chat_window_flag}`)!.className = ClassNameContactItem;
-                                chat_window = new createChatWindow({title: item[2], avatar: item[1], chat_id: item[0]}).render();
+                                chat_window = new createChatWindow({
+                                    title: item[2], avatar: item[1], chat_id: item[0], userId: meId
+                                }).render();
                                 element_ChatWindow.appendChild(chat_window);
                                 contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
                                 chat_window_flag = 'id_' + String(item[0]);
@@ -164,7 +167,6 @@ export default class ChatsPage extends BasePage {
                     }).element!)
                 ));
             });
-            
 
             const searhBarElement: HTMLElement | null = tempContainer.querySelector('#search_container');
             if (searhBarElement) {

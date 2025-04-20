@@ -62,7 +62,7 @@ export class HTTPTransport {
             xhr.withCredentials = true;
 
             xhr.onload = () => {
-                if (xhr.status >= 200 && xhr.status < 300) {
+                if (xhr.status >= 100 && xhr.status < 300) {
                     resolve(xhr);
                 } else {
                     reject(xhr);

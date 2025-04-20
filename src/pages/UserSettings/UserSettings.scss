@@ -147,7 +147,6 @@
 .input-file-btn {
     position: relative;
     display: inline-block;
-    
     outline: none;
     text-decoration: none;
     font-size: 14px;
@@ -166,7 +165,7 @@
     transition: background-color 0.2s;
 }
 
-.input-file input[type=file] {
+.input-file input[type="file"] {
     position: absolute;
     z-index: -1;
     opacity: 0;

@@ -1,22 +1,15 @@
 export interface Message {
+    id: number
     chat_id: number
     time: string
     type: string
     user_id: number
     content: string
-    file?: {
-        id: number
-        user_id: number
-        path: string
-        filename: string
-        content_type: string
-        content_size: number
-        upload_date: string
-    }
+    is_read: boolean
 };
 
 export default class WebSocketTransport {
-    private socket: WebSocket;
+    socket: WebSocket;
     private pingInterval: number | null = null;
     private eventHandlers: Record<string, Function[]> = {
         open: [],
@@ -38,20 +31,20 @@ export default class WebSocketTransport {
             this.getMessages();
         });
 
-        // this.socket.addEventListener('close', (event) => {
-        //     if (this.pingInterval) {
-        //         clearInterval(this.pingInterval);
-        //         this.pingInterval = null;
-        //     };
+        this.socket.addEventListener('close', (event) => {
+            if (this.pingInterval) {
+                clearInterval(this.pingInterval);
+                this.pingInterval = null;
+            };
 
-        //     if (event.wasClean) {
-        //         console.log('Соединение закрыто чисто');
-        //     } else {
-        //         console.log('Обрыв соединения');
-        //     };
+            if (event.wasClean) {
+                console.log('Соединение закрыто чисто');
+            } else {
+                console.log('Обрыв соединения');
+            };
 
-        //     console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-        // });
+            console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+        });
 
         this.socket.addEventListener('error', (event) => {
             console.error('Ошибка', event);
