@@ -6,7 +6,13 @@ export default defineConfig({
         port: 3000
     },
     build: {
-        outDir: 'dist'
+        outDir: 'dist',
+        rollupOptions: {
+            input: {
+                main: 'src/main.ts',
+                index: './index.html'
+            }
+        }
     },
     resolve: {
         alias: {
