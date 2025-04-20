@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/59fd3869-edd3-457d-b45c-6d149b3e65d9/deploy-status)](https://app.netlify.com/sites/ypmessenger/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cde33656-f51f-48c6-80e5-2b2b783b0619/deploy-status)](https://app.netlify.com/sites/ypmessenger/deploys)
 
 # middle.messenger.praktikum.yandex
 
