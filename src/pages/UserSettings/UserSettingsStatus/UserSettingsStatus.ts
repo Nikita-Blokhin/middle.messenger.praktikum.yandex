@@ -11,6 +11,7 @@ import BasePage from '../../BasePage.js';
 import AuthController from '../../../controller/AuthController.js';
 import UsersAPI from '../../../api/UserAPI.js';
 import router, { Routes } from '../../../core/router.js';
+import { ResourceURL } from '../../../utils/HttpTransport.js';
 
 export default class ProfilePage extends BasePage {
     // @ts-ignore
@@ -61,7 +62,7 @@ export default class ProfilePage extends BasePage {
         AuthController.fetchUser().then(result => {
             if (headerElement) {
                 inputElement.before(new createAvatar({
-                    img_src: result.avatar ? result.avatar : '/avatar.svg',
+                    img_src: result.avatar ? ResourceURL + result.avatar : '/avatar.svg',
                     img_alt: 'аватар',
                     class_name: 'usersettings-avatar'
                 }).element!);

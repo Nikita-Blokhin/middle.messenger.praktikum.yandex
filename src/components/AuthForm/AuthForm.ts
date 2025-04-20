@@ -4,21 +4,25 @@ import Block from '../../utils/Block';
 
 export interface AuthFormProps {
     id_form: string
-    formData: {
-        login: string
-        password: string
+    formData?: {
+        login?: string
+        password?: string
         email?: string
         first_name?: string
         second_name?: string
         phone?: string
         password_retry?: string
+        title?: string
+        userId?: number
+
     }
+    class_name?: string
     onSubmit?: (formData: any) => void
 };
 
 export class createAuthForm extends Block {
     constructor(props: AuthFormProps) {
-        super(`<form class="authorization-form" id="${props.id_form}"></form>`, {
+        super(`<form class="${props.class_name ? props.class_name : 'authorization-form'}" id="${props.id_form}"></form>`, {
             ...props,
             template: template,
             events: {

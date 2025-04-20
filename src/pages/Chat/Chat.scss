@@ -1,4 +1,5 @@
 @use "../../style";
+@use "../Auth/Auth.scss";
 
 * {
     margin: 0;
@@ -22,19 +23,21 @@
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
+    height: 96vh;
 }
 
 .chat-window {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     margin: 20px 20px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    height: 96vh;
 }
 
-@media (width <= 900px) {
+@media (width <= 950px) {
     .chat-app {
         flex-direction: column;
     }
@@ -47,7 +50,7 @@
     }
 
     .chat-window {
-        height: 55%;
+        height: 1%;
     }
 
     .message {
@@ -58,4 +61,24 @@
             }
         }
     }
+}
+
+.add-chat-btn {
+    margin-bottom: 20px;
+}
+
+
+.create-chat-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-self:center;
+    z-index: 1001;
+    background: var(--background-color);
+    border: var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    width: 300px;
 }

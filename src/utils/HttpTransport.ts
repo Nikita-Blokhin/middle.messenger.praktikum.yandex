@@ -1,3 +1,4 @@
+import queryStringify from './QueryStringify';
 enum METHODS {
     GET = 'GET',
     POST = 'POST',
@@ -14,6 +15,7 @@ type Options = {
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 export const BaseURL = 'https://ya-praktikum.tech/api/v2';
+export const ResourceURL = BaseURL + '/resources';
 
 export class HTTPTransport {
     private _baseUrl: string;
@@ -47,7 +49,7 @@ export class HTTPTransport {
 
             xhr.open(
                 method,
-                isGet && !!data ? `${this._baseUrl}${url}${this._queryStringify(data)}` : `${this._baseUrl}${url}`,
+                isGet && !!data ? `${this._baseUrl}${url}${queryStringify(data)}` : `${this._baseUrl}${url}`,
             );
 
             xhr.timeout = timeout;
@@ -81,13 +83,6 @@ export class HTTPTransport {
                 );
             };
         });
-    };
-
-    private _queryStringify(data: Record<string, any>): string {
-        if (!data) return '';
-
-        const keys = Object.keys(data);
-        return keys.length ? `?${keys.map((key) => `${key}=${data[key]}`).join('&')}` : '';
     };
 };
 

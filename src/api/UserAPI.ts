@@ -16,7 +16,6 @@ class UsersAPI {
         const response = await this.http.put('/user/profile/avatar', {
             data: formData
         });
-        
         return JSON.parse(response.responseText);
     };
 

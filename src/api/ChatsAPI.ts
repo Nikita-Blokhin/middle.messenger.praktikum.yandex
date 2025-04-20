@@ -28,8 +28,7 @@ class ChatsAPI {
     };
 
     async addUserToChat(chatId: number, userId: number) {
-        const response = await this.http.put('/chats/users', { data: { chatId, users: [userId] } });
-        return JSON.parse(response.responseText);
+        await this.http.put('/chats/users', { data: { chatId, users: [userId] } });
     };
 
     async removeUserFromChat(chatId: number, userId: number) {
