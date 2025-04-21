@@ -22,6 +22,8 @@ class AuthController {
                 this.router.go(Routes.Messenger);
             }
         } catch (error) {
+            // @ts-ignore
+            if (JSON.parse(error.responseText)['reason'] === 'User already in system') router.go('/messenger');
             console.error('Sign in error:', error);
             throw error;
         }
