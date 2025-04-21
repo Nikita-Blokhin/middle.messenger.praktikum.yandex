@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "start": "vite",
-        "prebuild": "tsc --noEmit",
+        "prebuild": "tsc",
         "build": "npm run prebuild && vite build",
         "preview": "vite preview",
         "ts_lint": "eslint .",
