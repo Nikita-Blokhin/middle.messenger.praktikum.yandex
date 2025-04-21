@@ -14,17 +14,17 @@ export default defineConfig({
             },
             output: {
                 entryFileNames: `assets/[name].js`,
-                assetFileNames: `assets/[name].[ext]`
+                assetFileNames: 'assets/[name]-[hash][ext]'
             }
         },
         manifest: false
     },
     resolve: {
         alias: {
-            '@': '/src',
-            '@components': '/src/components',
-            '@icons': '/public'
+            '@': './src',
+            '@components': './src/components',
+            '@icons': './public'
         }
     },
-    assetsInclude: ['**/*.hbs', '**/*.html']
+    assetsInclude: ['src/**/*.hbs', 'src/**/*.html']
 });
