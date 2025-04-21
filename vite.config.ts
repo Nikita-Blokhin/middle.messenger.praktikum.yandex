@@ -14,7 +14,7 @@ export default defineConfig({
             },
             output: {
                 entryFileNames: `assets/[name].js`,
-                assetFileNames: 'assets/[name]-[hash][ext]'
+                assetFileNames: 'assets/[name]-[hash].[ext]'
             }
         },
         manifest: false
