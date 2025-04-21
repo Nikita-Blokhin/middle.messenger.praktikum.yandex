@@ -23,7 +23,7 @@ class AuthController {
             }
         } catch (error) {
             // @ts-ignore
-            if (JSON.parse(error.responseText)['reason'] === 'User already in system') router.go('/messenger');
+            if (JSON.parse(error.responseText)['reason'] === 'User already in system') router.go(Routes.Messenger);
             console.error('Sign in error:', error);
             throw error;
         }
@@ -62,6 +62,8 @@ class AuthController {
             };
             return user;
         } catch (error) {
+            // @ts-ignore
+            if (JSON.parse(error.responseText)['reason'] === 'Cookie is not valid') router.go(Routes.Index);
             console.error('Fetch user error:', error);
             this.store.set('user', null);
             return null;
