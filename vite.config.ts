@@ -11,8 +11,13 @@ export default defineConfig({
             input: {
                 main: 'src/main.ts',
                 index: './index.html'
+            },
+            output: {
+                entryFileNames: `assets/[name].js`,
+                assetFileNames: `assets/[name].[ext]`
             }
-        }
+        },
+        manifest: false
     },
     resolve: {
         alias: {
