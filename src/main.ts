@@ -3,7 +3,6 @@ import LoginPage from './pages/Auth/Authorization/Authorization.ts';
 import SignUpPage from './pages/Auth/Registrations/Registrations.ts';
 import ProfilePage from './pages/UserSettings/UserSettingsStatus/UserSettingsStatus.ts';
 import ChatsPage from './pages/Chat/Chat.ts';
-import AuthController from './controller/AuthController.ts';
 import NotFoundPage from './pages/Error/404/404.ts';
 import ErrorPage from './pages/Error/500/500.ts';
 import EditProfilePage from './pages/UserSettings/UserSettingsEdit/UserSettingsEdit.ts';
@@ -22,8 +21,6 @@ router
 
 async function initApp() {
     try {
-        const flag = await AuthController.fetchUser();
-        if (!flag) throw {};
         const currentPath = window.location.pathname;
         if (currentPath === Routes.Index || currentPath === Routes.Register) {
             router.go(Routes.Messenger);
