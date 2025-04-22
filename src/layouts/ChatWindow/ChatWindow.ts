@@ -10,6 +10,7 @@ import { createImgButton } from '../../components/ImgButton/ImgButton';
 import { createAuthForm } from '../../components/AuthForm/AuthForm';
 import { createButton } from '../../components/Button/Button';
 import { createInputForm } from '../../components/InputForm/InputForm';
+import { createSelectForm } from '../../components/SelectForm/SelectForm';
 import formatTime from '../../utils/DateFormatter';
 
 interface ChatWindowProps {
@@ -140,7 +141,7 @@ export class createChatWindow extends Block {
 
         const inputForm = new createInputForm({
             required: 'required',
-            label: 'ID пользоваетля',
+            label: 'ID пользователя',
             class_name__group: 'authorization-group',
             class_name__label: 'authorization-label',
             class_name__input: 'authorization-input',
@@ -166,13 +167,10 @@ export class createChatWindow extends Block {
         } else {
             console.error('Button element не найден!');
         };
-
-        const delete_chat_form = new createAuthForm ({
+                
+        const delete_chat_form = new createSelectForm ({
             id_form: 'user_chat_delete-form',
             class_name: 'create-chat-form',
-            formData: {
-                userId: 0
-            },
             onSubmit: (data) => {
                 data.preventDefault();
                 chat_api.removeUserFromChat(this.props.chat_id, Number(delete_chat_form.getFormData().userId));
@@ -181,23 +179,20 @@ export class createChatWindow extends Block {
                 this.render();
             }
         });
-
-        const inputDeleteForm = new createInputForm({
-            required: 'required',
-            label: 'ID пользоваетля',
-            class_name__group: 'authorization-group',
-            class_name__label: 'authorization-label',
-            class_name__input: 'authorization-input',
-            id_name: 'userId'
+        const selectInputElement: HTMLElement = delete_chat_form.element!.querySelector('#select_input')!;
+        if (this.props.chat_id) chat_api.getChatUsers(this.props.chat_id).then(result => {
+            result.map((item: { [T: string]: string | number; }) => {
+                if (this.props.userId !== item.id) {
+                    const option = document.createElement('option');
+                    option.value = item.id as string;
+                    option.textContent = item.login as string;
+                    selectInputElement.appendChild(option);
+                }
+            });
         });
 
         headerContainerElement.appendChild(delete_chat_form.element!);
         delete_chat_form.hide();
-        if (inputDeleteForm.element) {
-            delete_chat_form.element!.appendChild(inputDeleteForm.element);
-        } else {
-            console.error('Ошибка при создании input form для create_chat_title');
-        };
 
         const buttonDelete = new createButton({
             label: 'Удалить',
