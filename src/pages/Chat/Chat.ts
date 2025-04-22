@@ -46,12 +46,13 @@ export default class ChatsPage extends BasePage {
     
             searhBarElement.appendChild(new createSearhInput().element!);
 
+            const chat_window_flag = '';
             chat_api.getChats().then(result => {
-                contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin}).render());
+                contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin, chat_window_flag}).render());
             });
             setInterval(() => {chat_api.getChats().then(result => {
                 contactsElement.replaceChildren('');
-                contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin}).render());
+                contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin, chat_window_flag}).render());
             });
             }, 1000);
 

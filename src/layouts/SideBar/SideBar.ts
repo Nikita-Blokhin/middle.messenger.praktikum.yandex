@@ -16,7 +16,10 @@ export interface SideBarProps {
     element_ChatWindow: HTMLDivElement
     meId: number
     meLogin: string
+    chat_window_flag: string
 };
+
+let chat_window_flag = '';
 
 export class createSideBar extends Block {
     constructor(props: SideBarProps) {
@@ -105,7 +108,6 @@ export class createSideBar extends Block {
         let chat_window = new createChatWindow({
             title:'', avatar: '', chat_id: '', userId: this.props.meId
         }).render();
-        let chat_window_flag: string = '';
         
         const contactFormData: (any)[][] = [];
         const ClassNameContactItem: string = 'contact-item';
