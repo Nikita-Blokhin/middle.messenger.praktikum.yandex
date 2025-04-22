@@ -55,7 +55,7 @@ abstract class Block <PropsType extends Record<string, any> = Record<string, any
             email: /^[A-Za-z0-9_-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
             password: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
             phone: /^\+?[0-9]{10,15}$/,
-            message: /^(?!\s*$).+/
+            message: /^(?!\s*$){1,}.+/
         };
         
         this.inputValidationHandlers = new Map([

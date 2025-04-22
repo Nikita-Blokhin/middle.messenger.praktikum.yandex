@@ -25,7 +25,7 @@
     flex-direction: column;
     background-color: var(--background-color);
     height: 96vh;
-    width: 30vh;
+    width: 20%;
 }
 
 .chat-window {
@@ -37,7 +37,7 @@
     flex-direction: column;
     background-color: var(--background-color);
     height: 96vh;
-    width: 158vh;
+    width: 80%;
 }
 
 @media (width <= 950px) {

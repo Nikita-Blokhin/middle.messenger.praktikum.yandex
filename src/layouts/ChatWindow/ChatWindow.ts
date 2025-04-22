@@ -10,6 +10,7 @@ import { createImgButton } from '../../components/ImgButton/ImgButton';
 import { createAuthForm } from '../../components/AuthForm/AuthForm';
 import { createButton } from '../../components/Button/Button';
 import { createInputForm } from '../../components/InputForm/InputForm';
+import formatTime from '../../utils/DateFormatter';
 
 interface ChatWindowProps {
     title: string
@@ -222,30 +223,34 @@ export class createChatWindow extends Block {
                                 messageContainerElement.appendChild(new createMessage({
                                     id_name: item['id'],
                                     class_name_position: item['user_id'] == this.props.userId
-                                        ? 'outgoing' : 'incoming',
+                                        ? 'outgoing'
+                                        : 'incoming',
                                     message_text: item['content'],
-                                    time_text: item['time']
+                                    time_text: formatTime(item['time'], true)
                                 }).element!);
                             });}
                         } else if (messageFormData.type === 'message') {
                             messageContainerElement.appendChild(new createMessage({
                                 id_name: messageFormData['id'],
                                 class_name_position: messageFormData['user_id'] == this.props.userId
-                                    ? 'outgoing' : 'incoming',
+                                    ? 'outgoing'
+                                    : 'incoming',
                                 message_text: messageFormData['content'],
-                                time_text: messageFormData['time']
+                                time_text: formatTime(messageFormData['time'], true)
                             }).element!);
                         };
                     }
                 });
             }
-        }, 1200);
+        }, 1400);
         const message_form = new createMessageForm({
             formData: {
                 message: ''
             },
-            onSubmit: () => {
-                this.webSocket?.sendMessage(message_form.getFormData().message as string);
+            onSubmit: (data) => {
+                data.preventDefault();
+                if (message_form.validateAllInputs() && message_form.getFormData().message)
+                    this.webSocket?.sendMessage(message_form.getFormData().message as string);
                 // @ts-ignore
                 message_form.element!.querySelector('#message')!.value = '';
                 

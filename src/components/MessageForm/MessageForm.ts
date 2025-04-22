@@ -6,8 +6,7 @@ export interface MessageFormProps {
     formData?: {
         message: string
     }
-    onSubmit?: (data: any) => void
-    onClick?: (event: MouseEvent) => void
+    onSubmit?: (formData: any) => void
 };
 
 export class createMessageForm extends Block {
@@ -16,8 +15,7 @@ export class createMessageForm extends Block {
             ...props,
             template: template,
             events: {
-                submit: props.onSubmit,
-                click: props.onClick
+                submit: props.onSubmit
             }
         });
     };
