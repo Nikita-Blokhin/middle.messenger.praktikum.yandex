@@ -32,8 +32,7 @@ class ChatsAPI {
     };
 
     async removeUserFromChat(chatId: number, userId: number) {
-        const response = await this.http.delete('/chats/users', { data: { chatId, users: [userId] } });
-        return JSON.parse(response.responseText);
+        await this.http.delete('/chats/users', { data: { chatId, users: [userId] } });
     };
 
     async getToken(chatId: number) {
