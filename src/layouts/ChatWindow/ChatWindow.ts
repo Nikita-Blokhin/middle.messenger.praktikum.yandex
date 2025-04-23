@@ -11,6 +11,7 @@ import { createAuthForm } from '../../components/AuthForm/AuthForm';
 import { createButton } from '../../components/Button/Button';
 import { createInputForm } from '../../components/InputForm/InputForm';
 import { createSelectForm } from '../../components/SelectForm/SelectForm';
+import { createInputAvatar } from '../../components/InputAvatar/InputAvatar';
 import formatTime from '../../utils/DateFormatter';
 
 interface ChatWindowProps {
@@ -82,6 +83,37 @@ export class createChatWindow extends Block {
         actions.hide();
         headerContainerElement.appendChild(actions.element!);
         const actionsContainerElement: HTMLElement = compile.querySelector('#chat_actions')!;
+        const userInfoElement: HTMLElement = compile.querySelector('#user_details')!;
+
+        if (userInfoElement) {
+            const label_avatar = document.createElement('label');
+            label_avatar.htmlFor = 'input_avatar';
+            const avatar = document.createElement('img');
+            avatar.src =  this.props.avatar ? this.props.avatar : '/avatar.svg';
+            avatar.alt = 'аватар';
+            avatar.className = 'user-avatar';
+            userInfoElement.before(label_avatar);
+            label_avatar.appendChild(avatar);
+            userInfoElement.before(new createInputAvatar({
+                onChange: (e) => {
+                    e.preventDefault();
+                    const target = e.target as HTMLInputElement;
+                    if (!target || !target.files || !target.files[0]) return;
+
+                    const file = target.files[0];
+                    try {
+                        const formData = new FormData();
+                        formData.append('chatId', this.props.chat_id);
+                        formData.append('avatar', file, file.name);
+                        chat_api.updateAvatar(formData);
+                        setTimeout(() => this.render(), 3000);
+                    } catch (error) {
+                        console.error('Ошибка загрузки аватара:', error);
+                    }
+                },
+            }).element!);
+        }
+
         headerContainerElement.appendChild(
             new createImgButton({
                 img_src: '/more.svg',

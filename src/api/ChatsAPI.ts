@@ -39,6 +39,13 @@ class ChatsAPI {
         const response = await this.http.post(`/chats/token/${chatId}`);
         return JSON.parse(response.responseText).token;
     };
+
+    async updateAvatar(formData: FormData) {
+        const response = await this.http.put('/chats/avatar', {
+            data: formData
+        });
+        return JSON.parse(response.responseText);
+    };
 };
 
 export default ChatsAPI;

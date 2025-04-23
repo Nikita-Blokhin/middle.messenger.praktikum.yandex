@@ -7,12 +7,11 @@ export interface AvatarProps {
     img_src: string
     img_alt: string
     class_name: string
-    
 };
 
 export class createAvatar extends Block {
     constructor(props: AvatarProps) {
-        super('<div></div>', {
+        super('<label class="avatar-upload" for="input_avatar"></label>', {
             ...props,
             template: template,
             BaseURL: BaseURL,

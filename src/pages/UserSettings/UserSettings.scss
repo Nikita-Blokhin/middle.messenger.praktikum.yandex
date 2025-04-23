@@ -72,6 +72,7 @@
     }
 
     .usersettings-name {
+        padding-top: 150px;
         font-size: 24px;
         margin: 0;
         font-weight: 500;
@@ -138,12 +139,6 @@
     align-content: center;
 }
 
-.input-file {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
 .input-file-btn {
     position: relative;
     display: inline-block;
@@ -180,4 +175,62 @@
 
 .input-file:active .input-file-btn {
     background-color: var(--primary-color);
+}
+
+.avatar-upload {
+    position: fixed;
+    top: 13%;
+    left: 46%;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.preview-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+.upload-overlay {
+    position: fixed;
+    top: 13%;
+    left: 46%;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.avatar-upload:hover .upload-overlay {
+    opacity: 1;
+}
+
+.avatar-upload:hover .preview-image {
+    filter: brightness(0.8);
+}
+
+.input-file-btn {
+    display: none;
+}
+
+.upload-text {
+    padding: 10px;
+    font-family: Arial, sans-serif;
 }

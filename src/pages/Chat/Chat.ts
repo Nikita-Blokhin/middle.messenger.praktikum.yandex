@@ -14,6 +14,7 @@ import AuthController from '../../controller/AuthController';
 import router, { Routes } from '../../core/router';
 import ChatsAPI from '../../api/ChatsAPI';
 import { ResourceURL } from '../../utils/HttpTransport';
+import isEqual from '../../utils/IsEqual';
 
 export default class ChatsPage extends BasePage {
     constructor() {
@@ -106,12 +107,18 @@ export default class ChatsPage extends BasePage {
             };
 
             const chat_window_flag = '';
+            let old_result = [];
             chat_api.getChats().then(result => {
+                old_result = result;
                 contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin, chat_window_flag}).render());
             });
+            
             setInterval(() => {chat_api.getChats().then(result => {
-                contactsElement.replaceChildren('');
-                contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin, chat_window_flag}).render());
+                if (!isEqual(old_result, result)) {
+                    contactsElement.replaceChildren('');
+                    contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin, chat_window_flag}).render());
+                    old_result = result;
+                }
             });
             }, 1000);
 

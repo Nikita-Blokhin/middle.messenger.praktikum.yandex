@@ -61,7 +61,7 @@ export default class ProfilePage extends BasePage {
         const inputElement: HTMLElement = tempContainer.querySelector('#UserSettingsHeader_input')!;
         AuthController.fetchUser().then(result => {
             if (headerElement) {
-                inputElement.before(new createAvatar({
+                inputElement.appendChild(new createAvatar({
                     img_src: result.avatar ? ResourceURL + result.avatar : '/avatar.svg',
                     img_alt: 'аватар',
                     class_name: 'usersettings-avatar'
