@@ -32,7 +32,7 @@ export default class PasswordProfilePage extends BasePage {
                 oldPassword: '',
                 newPassword: '',
             },
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: Function; }) => {
                 data.preventDefault();
                 if (settingsForm.validateAllInputs()) {
                     console.log(settingsForm.getFormData());
