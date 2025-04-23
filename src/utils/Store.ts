@@ -1,11 +1,11 @@
 import EventBus from './EventBus';
 
 export interface State {
-    user: Record<string, any> | null
-    chats?: Array<Record<string, any>>
-    messages?: Record<string, Array<Record<string, any>>>
-    currentChat?: Record<string, any> | null
-    [key: string]: any
+    user: Record<string, unknown> | null
+    chats?: Array<Record<string, unknown>>
+    messages?: Record<string, Array<Record<string, unknown>>>
+    currentChat?: Record<string, unknown> | null
+    [key: string]: unknown
 };
 
 export class Store extends EventBus {
@@ -16,7 +16,7 @@ export class Store extends EventBus {
         messages: {},
         currentChat: null,
     };
-    listener: Map<string, Array<(value: any) => void>> = new Map();
+    listener: Map<string, Array<(value: unknown) => void>> = new Map();
 
     constructor() {
         super();
@@ -39,7 +39,7 @@ export class Store extends EventBus {
         return this.state;
     };
 
-    public set(path: string, value: any): void {
+    public set(path: string, value: unknown): void {
         this.state = {
             ...this.state,
             [path]: value,
@@ -51,11 +51,11 @@ export class Store extends EventBus {
         };
     };
 
-    public get(path: string): any {
+    public get(path: string): unknown {
         return this.state[path];
     };
 
-    public subscribe(path: string, callback: (value: any) => void): () => void {
+    public subscribe(path: string, callback: (value: unknown) => void): () => void {
         if (!this.listener.has(path)) {
             this.listener.set(path, []);
         };

@@ -8,12 +8,13 @@ enum METHODS {
 
 type Options = {
     method?: METHODS
-    data?: any
+    data?: unknown
     headers?: Record<string, string>
     timeout?: number
 };
 
-type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = <R=XMLHttpRequest>(url: string, options?: Options ) => Promise<R>
+
 export const BaseURL = 'https://ya-praktikum.tech/api/v2';
 export const ResourceURL = BaseURL + '/resources';
 
@@ -24,23 +25,23 @@ export class HTTPTransport {
         this._baseUrl = BaseURL;
     };
 
-    get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    get: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.GET });
     };
 
-    post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    post: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.POST });
     };
 
-    put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    put: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.PUT });
     };
 
-    delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    delete: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.DELETE });
     };
 
-    request(url: string, options: Options = {}): Promise<XMLHttpRequest> {
+    request: HTTPMethod = (url, options = {}) => {
         const { method = METHODS.GET, data, headers = {}, timeout = 5000 } = options;
 
         return new Promise((resolve, reject) => {
@@ -63,7 +64,7 @@ export class HTTPTransport {
 
             xhr.onload = () => {
                 if (xhr.status >= 100 && xhr.status < 300) {
-                    resolve(xhr);
+                    resolve(xhr as unknown as PromiseLike<any>);
                 } else {
                     reject(xhr);
                 }

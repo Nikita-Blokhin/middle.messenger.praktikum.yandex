@@ -94,8 +94,8 @@ export class createChatWindow extends Block {
             avatar.className = 'user-avatar';
             userInfoElement.before(label_avatar);
             label_avatar.appendChild(avatar);
-            userInfoElement.before(new createInputAvatar({
-                onChange: (e) => {
+            const input_avatar = new createInputAvatar({
+                onChange: (e: { preventDefault: Function; target: HTMLInputElement; }) => {
                     e.preventDefault();
                     const target = e.target as HTMLInputElement;
                     if (!target || !target.files || !target.files[0]) return;
@@ -106,12 +106,14 @@ export class createChatWindow extends Block {
                         formData.append('chatId', this.props.chat_id);
                         formData.append('avatar', file, file.name);
                         chat_api.updateAvatar(formData);
-                        setTimeout(() => this.render(), 3000);
+                        const imageUrl = URL.createObjectURL(file);
+                        setTimeout(() => { avatar.src = imageUrl;}, 1000);
                     } catch (error) {
                         console.error('Ошибка загрузки аватара:', error);
                     }
                 },
-            }).element!);
+            });
+            userInfoElement.before(input_avatar.element!);
         }
 
         headerContainerElement.appendChild(
@@ -161,7 +163,7 @@ export class createChatWindow extends Block {
             formData: {
                 userId: 0
             },
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: () => void; }) => {
                 data.preventDefault();
                 chat_api.addUserToChat(this.props.chat_id, Number(create_chat_form.getFormData().userId));
                 create_chat_form.hide();
@@ -203,7 +205,7 @@ export class createChatWindow extends Block {
         const delete_chat_form = new createSelectForm ({
             id_form: 'user_chat_delete-form',
             class_name: 'create-chat-form',
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: () => void; }) => {
                 data.preventDefault();
                 chat_api.removeUserFromChat(this.props.chat_id, Number(delete_chat_form.getFormData().userId));
                 delete_chat_form.hide();
@@ -274,7 +276,7 @@ export class createChatWindow extends Block {
             formData: {
                 message: ''
             },
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: () => void; }) => {
                 data.preventDefault();
                 if (message_form.validateAllInputs() && message_form.getFormData().message)
                     this.webSocket?.sendMessage(message_form.getFormData().message as string);

@@ -12,7 +12,7 @@ export interface InputFormProps {
     invalid_text?: string
     value?: string
     required?: string
-    onSubmit?: (e: SubmitEvent) => void
+    onSubmit?: Function
 };
 
 export class createInputForm extends Block {

@@ -13,7 +13,7 @@ export interface SettingsFormProps {
         newPassword?: string,
         newPassword_retry?: string,
     }
-    onSubmit: (data: SubmitEvent) => void
+    onSubmit: Function
 };
 
 export class createSettingsForm extends Block {

@@ -3,7 +3,7 @@ import template from './InputAvatar.hbs?raw';
 import Block from '../../utils/Block';
 
 export interface AvatarProps {
-    onChange?: (e: Event) => void
+    onChange?: Function
 };
 
 export class createInputAvatar extends Block {

@@ -17,7 +17,7 @@ export interface AuthFormProps {
 
     }
     class_name?: string
-    onSubmit?: (formData: any) => void
+    onSubmit?: Function
 };
 
 export class createAuthForm extends Block {

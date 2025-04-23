@@ -1,4 +1,4 @@
-type Indexed<T = any> = {
+type Indexed<T = unknown> = {
   [key in string]: T;
 };
 

@@ -42,7 +42,7 @@ export default class ProfilePage extends BasePage {
             ['Имя в чате', 'display_name_show', ''],
             ['Телефон', 'phone_show', '']  
         ];
-        const buttonData: any[][] = [
+        const buttonData: (string | object) [][] = [
             ['Изменить данные', 'change_data_show', () => router.go(Routes.EditProfile)],
             ['Изменить пароль', 'change_password_show', () => router.go(Routes.PasswordProfile)],
             ['Выйти', 'logout_show', () => AuthController.logout()]
@@ -67,7 +67,7 @@ export default class ProfilePage extends BasePage {
                     class_name: 'usersettings-avatar'
                 }).element!);
                 inputElement.appendChild(new createInputAvatar({
-                    onChange: (e) => {
+                    onChange: (e: { preventDefault: Function; target: HTMLInputElement; }) => {
                         e.preventDefault();
                         const target = e.target as HTMLInputElement;
                         if (!target || !target.files || !target.files[0]) return;
@@ -111,10 +111,10 @@ export default class ProfilePage extends BasePage {
         const actionElment: HTMLElement = tempContainer.querySelector('#UserSettingsActions_show')!;
 
         buttonData.map(item => {actionElment.appendChild(new createButton({
-            label: item[0],
+            label: item[0] as string,
             class_name: ClassNameButton +  (item[1] === 'logout_show' ? ClassNameButtonLogout : ''),
-            id_name: item[1],
-            onClick: item[2]
+            id_name: item[1] as string,
+            onClick: item[2] as Function
         }).element!);
         });
         content.appendChild(tempContainer.firstElementChild!);

@@ -1,3 +1,5 @@
+import BasePage from '../pages/BasePage';
+
 export enum Routes {
     Index = '/',
     Register = '/sign-up',
@@ -8,14 +10,14 @@ export enum Routes {
     EditProfile = '/settings/edit',
     PasswordProfile = '/settings/password'
 }
-
+type Props = Record<string, string | number>;
 export class Route {
     private _pathname: string;
-    private _blockClass: any;
-    private _block: any;
-    private _props: Record<string, any>;
+    private _blockClass: BasePage;
+    private _block: any | null;
+    private _props: Props;
 
-    constructor(pathname: string, view: any, props: Record<string, any> = {}) {
+    constructor(pathname: string, view: any, props: Props = {}) {
         this._pathname = pathname;
         this._blockClass = view;
         this._block = null;
@@ -43,12 +45,13 @@ export class Route {
 
     render() {
         if (!this._block) {
+            // @ts-ignore
             this._block = new this._blockClass(this._props);
             const root = document.querySelector('#app');
             if (root) {
-                root.appendChild(this._block.getContent());
+                root.appendChild(this._block!.getContent());
             };
-            this._block.show();
+            this._block!.show();
             return;
         };
 
@@ -73,7 +76,7 @@ export class Router {
         Router.__instance = this;
     };
 
-    use(pathname: string, block: any, props: Record<string, any> = {}) {
+    use(pathname: string, block: any, props: Props = {}) {
         const route = new Route(pathname, block, props);
         this._routes.push(route);
         return this;

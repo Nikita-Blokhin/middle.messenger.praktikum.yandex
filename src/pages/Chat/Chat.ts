@@ -22,8 +22,6 @@ export default class ChatsPage extends BasePage {
     };
 
     render_page() {
-        const user = AuthController.fetchUser();
-        if (!user) return  router.go(Routes.Index);
         const chat_api = new ChatsAPI;
         const content = this.getContent();
         content.innerHTML = '';
@@ -35,6 +33,8 @@ export default class ChatsPage extends BasePage {
         const contactsElement: HTMLElement = tempContainer.querySelector('#contacts_container')!;
         
         AuthController.fetchUser().then(result => {
+            if (result == null)
+                return  router.go(Routes.Index);
             const meId = result.id;
             const meLogin = result.login;
             
@@ -69,7 +69,7 @@ export default class ChatsPage extends BasePage {
                 formData: {
                     title: ''
                 },
-                onSubmit: (data) => {
+                onSubmit: (data: { preventDefault: Function }) => {
                     data.preventDefault();
                     chat_api.createChat(create_chat_form.getFormData().title as string);
                     create_chat_form.hide();
@@ -107,7 +107,7 @@ export default class ChatsPage extends BasePage {
             };
 
             const chat_window_flag = '';
-            let old_result = [];
+            let old_result: object = [];
             chat_api.getChats().then(result => {
                 old_result = result;
                 contactsElement.appendChild(new createSideBar({result, tempContainer, element_ChatWindow, meId, meLogin, chat_window_flag}).render());

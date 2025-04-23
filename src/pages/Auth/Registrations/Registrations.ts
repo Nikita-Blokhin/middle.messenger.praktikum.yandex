@@ -49,7 +49,7 @@ export default class SignUpPage extends BasePage {
                 phone: '',
                 password_retry: '',
             },
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: Function; }) => {
                 data.preventDefault();
                 if (authForm.validateAllInputs()) {
                     AuthController.signUp(authForm.getFormData() as Record<string, string>).catch((error) => {

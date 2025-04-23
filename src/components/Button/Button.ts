@@ -7,8 +7,8 @@ export interface ButtonProps {
     class_name: string
     type_name?: string
     id_name: string
-    onClick?: (e: MouseEvent) => void
-    onSubmit?: (e: SubmitEvent) => void
+    onClick?: Function
+    onSubmit?: Function
 };
 
 export class createButton extends Block {

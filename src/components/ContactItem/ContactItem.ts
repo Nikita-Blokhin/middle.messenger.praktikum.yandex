@@ -19,7 +19,7 @@ export interface ContactItemProps {
     contact_message: string
     unread_badge: string
     contact_time: string
-    onClick?: (e: MouseEvent) => void
+    onClick?: Function
 };
 
 export class createContactItem extends Block {

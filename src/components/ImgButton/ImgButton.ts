@@ -8,7 +8,7 @@ export interface ImgButtonProps {
     class_name: string
     type_name?: string
     id_name: string
-    onClick?: (e: MouseEvent) => void
+    onClick?: Function
 };
 
 export class createImgButton extends Block {

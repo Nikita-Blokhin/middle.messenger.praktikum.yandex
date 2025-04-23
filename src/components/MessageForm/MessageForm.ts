@@ -6,7 +6,7 @@ export interface MessageFormProps {
     formData?: {
         message: string
     }
-    onSubmit?: (formData: any) => void
+    onSubmit?: Function
 };
 
 export class createMessageForm extends Block {

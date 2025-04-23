@@ -8,7 +8,7 @@ export interface SelectFormProps {
     formData?: {
         userId: number
     }
-    onSubmit?: (formData: any) => void
+    onSubmit?: Function
 };
 
 export class createSelectForm extends Block {

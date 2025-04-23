@@ -9,7 +9,7 @@ import formatTime from '../../utils/DateFormatter';
 import ChatsAPI from '../../api/ChatsAPI';
 
 export interface SideBarProps {
-    result: any
+    result: object
     tempContainer: HTMLDivElement
     element_ChatWindow: HTMLDivElement
     meId: number
@@ -18,6 +18,8 @@ export interface SideBarProps {
 };
 
 let chat_window_flag = '';
+
+type ResultType = Record<string, string | number | Record<string, string | number>>;
 
 export class createSideBar extends Block {
     constructor(props: SideBarProps) {
@@ -35,7 +37,7 @@ export class createSideBar extends Block {
             title:'', avatar: '', chat_id: '', userId: this.props.meId
         }).render();
         
-        const contactFormData: (any)[][] = [];
+        const contactFormData: (string | ResultType | number)[][] = [];
         const ClassNameContactItem: string = 'contact-item';
         const ClassNameContactAvatar: string = 'contact-avatar';
         const ClassNameContactInfo: string = 'contact-info';
@@ -46,12 +48,12 @@ export class createSideBar extends Block {
         const ClassNameUnreadBadge: string = 'unread-badge';
         const ClassNameContactTime: string = 'contact-time';
         
-        this.props.result.map((item: { [T: string]: string; }) => (
+        this.props.result.map((item: { [T: string]: string | ResultType | number; }) => {
             contactFormData.push([
                 item['id'], item['avatar'] ? ResourceURL + item['avatar'] : '/avatar.svg', item['title'],
-                item['last_message'], item['unread_count'], item['created_by']
-            ])
-        ));
+                item['last_message'] as ResultType, item['unread_count'], item['created_by']
+            ]);
+        });
 
         
         contactFormData.map(item => {
@@ -66,19 +68,19 @@ export class createSideBar extends Block {
                 class_name_message_info: ClassNameMessageInfo,
                 class_name_unread_badge: ClassNameUnreadBadge + (item[4] ? '' : ' hidden'),
                 class_name_contact_time: ClassNameContactTime,
-                avatar_src: item[1],
-                contact_name: item[2],
+                avatar_src: item[1] as string,
+                contact_name: item[2] as string,
                 contact_message: item[3]
-                    ? item[3].user.login == this.props.meLogin
-                        ? 'Вы: ' + item[3].content
-                        : item[3].content
+                    ? ((item[3] as ResultType).user as ResultType).login == this.props.meLogin
+                        ? 'Вы: ' + (item[3] as ResultType).content
+                        : (item[3] as ResultType).content as string
                     : '',
-                unread_badge: Number(item[4]) < 10 ? item[4] : '9+',
-                contact_time: item[3] ? formatTime(item[3].time): '',
+                unread_badge: Number(item[4]) < 10 ? String(item[4]) : '9+',
+                contact_time: item[3] ? formatTime((item[3] as ResultType).time as string): '',
                 onClick: () => {
                     if (chat_window_flag.length == 0) {
                         chat_window = new createChatWindow({
-                            title: item[2], avatar: item[1], chat_id: item[0], userId: this.props.meId
+                            title: item[2] as string, avatar: item[1] as string, chat_id: item[0] as string, userId: this.props.meId
                         }).render();
                         chat_window_flag = 'id_' + String(item[0]);
                         this.props.element_ChatWindow.appendChild(chat_window);
@@ -91,7 +93,7 @@ export class createSideBar extends Block {
                         this.props.element_ChatWindow.replaceChildren('');
                         contactElement.querySelector(`#${chat_window_flag}`)!.className = ClassNameContactItem;
                         chat_window = new createChatWindow({
-                            title: item[2], avatar: item[1], chat_id: item[0], userId: this.props.meId
+                            title: item[2] as string, avatar: item[1]  as string, chat_id: item[0]  as string, userId: this.props.meId
                         }).render();
                         this.props.element_ChatWindow.appendChild(chat_window);
                         contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
@@ -109,7 +111,7 @@ export class createSideBar extends Block {
                     id_name: 'delete_chat',
                     onClick: () => {
                         try {
-                            chat_api.deleteChat(item[0]);
+                            chat_api.deleteChat(item[0]  as number);
                         } catch (error) {
                             console.log(error);
                         };

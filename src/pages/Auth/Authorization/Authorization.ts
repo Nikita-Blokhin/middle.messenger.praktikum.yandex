@@ -43,7 +43,7 @@ export default class LoginPage extends BasePage {
                 login: '',
                 password: '',
             },
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: Function; }) => {
                 data.preventDefault();
                 if (authForm.validateAllInputs()) {
                     AuthController.signIn(authForm.getFormData() as Record<string, string>).catch((error) => {

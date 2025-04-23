@@ -2,7 +2,7 @@ import Block from '../utils/Block';
 
 export default abstract class BasePage extends Block {
     private _element_page: HTMLElement;
-    private _isShown = false;
+    private _isShown: boolean = false;
 
     constructor(tagName = 'div', className = '') {
         super();
@@ -19,12 +19,12 @@ export default abstract class BasePage extends Block {
         return this._element_page;
     };
 
-    show() {
+    show(): void {
         this._isShown = true;
         this._element_page.style.display = 'block';
     };
 
-    hide() {
+    hide(): void {
         this._isShown = false;
         this._element_page.style.display = 'none';
     };

@@ -36,10 +36,11 @@ export default class EditProfilePage extends BasePage {
         const settingsForm = new createSettingsForm({
             settings_type: 'settings_form',
             formData: {},
-            onSubmit: (data) => {
+            onSubmit: (data: { preventDefault: Function; }) => {
                 data.preventDefault();
                 if (settingsForm.validateAllInputs()) {
                     api.updateProfile(settingsForm.getFormData() as Record<string, string>);
+                    setTimeout(() => {router.go(Routes.Profile);}, 500);
                 }
             }
         });
