@@ -3,8 +3,10 @@ import template from './SideBar.hbs?raw';
 import Block from '../../utils/Block';
 import { createChatWindow } from '../ChatWindow/ChatWindow';
 import { createContactItem } from '../../components/ContactItem/ContactItem';
+import { createImgButton } from '../../components/ImgButton/ImgButton';
 import { ResourceURL } from '../../utils/HttpTransport';
 import formatTime from '../../utils/DateFormatter';
+import ChatsAPI from '../../api/ChatsAPI';
 
 export interface SideBarProps {
     result: any
@@ -26,6 +28,7 @@ export class createSideBar extends Block {
     };
 
     render() {
+        const chat_api = new ChatsAPI();
         const compile = this.compile(template as string, this.props);
         const contactElement: HTMLElement = compile.querySelector('#contacts')!;
         let chat_window = new createChatWindow({
@@ -46,12 +49,13 @@ export class createSideBar extends Block {
         this.props.result.map((item: { [T: string]: string; }) => (
             contactFormData.push([
                 item['id'], item['avatar'] ? ResourceURL + item['avatar'] : '/avatar.svg', item['title'],
-                item['last_message'], item['unread_count']
+                item['last_message'], item['unread_count'], item['created_by']
             ])
         ));
 
-        contactFormData.map(item => (
-            contactElement.appendChild(new createContactItem({
+        
+        contactFormData.map(item => {
+            const new_contact_item = new createContactItem({
                 id_name: 'id_' + String(item[0]),
                 class_name_contact_item: ClassNameContactItem,
                 class_name_contact_avatar: ClassNameContactAvatar,
@@ -94,8 +98,29 @@ export class createSideBar extends Block {
                         chat_window_flag = 'id_' + String(item[0]);
                     }
                 }
-            }).element!)
-        ));
+            }).element!;
+            contactElement.appendChild(new_contact_item);
+            if (item[5] == this.props.meId) new_contact_item.querySelector('#message_info')!.appendChild(new createImgButton(
+                {
+                    img_src: '/delete.svg',
+                    img_alt: 'delete_chat',
+                    class_name: 'delete-button',
+                    type_name: 'primary',
+                    id_name: 'delete_chat',
+                    onClick: () => {
+                        try {
+                            chat_api.deleteChat(item[0]);
+                        } catch (error) {
+                            console.log(error);
+                        };
+                        setTimeout(() => {
+                            this.props.element_ChatWindow.replaceChildren('');
+                            chat_window_flag = '';
+                        }, 500);
+                    }
+                },
+            ).element!);
+        });
 
         return compile;
     };

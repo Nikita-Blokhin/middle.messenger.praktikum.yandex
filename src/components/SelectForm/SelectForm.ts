@@ -13,7 +13,9 @@ export interface SelectFormProps {
 
 export class createSelectForm extends Block {
     constructor(props: SelectFormProps) {
-        (super(`<form class="${props.class_name ? props.class_name : 'authorization-form'}" id="${props.id_form}"></form>`, {
+        (super(`<form class="${
+            props.class_name ? props.class_name : 'authorization-form'
+        }" id="${props.id_form}"></form>`, {
             ...props,
             template: template,
             events: {
