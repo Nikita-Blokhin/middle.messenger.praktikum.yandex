@@ -166,10 +166,12 @@
     cursor: pointer;
     border-radius: 50%;
 }
+
 .delete-button:hover{
     border: var(--border-color);
     background-color: var(--danger-color);
 }
+
 .delete-button:active {
     border: var(--border-color);
     background-color: var(--secondary-color);
