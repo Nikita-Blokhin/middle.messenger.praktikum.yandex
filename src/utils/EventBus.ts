@@ -1,5 +1,5 @@
 class EventBus {
-    private listeners: { [key: string]: Function[] } = {};
+    public listeners: { [key: string]: Function[] } = {};
 
     public on(event: string, callback: Function): void {
         if (!this.listeners[event]) {
@@ -19,7 +19,7 @@ class EventBus {
         );
     };
 
-    public emit(event: string, ...args: any[]): void {
+    public emit(event: string, ...args: unknown[]): void {
         if (!this.listeners[event]) {
             throw new Error(`Событие отсутствует: ${event}`);
         };

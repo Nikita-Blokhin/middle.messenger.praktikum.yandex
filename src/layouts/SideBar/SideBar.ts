@@ -1,55 +1,130 @@
-import './SideBar.scss';
-import { createContactItem } from '../../components/ContactItem/ContactItem';
-import { createSearhInput } from '../../components/SearhInput/SearhInput';
 // @ts-ignore
 import template from './SideBar.hbs?raw';
+import Block from '../../utils/Block';
+import { createChatWindow } from '../ChatWindow/ChatWindow';
+import { createContactItem } from '../../components/ContactItem/ContactItem';
+import { createImgButton } from '../../components/ImgButton/ImgButton';
+import { ResourceURL } from '../../utils/HttpTransport';
+import formatTime from '../../utils/DateFormatter';
+import ChatsAPI from '../../api/ChatsAPI';
 
-const element: HTMLDivElement = document.querySelector('#sidebar')!;
-element.innerHTML = template;
-
-const ClassNameContactItem: string = 'contact-item';
-const ClassNameContactAvatar: string = 'contact-avatar';
-const ClassNameContactInfo: string = 'contact-info';
-const ClassNameContactHeader: string = 'contact-header';
-const ClassNameContactName: string = 'contact-name';
-const ClassNameContactMessage: string = 'contact-message';
-const ClassNameMessageInfo: string = 'message-info';
-const ClassNameUnreadBadge: string = 'unread-badge';
-const ClassNameContactTime: string = 'contact-time';
-const contactFormData: (string)[][] = [
-    ['0', '', 'Андрей', 'Изображение', '2', '10:49'],
-    ['1', '', 'Киноклуб', 'Вы: стикер', '', '12:00'],
-    ['2', '', 'Илья', 'Друзья, у меня для вас особенный выпуск новостей!...', '15', '15:12'],
-    ['3', '', 'Вадим', 'Вы: Круто!', '', '11:56'],
-    ['4', '', 'тет-а-теты', 'И Human Interface Guidelines и Material Design рекомендуют...', '', 'Ср'],
-    ['5', '', '1, 2, 3', 'Миллионы россиян ежедневно проводят десятки часов свое...', '', 'Пн'],
-    ['6', '', 'Design Destroyer', 'В 2008 году художник Jon Rafman начал собирать...', '', 'Пн'],
-    ['7', '', 'Day.', 'Так увлёкся работой по курсу, что совсем забыл его анонсир...', '', '1 Мая 2020']
-];
-
-const contactElement: HTMLElement = document.getElementById('contacts')!;
-contactFormData.map(item => (
-    contactElement.appendChild(new createContactItem({
-        id_name: String(item[0]),
-        class_name_contact_item: ClassNameContactItem + (Number(item[0]) === 3 ? ' active' : ''),
-        class_name_contact_avatar: ClassNameContactAvatar,
-        class_name_contact_info: ClassNameContactInfo,
-        class_name_contact_header: ClassNameContactHeader,
-        class_name_contact_name: ClassNameContactName,
-        class_name_contact_message: ClassNameContactMessage,
-        class_name_message_info: ClassNameMessageInfo,
-        class_name_unread_badge: ClassNameUnreadBadge + (item[4] ? '' : ' hidden'),
-        class_name_contact_time: ClassNameContactTime,
-        avatar_src: item[1],
-        contact_name: item[2],
-        contact_message: item[3],
-        unread_badge: Number(item[4]) < 10 ? item[4] : '9+',
-        contact_time: item[5],
-        onClick: () => alert('Кнопка нажата!')
-    }).element!)
-));
-
-const searhBarElement: HTMLElement | null = document.getElementById('search_container');
-if (searhBarElement) {
-    searhBarElement.appendChild(new createSearhInput().element!);
+export interface SideBarProps {
+    result: object
+    tempContainer: HTMLDivElement
+    element_ChatWindow: HTMLDivElement
+    meId: number
+    meLogin: string
+    chat_window_flag: string
 };
+
+let chat_window_flag = '';
+
+type ResultType = Record<string, string | number | Record<string, string | number>>;
+
+export class createSideBar extends Block {
+    constructor(props: SideBarProps) {
+        super('', {
+            ...props,
+            template: template
+        });
+    };
+
+    render() {
+        const chat_api = new ChatsAPI();
+        const compile = this.compile(template as string, this.props);
+        const contactElement: HTMLElement = compile.querySelector('#contacts')!;
+        let chat_window = new createChatWindow({
+            title:'', avatar: '', chat_id: '', userId: this.props.meId
+        }).render();
+        
+        const contactFormData: (string | ResultType | number)[][] = [];
+        const ClassNameContactItem: string = 'contact-item';
+        const ClassNameContactAvatar: string = 'contact-avatar';
+        const ClassNameContactInfo: string = 'contact-info';
+        const ClassNameContactHeader: string = 'contact-header';
+        const ClassNameContactName: string = 'contact-name';
+        const ClassNameContactMessage: string = 'contact-message';
+        const ClassNameMessageInfo: string = 'message-info';
+        const ClassNameUnreadBadge: string = 'unread-badge';
+        const ClassNameContactTime: string = 'contact-time';
+        
+        this.props.result.map((item: { [T: string]: string | ResultType | number; }) => {
+            contactFormData.push([
+                item['id'], item['avatar'] ? ResourceURL + item['avatar'] : '/avatar.svg', item['title'],
+                item['last_message'] as ResultType, item['unread_count'], item['created_by']
+            ]);
+        });
+
+        
+        contactFormData.map(item => {
+            const new_contact_item = new createContactItem({
+                id_name: 'id_' + String(item[0]),
+                class_name_contact_item: ClassNameContactItem,
+                class_name_contact_avatar: ClassNameContactAvatar,
+                class_name_contact_info: ClassNameContactInfo,
+                class_name_contact_header: ClassNameContactHeader,
+                class_name_contact_name: ClassNameContactName,
+                class_name_contact_message: ClassNameContactMessage,
+                class_name_message_info: ClassNameMessageInfo,
+                class_name_unread_badge: ClassNameUnreadBadge + (item[4] ? '' : ' hidden'),
+                class_name_contact_time: ClassNameContactTime,
+                avatar_src: item[1] as string,
+                contact_name: item[2] as string,
+                contact_message: item[3]
+                    ? ((item[3] as ResultType).user as ResultType).login == this.props.meLogin
+                        ? 'Вы: ' + (item[3] as ResultType).content
+                        : (item[3] as ResultType).content as string
+                    : '',
+                unread_badge: Number(item[4]) < 10 ? String(item[4]) : '9+',
+                contact_time: item[3] ? formatTime((item[3] as ResultType).time as string): '',
+                onClick: () => {
+                    if (chat_window_flag.length == 0) {
+                        chat_window = new createChatWindow({
+                            title: item[2] as string, avatar: item[1] as string, chat_id: item[0] as string, userId: this.props.meId
+                        }).render();
+                        chat_window_flag = 'id_' + String(item[0]);
+                        this.props.element_ChatWindow.appendChild(chat_window);
+                        contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
+                    } else if ( chat_window_flag === `id_${item[0]}` ) {
+                        this.props.element_ChatWindow.replaceChildren('');
+                        contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem;
+                        chat_window_flag = '';
+                    } else {
+                        this.props.element_ChatWindow.replaceChildren('');
+                        contactElement.querySelector(`#${chat_window_flag}`)!.className = ClassNameContactItem;
+                        chat_window = new createChatWindow({
+                            title: item[2] as string, avatar: item[1]  as string, chat_id: item[0]  as string, userId: this.props.meId
+                        }).render();
+                        this.props.element_ChatWindow.appendChild(chat_window);
+                        contactElement.querySelector(`#${'id_' + String(item[0])}`)!.className = ClassNameContactItem + ' active';
+                        chat_window_flag = 'id_' + String(item[0]);
+                    }
+                }
+            }).element!;
+            contactElement.appendChild(new_contact_item);
+            if (item[5] == this.props.meId) new_contact_item.querySelector('#message_info')!.appendChild(new createImgButton(
+                {
+                    img_src: '/delete.svg',
+                    img_alt: 'delete_chat',
+                    class_name: 'delete-button',
+                    type_name: 'primary',
+                    id_name: 'delete_chat',
+                    onClick: () => {
+                        try {
+                            chat_api.deleteChat(item[0]  as number);
+                        } catch (error) {
+                            console.log(error);
+                        };
+                        setTimeout(() => {
+                            this.props.element_ChatWindow.replaceChildren('');
+                            chat_window_flag = '';
+                        }, 500);
+                    }
+                },
+            ).element!);
+        });
+
+        return compile;
+    };
+}
+

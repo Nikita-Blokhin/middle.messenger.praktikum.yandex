@@ -6,14 +6,25 @@ export default defineConfig({
         port: 3000
     },
     build: {
-        outDir: 'dist'
+        outDir: 'dist',
+        rollupOptions: {
+            input: {
+                main: 'src/main.ts',
+                index: './index.html'
+            },
+            output: {
+                entryFileNames: 'assets/[name].js',
+                assetFileNames: 'assets/[name]-[hash].[ext]'
+            }
+        },
+        manifest: false
     },
     resolve: {
         alias: {
-            '@': '/src',
-            '@components': '/src/components',
-            '@icons': '/public'
+            '@': './src',
+            '@components': './src/components',
+            '@icons': './public'
         }
     },
-    assetsInclude: '**/*.hbs'
+    assetsInclude: ['src/**/*.hbs', 'src/**/*.html']
 });

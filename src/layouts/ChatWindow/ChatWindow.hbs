@@ -1,16 +1,13 @@
-<div class="chat-header">
-    <div class="user-info">
-        <img src="/placeholder.svg?height=40&width=40" alt="Вадим" class="user-avatar">
-        <div class="user-details">
-            <h2 class="user-name">Вадим</h2>
+<div id="chat_container">
+    <div class="chat-header" id="chat_header">
+        <div class="user-info" id="user_info">
+            <div class="user-details" id="user_details">
+                <h2 class="user-name">{{title}}</h2>
+            </div>
+        </div>
         </div>
     </div>
-    <div class="chat-actions">
-        <button class="more-button">
-            <img src="/more.svg" alt="more_button" />
-        </button>
-    </div>
-</div>
 
-<div class="messages-container" id="messages_container" ></div>
-<div id="message_form_wrapper"></div>
+    <div class="messages-container" id="messages_container" ></div>
+    <div id="message_form_wrapper" class="message-form-wrapper" ></div>
+</div>

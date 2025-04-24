@@ -7,7 +7,8 @@ export interface ButtonProps {
     class_name: string
     type_name?: string
     id_name: string
-    onClick?: (e: MouseEvent) => void
+    onClick?: Function
+    onSubmit?: Function
 };
 
 export class createButton extends Block {
@@ -17,7 +18,8 @@ export class createButton extends Block {
             template: template,
             attrs: {},
             events: {
-                click: props.onClick
+                click: props.onClick,
+                submit: props.onSubmit
             }
         });
     };

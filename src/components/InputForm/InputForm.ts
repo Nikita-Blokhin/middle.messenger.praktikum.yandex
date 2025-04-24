@@ -10,6 +10,9 @@ export interface InputFormProps {
     class_name__input: string
     placeholder_text?: string
     invalid_text?: string
+    value?: string
+    required?: string
+    onSubmit?: Function
 };
 
 export class createInputForm extends Block {
@@ -18,7 +21,9 @@ export class createInputForm extends Block {
             ...props,
             template: template,
             attrs: {},
-            events: {}
+            events: {
+                submit: props.onSubmit
+            }
         });
     };
 

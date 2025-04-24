@@ -26,7 +26,7 @@
 .usersettings-content {
     min-width: 600px;
     min-height: 600px;
-    margin: 0 auto;
+    margin: 20px;
     padding: 20px;
     position: relative;
 }
@@ -50,17 +50,19 @@
 }
 
 .usersettings-header {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     margin-bottom: 40px;
 
     .usersettings-avatar {
-        width: 110px;
-        height: 110px;
-        padding: 20px;
+        width: 150px;
+        height: 150px;
         margin: 0 auto 20px;
         border-radius: 50%;
         overflow: hidden;
-        background-color: #999;
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
 
         img {
             width: 100%;
@@ -70,6 +72,7 @@
     }
 
     .usersettings-name {
+        padding-top: 150px;
         font-size: 24px;
         margin: 0;
         font-weight: 500;
@@ -134,4 +137,79 @@
     max-width: 300px;
     align-items: center;
     align-content: center;
+}
+
+.input-file input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+}
+
+.input-file-btn {
+    display: none;
+}
+
+.input-file:hover .input-file-btn {
+    background-color: var(--primary-hover);
+}
+
+.input-file:active .input-file-btn {
+    background-color: var(--primary-color);
+}
+
+.avatar-upload {
+    position: fixed;
+    top: 13%;
+    left: 46%;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.preview-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+.upload-overlay {
+    position: fixed;
+    top: 13%;
+    left: 46%;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 50%);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.avatar-upload:hover .upload-overlay {
+    opacity: 1;
+}
+
+.avatar-upload:hover .preview-image {
+    filter: brightness(0.8);
+}
+
+.upload-text {
+    padding: 10px;
+    font-family: Arial, sans-serif;
 }

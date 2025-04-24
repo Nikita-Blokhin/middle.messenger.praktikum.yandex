@@ -55,7 +55,7 @@ abstract class Block <PropsType extends Record<string, any> = Record<string, any
             email: /^[A-Za-z0-9_-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
             password: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
             phone: /^\+?[0-9]{10,15}$/,
-            message: /^(?!\s*$).+/
+            message: /^(?!\s*$){1,}.+/
         };
         
         this.inputValidationHandlers = new Map([
@@ -182,11 +182,12 @@ abstract class Block <PropsType extends Record<string, any> = Record<string, any
             console.log(`Валидация ${name}: ${value} - ${result}`);
 
             const input = this._element?.querySelector(`input[name="${name}"]`) as HTMLInputElement;
+
             if (input) {
                 this._updateValidationUI(input, name, result);
             };
-            
-            if (!result) isValid = false;
+            const required = input.getAttribute('required');
+            if (required !== null || value !== '') if (!result) isValid = false;
         });
 
         if (isValid) {
@@ -452,18 +453,22 @@ abstract class Block <PropsType extends Record<string, any> = Record<string, any
 
         if (inputs) {
             inputs.forEach(input => {
-                const name = input.getAttribute('name');
-                if (!name) return;
-                if (!this.inputValidationHandlers.has(name)) return;
-                
-                const validateFn = this.inputValidationHandlers.get(name)!;
+                const required = input.getAttribute('required');
                 const value = (input as HTMLInputElement).value;
-                const result = validateFn(value);
+                if (required !== null || value !== '') {
+                    const name = input.getAttribute('name');
+                    if (!name) return;
+                    if (!this.inputValidationHandlers.has(name)) return;
+                    
+                    const validateFn = this.inputValidationHandlers.get(name)!;
 
-                this._updateValidationUI(input as HTMLInputElement, name, result);
-                
-                console.log(`Валидация ${name}: ${value} - ${result}`);
-                if (!result) isValid = false;
+                    const result = validateFn(value);
+
+                    this._updateValidationUI(input as HTMLInputElement, name, result);
+                    
+                    console.log(`Валидация ${name}: ${value} - ${result}`);
+                    if (!result) isValid = false;
+                }
             });
         };
 

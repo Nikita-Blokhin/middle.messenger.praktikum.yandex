@@ -19,12 +19,12 @@ export interface ContactItemProps {
     contact_message: string
     unread_badge: string
     contact_time: string
-    onClick?: (e: MouseEvent) => void
+    onClick?: Function
 };
 
 export class createContactItem extends Block {
     constructor(props: ContactItemProps) {
-        super(`<button class="${props.class_name_contact_item}" id="${props.id_name}" type="${ props.type_name ? props.type_name : 'button'}"><button/>`, {
+        super(`<button class="${props.class_name_contact_item}" id="${props.id_name}" type="${props.type_name}"></button>`, {
             ...props,
             template: template,
             attrs: {},
@@ -32,9 +32,11 @@ export class createContactItem extends Block {
                 click: props.onClick
             }
         });
+        this.props.type_name = this.props.type_name ? this.props.type_name : 'button';
     };
 
     render() {
         return this.compile(template as string, this.props);
+
     };
 };

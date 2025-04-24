@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/128d1d0c-c6e2-447a-9142-91cb2b87d111/deploy-status)](https://app.netlify.com/sites/chimerical-beignet-75621a/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cde33656-f51f-48c6-80e5-2b2b783b0619/deploy-status)](https://app.netlify.com/sites/ypmessenger/deploys)
 
 # middle.messenger.praktikum.yandex
 
@@ -10,7 +10,7 @@
 
 ## Посмотреть проект
 
-[Переход к проекту](https://chimerical-beignet-75621a.netlify.app/)
+[Переход к проекту](https://ypmessenger.netlify.app/)
 
 <span style="color:lightgray">P.S. без роутинга особо не насмотреться</span>
 
@@ -30,24 +30,24 @@
 
 После локального запуска проекта можно посмотреть страницы:
 
-- [Авторизация](http://localhost:3000/src/pages/Auth/Authorization/Authorization.html)
-- [Чат](http://localhost:3000/src/pages/Chat/Chat.html)
-- [Ошибка 500](http://localhost:3000/src/pages/Error/500/500.html)
-- [Ошибка 404](http://localhost:3000/src/pages/Error/404/404.htmll)
-- [Регистрация](http://localhost:3000/src/pages/Auth/Registrations/Registrations.html)
-- [Данные пользователя](http://localhost:3000/src/pages/UserSettings/UserSettingsStatus/UserSettingsStatus.html)
-- [Изменение данных пользователя](http://localhost:3000/src/pages/UserSettings/UserSettingsEdit/UserSettingsEdit.html)
-- [Изменение пароля пользователя](http://localhost:3000/src/pages/UserSettings/UserSettingsPasswordEdit/UserSettingsPasswordEdit.html)
+- [Авторизация](http://localhost:3000/)
+- [Чат](http://localhost:3000/messenger)
+- [Ошибка 500](http://localhost:3000/500)
+- [Ошибка 404](http://localhost:3000/404)
+- [Регистрация](http://localhost:3000/sign-up)
+- [Данные пользователя](http://localhost:3000/settings)
+- [Изменение данных пользователя](http://localhost:3000/settings/edit)
+- [Изменение пароля пользователя](http://localhost:3000/settings/password)
 
 ## Используемые технологии
 
-- javascript
+- typescript
 - vite
 - handlebars
 - Sass
 - EsLint
-- StuleLint
+- StyleLint
 
 ## Автор
 
-Блохин Никита
+Блохин Никита.
