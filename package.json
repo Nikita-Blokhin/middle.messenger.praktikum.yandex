@@ -5,6 +5,11 @@
     "author": "Nikita Blokhin",
     "description": "Yandex practicum educational project",
     "type": "module",
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm-run-all --parallel ts_lint st_lint"
+        }
+    },
     "scripts": {
         "start": "vite",
         "prebuild": "tsc",
@@ -14,11 +19,6 @@
         "ts_lint:fix": "eslint . --fix",
         "st_lint": "stylelint src/",
         "check": "npm-run-all --parallel ts_lint st_lint"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm-run-all --parallel ts_lint st_lint"
-        }
     },
     "devDependencies": {
         "@eslint/js": "^9.23.0",
