@@ -15,6 +15,11 @@
         "st_lint": "stylelint src/",
         "check": "npm-run-all --parallel ts_lint st_lint"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm-run-all --parallel ts_lint st_lint"
+        }
+    },
     "devDependencies": {
         "@eslint/js": "^9.23.0",
         "@types/eslint": "^9.6.1",
@@ -43,10 +48,5 @@
     "engines": {
         "node": ">= 20.0.0",
         "npm": ">= 10.0.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm-run-all --parallel ts_lint st_lint"
-        }
     }
 }
