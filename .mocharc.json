@@ -4,5 +4,8 @@
   "timeout": 5000,
   "reporter": "spec",
   "loader": "ts-node/esm",
-  "require": ["mochaSetup.js"]
+  "require": ["mochaSetup.js"],
+  "node-option": [
+    "no-warnings=ExperimentalWarning"
+  ]
 }
