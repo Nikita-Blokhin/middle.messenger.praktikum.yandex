@@ -19,7 +19,7 @@
         "strictNullChecks": true,
         "allowImportingTsExtensions": true
     },
-    "include": ["src"],
+    "include": ["src", "src/**/*.ts", "src/**/*.test.ts"],
     "plugins": [
         {
             "name": "@typescript-hbs-plugin",

@@ -26,7 +26,9 @@
 
 - `npm run ts_lint` — проверка файлов typescript
 
-- `npm run check` — полная проверка
+- `npm run check` — полная проверка линтеров
+
+- `npm run test` — проверка тестов
 
 ## Ссылки
 
@@ -49,6 +51,8 @@
 - Sass
 - EsLint
 - StyleLint
+- Mocha
+- Chai
 
 ## Автор
 
