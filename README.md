@@ -12,8 +12,6 @@
 
 [Переход к проекту](https://ypmessenger.netlify.app/)
 
-<span style="color:lightgray">P.S. без роутинга особо не насмотреться</span>
-
 ## Используемые команды
 
 - `npm install` — установка стабильной версии
@@ -26,9 +24,11 @@
 
 - `npm run ts_lint` — проверка файлов typescript
 
-- `npm run check` — полная проверка линтеров
+- `npm run lint` — полная проверка линтеров
 
 - `npm run test` — проверка тестов
+
+- `npm run check` — проверка всех показателей
 
 ## Ссылки
 
@@ -53,6 +53,7 @@
 - StyleLint
 - Mocha
 - Chai
+- Sinon
 
 ## Автор
 

@@ -1,52 +1,45 @@
 import { expect } from 'chai';
 import { SinonStub, stub } from 'sinon';
 import Block from '../utils/Block.ts';
-import { Router } from './router.ts';
+import router from './router.ts';
 
 class Test extends Block {
-    constructor(props: { prop: number }) {
-        super('p', { ...props });
-    }
+    constructor(props: { content: string, onClick?: Function }) {
+        super(`<button>${props.content}<button/>`, { ...props, events: { click: props.onClick }});
+    };
 
     render() {
-        return this.compile('Dummy', {});
-    }
-}
+        return this.compile('', this.props);
+    };
+};
 
-describe('Router', () => {
-    const pushStateStub: SinonStub = stub(window.history, 'pushState');
-    const historyBackStub: SinonStub = stub(history, 'back');
-    const historyForwardStub: SinonStub = stub(history, 'forward');
-    const router = new Router('#app');
-
+describe('Тест роутера:', () => {
     before(() => {
-        
         router
-            .use('/test-1', Test as unknown as typeof Block)
-            .use('/test-2', Test as unknown as typeof Block)
-            .start();
-        router.go('/');
+            .use('/a', Test)
+            .use('/b', Test)
+            .use('/c', Test)
+            .use('/', Test);
+        router.start();
     });
 
-    after(() => {
-        pushStateStub.restore();
+    it('Корректный переход по страницам', () => {
+        const pushStub: SinonStub = stub(window.history, 'pushState');
+        router.go('/a');
+        router.go('/b');
+        router.go('/c');
+        expect(pushStub.callCount).to.equal(3);
     });
 
-    it('Must return correct history length', () => {
-        router.go('/test-1');
-        router.go('/test-2');
-        expect(pushStateStub.callCount).to.equal(3);
-    });
-
-    it('Must navigate back in history', () => {
-        router.back();
-
-        expect(historyBackStub.calledOnce).to.equal(true);
-    });
-
-    it('Must navigate forward in history', () => {
+    it('Корректное перемещение вперед в браузере', () => {
+        const forwardStub: SinonStub = stub(window.history, 'forward');
         router.forward();
+        expect(forwardStub.calledOnce).to.equal(true);
+    });
 
-        expect(historyForwardStub.calledOnce).to.equal(true);
+    it('Корректное перемещение назад в браузере', () => {
+        const backStub: SinonStub = stub(window.history, 'back');
+        router.back();
+        expect(backStub.calledOnce).to.equal(true);
     });
 });

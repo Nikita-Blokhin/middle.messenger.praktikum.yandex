@@ -17,8 +17,7 @@
         "noImplicitAny": true,
         "sourceMap": true,
         "strictNullChecks": true,
-        "allowImportingTsExtensions": true,
-        "types": ["mocha", "chai", "jsdom"]
+        "allowImportingTsExtensions": true
     },
     "include": ["src", "src/**/*.ts", "src/**/*.test.ts"],
     "plugins": [

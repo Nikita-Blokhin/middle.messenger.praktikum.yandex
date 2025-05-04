@@ -13,9 +13,9 @@
     "ts_lint": "eslint .",
     "ts_lint:fix": "eslint . --fix",
     "st_lint": "stylelint src/",
-    "check": "npm-run-all --parallel ts_lint st_lint",
-    "prepare": "husky",
-    "test": "mocha"
+    "lint": "npm-run-all --parallel ts_lint st_lint",
+    "test": "mocha --no-warnings",
+    "check": "npm-run-all lint test"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
@@ -27,7 +27,6 @@
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
     "chai": "^5.2.0",
-    "cross-env": "^7.0.3",
     "esbuild": "^0.25.1",
     "eslint": "^8.57.1",
     "eslint-config-standard": "^17.1.0",
