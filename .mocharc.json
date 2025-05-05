@@ -1,0 +1,13 @@
+  {
+    "extension": ["ts"],
+    "spec": ["src/**/*.test.ts"],
+    "timeout": 5000,
+    "reporter": "spec",
+    "loader": "ts-node/esm",
+    "require": ["mochaSettings.js"],
+    "reporter-option": [
+        "maxDepth=5",
+        "printBasic=true",
+        "inlineDiffs=true"
+    ]
+}
